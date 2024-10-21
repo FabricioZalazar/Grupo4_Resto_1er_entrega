@@ -5,34 +5,30 @@
 package Persistencia;
 
 import Entidades.Conexion;
-import Entidades.Mesa;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import Entidades.Reserva;
 import org.mariadb.jdbc.Connection;
-import org.mariadb.jdbc.Statement;
 
 /**
  *
  * @author zalaz
  */
-public class MesaData {
-
+public class ReservaData {
+    
+    
     private Connection con = null;
 
-    public MesaData() {
-        con = (Connection) Conexion.getConexion();
+    public ReservaData() {
+         con = (Connection) Conexion.getConexion();
     }
 
-    public void GuardarMesa(Mesa mesa) {
+    
+
+    public void GuardarReserva(Reserva reserva) {
 
         String sql = "INSERT INTO mesa(Numero, Capacidad, Reserva, Estado) VALUES (?,?,?,?)";
 
         
-        try {
+       /* try {
             PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             
             ps.setInt(1, mesa.getNum());
@@ -48,5 +44,5 @@ public class MesaData {
             Logger.getLogger(MesaData.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
+    */}
 }

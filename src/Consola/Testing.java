@@ -4,11 +4,9 @@
  */
 package Consola;
 
-import Entidades.Conexion;
 import Entidades.Mesa;
 import Entidades.Reserva;
 import Persistencia.MesaData;
-import org.mariadb.jdbc.Connection;
 
 /**
  *
@@ -20,11 +18,18 @@ public class Testing {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        MesaData con=new MesaData();
-        Reserva res=new Reserva(2234);
-        Mesa mesa=new Mesa(5,3,res,true);
-        con.GuardarAlumno(mesa);
+        MesaData con = new MesaData();
+        pruebaGuardarMesa(con);
         
     }
-    
+
+    public static void pruebaGuardarMesa(MesaData con) {
+        Reserva res = new Reserva(32234);
+        Reserva res2 = new Reserva(12334);
+        Mesa mesa = new Mesa(10, 4, res, true);
+        Mesa mesa2 = new Mesa(2, 4, res2, true);
+        con.GuardarMesa(mesa);
+        con.GuardarMesa(mesa2);
+    }
+
 }
