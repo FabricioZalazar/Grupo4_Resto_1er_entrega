@@ -29,7 +29,7 @@ public class MesaData {
 
     public void GuardarMesa(Mesa mesa) {
 
-        String sql = "INSERT INTO mesa(Numero, Capacidad, Reserva, Estado) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO mesa(Numero, Capacidad, Estado) VALUES (?,?,?)";
 
         
         try {
@@ -37,8 +37,7 @@ public class MesaData {
             
             ps.setInt(1, mesa.getNum());
             ps.setInt(2, mesa.getCapacidad());
-            ps.setInt(3, mesa.getReserva().getDni());
-            ps.setBoolean(4, mesa.isEstado());
+            ps.setBoolean(3, mesa.isEstado());
             int rs = ps.executeUpdate();
             if (rs>0) {
                 JOptionPane.showMessageDialog(null, "Mesa Guardada");

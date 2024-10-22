@@ -10,4 +10,33 @@ package Entidades;
  */
 public class Mesero {
     
+    private int idMesero;
+    private String nombre;
+
+    public Mesero(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getIdMesero() {
+        return idMesero;
+    }
+
+    public void setIdMesero(int idMesero) {
+        this.idMesero = idMesero;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return "Mesero{" + "idMesero=" + idMesero + ", nombre=" + nombre + '}';
+    }
+    
+    
 }

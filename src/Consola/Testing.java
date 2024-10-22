@@ -38,13 +38,15 @@ public class Testing {
 
     public static void pruebaGuardarMesa(MesaData con) {
         //Reserva(String nombre, int dni, LocalDate fecha, LocalTime hora, boolean estado)
-        Reserva res = new Reserva("maximiliano macia", 32676125,LocalDate.of(2024, 10, 21),LocalTime.of(20, 30),true);
-        Reserva res2 = new Reserva ("fabricio zalazar",38456852, LocalDate.of(2024, 10, 22),LocalTime.of(21, 30),true);
+        //Reserva res = new Reserva("maximiliano macia", 32676125,LocalDate.of(2024, 10, 21),LocalTime.of(20, 30),true);
+       // Reserva res2 = new Reserva ("fabricio zalazar",38456852, LocalDate.of(2024, 10, 22),LocalTime.of(21, 30),true);
         
-        Mesa mesa = new Mesa(10, 4, res, true);
-        Mesa mesa2 = new Mesa(2, 4, res2, true);
-        con.GuardarMesa(mesa);
-        con.GuardarMesa(mesa2);
+        //Mesa mesa = new Mesa(10, 4, res, true);
+        //Mesa mesa2 = new Mesa(2, 4, res2, true);
+        Mesa mesa3 = new Mesa(22, 1, true);
+       // con.GuardarMesa(mesa);
+       // con.GuardarMesa(mesa2);
+        con.GuardarMesa(mesa3);
     }
 
 }

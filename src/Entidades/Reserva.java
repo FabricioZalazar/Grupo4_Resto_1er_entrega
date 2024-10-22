@@ -12,6 +12,8 @@ import java.time.LocalDate;
  * @author zalaz
  */
 public class Reserva {
+    
+    private int IdReserva;
     private String nombre;
     private int dni;
     private LocalDate fecha;
@@ -24,6 +26,14 @@ public class Reserva {
         this.fecha = fecha;
         this.hora = hora;
         this.estado = estado;
+    }
+
+    public int getIdReserva() {
+        return IdReserva;
+    }
+
+    public void setIdReserva(int IdReserva) {
+        this.IdReserva = IdReserva;
     }
 
     public String getNombre() {
@@ -68,7 +78,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" + "nombre=" + nombre + ", dni=" + dni + ", fecha=" + fecha + ", hora=" + hora + ", estado=" + estado + '}';
+        return "Reserva{" + "IdReserva=" + IdReserva + ", nombre=" + nombre + ", dni=" + dni + ", fecha=" + fecha + ", hora=" + hora + ", estado=" + estado + '}';
     }
 
     

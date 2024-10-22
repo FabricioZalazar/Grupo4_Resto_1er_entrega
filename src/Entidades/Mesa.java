@@ -9,12 +9,20 @@ package Entidades;
  * @author zalaz
  */
 public class Mesa {
+    
         private int num;
         private int capacidad;
         private Reserva reserva;
         private boolean estado;
 
     public Mesa() {
+    }
+
+    public Mesa(int num, int capacidad, boolean estado) {
+        this.num = num;
+        this.capacidad = capacidad;
+        this.estado = estado;
+        this.reserva = null;
     }
 
         
