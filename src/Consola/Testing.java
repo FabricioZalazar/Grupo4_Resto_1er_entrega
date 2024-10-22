@@ -24,8 +24,8 @@ public class Testing {
     public static void main(String[] args) {
         MesaData con = new MesaData();
         ReservaData cone = new ReservaData();
-        //pruebaGuardarMesa(con);
-        pruebaGuardarReserva(cone);
+        pruebaGuardarMesa(con);
+        //pruebaGuardarReserva(cone);
         
         
     }
