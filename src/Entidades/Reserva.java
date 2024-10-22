@@ -5,7 +5,7 @@
 package Entidades;
 
 import java.time.LocalTime;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -14,14 +14,14 @@ import java.util.Date;
 public class Reserva {
     private String nombre;
     private int dni;
-    private Date feche;
+    private LocalDate fecha;
     private LocalTime hora;
     private boolean estado;
 
-    public Reserva(String nombre, int dni, Date feche, LocalTime hora, boolean estado) {
+    public Reserva(String nombre, int dni, LocalDate fecha, LocalTime hora, boolean estado) {
         this.nombre = nombre;
         this.dni = dni;
-        this.feche = feche;
+        this.fecha = fecha;
         this.hora = hora;
         this.estado = estado;
     }
@@ -42,12 +42,12 @@ public class Reserva {
         this.dni = dni;
     }
 
-    public Date getFeche() {
-        return feche;
+    public LocalDate getFecha() {
+        return fecha;
     }
 
-    public void setFeche(Date feche) {
-        this.feche = feche;
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 
     public LocalTime getHora() {
@@ -68,7 +68,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" + "nombre=" + nombre + ", dni=" + dni + ", feche=" + feche + ", hora=" + hora + ", estado=" + estado + '}';
+        return "Reserva{" + "nombre=" + nombre + ", dni=" + dni + ", fecha=" + fecha + ", hora=" + hora + ", estado=" + estado + '}';
     }
 
     
