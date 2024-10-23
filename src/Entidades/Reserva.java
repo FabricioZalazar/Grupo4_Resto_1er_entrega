@@ -20,6 +20,9 @@ public class Reserva {
     private LocalTime hora;
     private boolean estado;
 
+    public Reserva() {
+    }
+
     public Reserva(String nombre, int dni, LocalDate fecha, LocalTime hora, boolean estado) {
         this.nombre = nombre;
         this.dni = dni;

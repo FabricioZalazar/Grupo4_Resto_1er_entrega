@@ -9,6 +9,7 @@ import Entidades.Reserva;
 import java.sql.Date;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
@@ -29,7 +30,7 @@ public class ReservaData {
         con = (Connection) Conexion.getConexion();
     }
 
-    public void GuardarReserva(Reserva reserva) {
+    public void guardarReserva(Reserva reserva) {
 
         String sql = "INSERT INTO reserva (Nombre, Dni, Fecha, Hora, Estado) VALUES (?,?,?,?,?)";
 
@@ -50,6 +51,29 @@ public class ReservaData {
         } catch (SQLException ex) {
             Logger.getLogger(MesaData.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+    }
+    
+    public Reserva buscarReserva (int id){
+        Reserva reserva = new Reserva();
+        try {
+            String query = "SELECT * FROM `reserva` WHERE idReserva = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet resultado = ps.executeQuery();
+            if (resultado.next()) {
+                reserva.setIdReserva(id);
+                reserva.setNombre(resultado.getString("nombre"));
+                reserva.setDni(resultado.getInt("dni"));
+                reserva.setFecha(resultado.getDate("fecha").toLocalDate());
+                reserva.setHora(resultado.getTime("hora").toLocalTime());
+                reserva.setEstado(resultado.getBoolean("estado"));
+            } else {
+                JOptionPane.showMessageDialog(null, "Reserva no encontrada");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al devolver la reserva" + ex);
+        }
+        return reserva;
     }
 }
