@@ -24,15 +24,20 @@ public class Testing {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        // CLASES.DATA
         MesaData con = new MesaData();
         ReservaData cone = new ReservaData();
         ProductoData pro = new ProductoData();
+        //PRUEBAS 
         //pruebaGuardarMesa(con);
         //pruebaGuardarReserva(cone);
+        //pruebaBuscarReserva(cone);
         //pruebaActualizarMesa(con);
         //pruebaBuscarMesa(con);
         
     }
+    // CRUD (CREATE - READ - UPDATE - DELETE)
+    // CRUD - PRODUCTO
     public static void pruebaBorrarProducto(ProductoData pro){
     pro.borrarProducto(1);
     pro.borrarProducto(2);
@@ -40,7 +45,6 @@ public class Testing {
     pro.borrarProducto(4);
     pro.borrarProducto(5);
     }
-    
     public static void pruebaActualizarProducto(ProductoData pro) {
         //UTILICE EL CONSTUCTOR CON CODIGO 
 
@@ -52,7 +56,6 @@ public class Testing {
         pro.ActualizarProducto(new Producto(5, "ensalada", 1, 200.00));
 
     }
-      
     public static void pruebaGuardarPruducto(ProductoData pro) {
         //(String nombre, int stock, double precio) {
         Producto p1 = new Producto("cocacola", 4, 100.00);
@@ -67,13 +70,17 @@ public class Testing {
         pro.GuardarProducto(p5);
 
     }
+    // CRUD - RESERVA
     public static void pruebaGuardarReserva(ReservaData cone){
         Reserva res = new Reserva("maximiliano macia", 32676125,LocalDate.of(2024, 10, 21),LocalTime.now(),true);
-        //Reserva res2 = new Reserva ("fabricio zalazar",38456852, LocalDate.of(2024, 10, 22),LocalTime.now(),true);
+        Reserva res2 = new Reserva ("fabricio zalazar",38456852, LocalDate.of(2024, 10, 22),LocalTime.now(),true);
         cone.guardarReserva(res);
-        //cone.guardarReserva(res2);
+        cone.guardarReserva(res2);
     }
-
+    public static void pruebaBuscarReserva(ReservaData cone){
+        System.out.println(cone.buscarReserva(1));
+    }
+    // CRUD - MESA
     public static void pruebaGuardarMesa(MesaData con) {
         //Reserva(String nombre, int dni, LocalDate fecha, LocalTime hora, boolean estado)
         Reserva res = new Reserva("maximiliano macia", 32676125,LocalDate.of(2024, 10, 21),LocalTime.of(20, 30),true);
@@ -86,13 +93,11 @@ public class Testing {
         con.GuardarMesa(mesa2);
         con.GuardarMesa(mesa3);
     }
-    
     public static void pruebaActualizarMesa(MesaData con){
         Reserva res = new Reserva("maximiliano macia", 32676125,LocalDate.of(2024, 10, 21),LocalTime.of(20, 30),true);
         Mesa mesa = new Mesa(2, 1, false);
         con.ActualizarMesa(mesa);
     }
-
     public static void  pruebaBuscarMesa(MesaData con){
         System.out.println( con.BuscarMesa(2));
        
