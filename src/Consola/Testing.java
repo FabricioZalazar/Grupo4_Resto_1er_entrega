@@ -31,7 +31,9 @@ public class Testing {
         //PRUEBAS 
         //pruebaGuardarMesa(con);
         //pruebaGuardarReserva(cone);
-        //pruebaBuscarReserva(cone);
+        //pruebaBuscarReservaID(cone);
+        //pruebaBuscarReservaNombre(cone);
+        //pruebaBuscarReservaDNI(cone);
         //pruebaActualizarMesa(con);
         //pruebaBuscarMesa(con);
         
@@ -77,8 +79,14 @@ public class Testing {
         cone.guardarReserva(res);
         cone.guardarReserva(res2);
     }
-    public static void pruebaBuscarReserva(ReservaData cone){
-        System.out.println(cone.buscarReserva(1));
+    public static void pruebaBuscarReservaID(ReservaData cone){
+        System.out.println(cone.buscarReservaID(1));
+    }
+    public static void pruebaBuscarReservaNombre(ReservaData cone){
+        System.out.println(cone.buscarReservaNombre("fabricio zalaza"));
+    }
+    public static void pruebaBuscarReservaDNI(ReservaData cone){
+        System.out.println(cone.buscarReservaDNI(32676125));
     }
     // CRUD - MESA
     public static void pruebaGuardarMesa(MesaData con) {

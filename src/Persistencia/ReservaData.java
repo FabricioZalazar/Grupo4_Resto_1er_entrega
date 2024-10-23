@@ -29,8 +29,8 @@ public class ReservaData {
     public ReservaData() {
         con = (Connection) Conexion.getConexion();
     }
-
-    public void guardarReserva(Reserva reserva) {
+    // CREATE
+    public void guardarReserva (Reserva reserva) {
 
         String sql = "INSERT INTO reserva (Nombre, Dni, Fecha, Hora, Estado) VALUES (?,?,?,?,?)";
 
@@ -50,8 +50,8 @@ public class ReservaData {
             Logger.getLogger(MesaData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public Reserva buscarReserva (int id){
+    // READ
+    public Reserva buscarReservaID (int id){
         Reserva reserva = new Reserva();
         try {
             String query = "SELECT * FROM `reserva` WHERE idReserva = ?";
@@ -73,5 +73,65 @@ public class ReservaData {
             JOptionPane.showMessageDialog(null, "Error al devolver la reserva" + ex);
         }
         return reserva;
+    }
+    
+    public Reserva buscarReservaNombre (String nombre) {
+        Reserva reserva = new Reserva();
+        try {
+            String query = "SELECT * FROM `reserva` WHERE Nombre = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString (1, nombre);
+            ResultSet resultado = ps.executeQuery();
+            if (resultado.next()) {
+                reserva.setIdReserva(resultado.getInt("idReserva"));
+                reserva.setNombre(nombre);
+                reserva.setDni(resultado.getInt("dni"));
+                reserva.setFecha(resultado.getDate("fecha").toLocalDate());
+                reserva.setHora(resultado.getTime("hora").toLocalTime());
+                reserva.setEstado(resultado.getBoolean("estado"));
+            } else {
+                JOptionPane.showMessageDialog(null, "Persona de la reserva no encontrada");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al devolver la reserva" + ex);
+        }
+        return reserva;
+    }
+    
+    public Reserva buscarReservaDNI (int dni) {
+        Reserva reserva = new Reserva();
+        try {
+            String query = "SELECT * FROM `reserva` WHERE Dni = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, dni);
+            ResultSet resultado = ps.executeQuery();
+            if (resultado.next()) {
+                reserva.setIdReserva(resultado.getInt("idReserva"));
+                reserva.setNombre(resultado.getString("nombre"));
+                reserva.setDni(dni);
+                reserva.setFecha(resultado.getDate("fecha").toLocalDate());
+                reserva.setHora(resultado.getTime("hora").toLocalTime());
+                reserva.setEstado(resultado.getBoolean("estado"));
+            } else {
+                JOptionPane.showMessageDialog(null, "DNI de la persona que reservo no fue encontrado");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al devolver la reserva" + ex);
+        }
+        return reserva;
+    }
+    // UPDATE
+    public void actualizarReserva (Reserva reserva) {
+        
+    }
+    
+    public void altaBajaReserva (boolean estado) {
+        
+    }
+    // DELETE
+    public void borrarReserva () {
+        
     }
 }
