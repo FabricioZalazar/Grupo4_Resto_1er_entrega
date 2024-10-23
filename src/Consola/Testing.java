@@ -34,6 +34,9 @@ public class Testing {
         //pruebaBuscarReservaID(cone);
         //pruebaBuscarReservaNombre(cone);
         //pruebaBuscarReservaDNI(cone);
+        //pruebaListaReserva(cone);
+        
+        pruebaBorrarReserva(cone);
         //pruebaActualizarMesa(con);
         //pruebaBuscarMesa(con);
         
@@ -88,6 +91,18 @@ public class Testing {
     public static void pruebaBuscarReservaDNI(ReservaData cone){
         System.out.println(cone.buscarReservaDNI(32676125));
     }
+    public static void pruebaListaReserva(ReservaData cone) {
+        for (Reserva reserva : cone.listaReserva()) {
+            System.out.println(reserva.toString());
+        }
+    }
+    public static void pruebaActualizarReserva(ReservaData cone){ 
+        //cone.actualizarReserva(new Reserva(1, maximiliano mac, 32676125, LocalDate.of(2024, 10, 21), LocalTime.of(14, 50, 00), true));
+    }
+    public static void pruebaBorrarReserva(ReservaData cone) {
+        cone.borrarReserva(4);
+    }
+    
     // CRUD - MESA
     public static void pruebaGuardarMesa(MesaData con) {
         //Reserva(String nombre, int dni, LocalDate fecha, LocalTime hora, boolean estado)

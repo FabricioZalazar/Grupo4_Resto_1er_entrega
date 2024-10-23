@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -122,16 +123,71 @@ public class ReservaData {
         }
         return reserva;
     }
+    
+    public ArrayList <Reserva> listaReserva () {
+        ArrayList<Reserva> listaReserva = new ArrayList();
+        try {
+            String query = "SELECT * FROM reserva";
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet resultado = ps.executeQuery();
+            while (resultado.next()) {
+                Reserva reserva = new Reserva();
+                reserva.setIdReserva(resultado.getInt("idReserva"));
+                reserva.setNombre(resultado.getString("nombre"));
+                reserva.setDni(resultado.getInt("dni"));
+                reserva.setFecha(resultado.getDate("fecha").toLocalDate());
+                reserva.setHora(resultado.getTime("hora").toLocalTime());
+                reserva.setEstado(resultado.getBoolean("estado"));
+                listaReserva.add(reserva);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al devolver la lista de reservas" + ex);
+        }
+        return listaReserva;
+    }
     // UPDATE
     public void actualizarReserva (Reserva reserva) {
-        
-    }
-    
-    public void altaBajaReserva (boolean estado) {
-        
+        String query = "UPDATE reserva SET Nombre = ?, Dni = ?, Fecha = ?, Hora = ?, Estado = ? WHERE IdReserva = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            //Recibe los parametros de la clase objeto
+            ps.setString(1, reserva.getNombre());
+            ps.setInt(2, reserva.getDni());
+            ps.setDate(3, Date.valueOf(reserva.getFecha()));
+            ps.setTime(4, Time.valueOf(reserva.getHora()));
+            ps.setBoolean(5, reserva.isEstado());
+            //Ejecuta la consulta
+            int rs = ps.executeUpdate();
+            if (rs == 1) {
+                JOptionPane.showMessageDialog(null, "Reserva actualizada");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la reserva: " + ex.getMessage());
+        }
     }
     // DELETE
-    public void borrarReserva () {
-        
+    public void borrarReserva (int id) {
+        try {
+            //Primero borramos las conecciones
+            String query1 = "DELET FROM mesa WHERE IdReserva = ?";
+            PreparedStatement ps1 = con.prepareStatement(query1);
+            ps1.setInt(1, id);
+            int resutado1 = ps1.executeUpdate();
+            //Luego borramos en la misma tabla
+            String query2 = "DELET FROM reserva WHERE IdReserva = ?";
+            PreparedStatement ps2 = con.prepareStatement(query2);
+            ps2.setInt(1, id);
+            int resultado2 = ps2.executeUpdate();
+            
+            if (resultado2 == 1) {
+                JOptionPane.showMessageDialog(null, "La reserva fue eliminada exitosamente");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
