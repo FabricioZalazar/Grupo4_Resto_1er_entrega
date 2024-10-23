@@ -36,13 +36,11 @@ public class ReservaData {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
             ps.setString(1, reserva.getNombre());
             ps.setInt(2, reserva.getDni());
             ps.setDate(3, Date.valueOf(reserva.getFecha()));
             ps.setTime(4, Time.valueOf(reserva.getHora()));
             ps.setBoolean(5, reserva.isEstado());
-
             int rs = ps.executeUpdate();
             if (rs > 0) {
                 JOptionPane.showMessageDialog(null, "Reserva  Guardada");
