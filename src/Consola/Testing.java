@@ -5,8 +5,10 @@
 package Consola;
 
 import Entidades.Mesa;
+import Entidades.Producto;
 import Entidades.Reserva;
 import Persistencia.MesaData;
+import Persistencia.ProductoData;
 import Persistencia.ReservaData;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,11 +26,46 @@ public class Testing {
     public static void main(String[] args) {
         MesaData con = new MesaData();
         ReservaData cone = new ReservaData();
+        ProductoData pro = new ProductoData();
         //pruebaGuardarMesa(con);
-        pruebaGuardarReserva(cone);
+        //pruebaGuardarReserva(cone);
         //pruebaActualizarMesa(con);
         //pruebaBuscarMesa(con);
         
+    }
+    public static void pruebaBorrarProducto(ProductoData pro){
+    pro.borrarProducto(1);
+    pro.borrarProducto(2);
+    pro.borrarProducto(3);
+    pro.borrarProducto(4);
+    pro.borrarProducto(5);
+    }
+    
+    public static void pruebaActualizarProducto(ProductoData pro) {
+        //UTILICE EL CONSTUCTOR CON CODIGO 
+
+        
+        pro.ActualizarProducto(new Producto(1, "cocacola", 1, 100.00));
+        pro.ActualizarProducto(new Producto(2, "vino", 1, 1300.50));
+        pro.ActualizarProducto(new Producto(3, "papas fritas", 1, 2500.00));
+        pro.ActualizarProducto(new Producto(4, "bife a caballo", 1, 5000.00));
+        pro.ActualizarProducto(new Producto(5, "ensalada", 1, 200.00));
+
+    }
+      
+    public static void pruebaGuardarPruducto(ProductoData pro) {
+        //(String nombre, int stock, double precio) {
+        Producto p1 = new Producto("cocacola", 4, 100.00);
+        Producto p2 = new Producto("vino", 4, 1300.50);
+        Producto p3 = new Producto("papas fritas", 4, 2500.00);
+        Producto p4 = new Producto("bife a caballo", 4, 5000.00);
+        Producto p5 = new Producto("ensalada", 4, 200.00);
+        pro.GuardarProducto(p1);
+        pro.GuardarProducto(p2);
+        pro.GuardarProducto(p3);
+        pro.GuardarProducto(p4);
+        pro.GuardarProducto(p5);
+
     }
     public static void pruebaGuardarReserva(ReservaData cone){
         Reserva res = new Reserva("maximiliano macia", 32676125,LocalDate.of(2024, 10, 21),LocalTime.now(),true);
