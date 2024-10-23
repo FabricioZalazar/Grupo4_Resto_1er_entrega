@@ -157,6 +157,7 @@ public class ReservaData {
             ps.setDate(3, Date.valueOf(reserva.getFecha()));
             ps.setTime(4, Time.valueOf(reserva.getHora()));
             ps.setBoolean(5, reserva.isEstado());
+            ps.setInt(6, reserva.getIdReserva());
             //Ejecuta la consulta
             int rs = ps.executeUpdate();
             if (rs == 1) {

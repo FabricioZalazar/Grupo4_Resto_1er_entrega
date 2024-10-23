@@ -35,8 +35,8 @@ public class Testing {
         //pruebaBuscarReservaNombre(cone);
         //pruebaBuscarReservaDNI(cone);
         //pruebaListaReserva(cone);
-        
-        pruebaBorrarReserva(cone);
+        //pruebaActualizarReserva(cone);
+        //pruebaBorrarReserva(cone); //No funciona
         //pruebaActualizarMesa(con);
         //pruebaBuscarMesa(con);
         
@@ -97,7 +97,9 @@ public class Testing {
         }
     }
     public static void pruebaActualizarReserva(ReservaData cone){ 
-        //cone.actualizarReserva(new Reserva(1, maximiliano mac, 32676125, LocalDate.of(2024, 10, 21), LocalTime.of(14, 50, 00), true));
+        cone.actualizarReserva(new Reserva(1,"maximiliano mac", 32676125, LocalDate.of(2024, 10, 21), LocalTime.of(14, 50, 00), true));
+        cone.actualizarReserva(new Reserva(2,"Fabricio zalaza", 38456852, LocalDate.of(2024, 10, 22), LocalTime.of(16, 30, 00), true));
+        cone.actualizarReserva(new Reserva(3,"Abregu Juan", 36681811, LocalDate.of(2024, 10, 23), LocalTime.of(19, 40, 20), true));
     }
     public static void pruebaBorrarReserva(ReservaData cone) {
         cone.borrarReserva(4);
