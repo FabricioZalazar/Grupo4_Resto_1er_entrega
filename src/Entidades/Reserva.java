@@ -22,8 +22,17 @@ public class Reserva {
 
     public Reserva() {
     }
-
+    
     public Reserva(String nombre, int dni, LocalDate fecha, LocalTime hora, boolean estado) {
+        this.nombre = nombre;
+        this.dni = dni;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.estado = estado;
+    }
+
+    public Reserva(int IdReserva, String nombre, int dni, LocalDate fecha, LocalTime hora, boolean estado) {
+        this.IdReserva = IdReserva;
         this.nombre = nombre;
         this.dni = dni;
         this.fecha = fecha;

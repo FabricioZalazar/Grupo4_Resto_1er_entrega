@@ -83,7 +83,7 @@ public class MesaData {
                 mesa.setNum(id);
                 mesa.setCapacidad(resultado.getInt("Capacidad"));
                 if (resultado.getInt("IdReserva") > 0) {
-                    mesa.setReserva(cone.buscarReserva(resultado.getInt("IdReserva")));
+                    mesa.setReserva(cone.buscarReservaID(resultado.getInt("IdReserva")));
                 } else {
                     mesa.setReserva(null);
                 }
