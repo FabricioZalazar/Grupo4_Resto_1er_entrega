@@ -3,11 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Consola/Testing.java</file>
-            <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Persistencia/MeseroData.java</file>
-            <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Entidades/Producto.java</file>
-            <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Persistencia/ProductoData.java</file>
-            <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Entidades/Mesero.java</file>
+            <file>file:/C:/Users/Fabricio%20Zalazar/Documents/GitHub/Grupo4_Resto_1er_entrega/src/Consola/Testing.java</file>
+            <file>file:/C:/Users/Fabricio%20Zalazar/Documents/GitHub/Grupo4_Resto_1er_entrega/src/Entidades/Conexion.java</file>
+            <file>file:/C:/Users/Fabricio%20Zalazar/Documents/GitHub/Grupo4_Resto_1er_entrega/src/Entidades/Detalle.java</file>
+            <file>file:/C:/Users/Fabricio%20Zalazar/Documents/GitHub/Grupo4_Resto_1er_entrega/src/Entidades/Mesa.java</file>
+            <file>file:/C:/Users/Fabricio%20Zalazar/Documents/GitHub/Grupo4_Resto_1er_entrega/src/Persistencia/ReservaData.java</file>
+            <file>file:/C:/Users/Fabricio%20Zalazar/Documents/GitHub/Grupo4_Resto_1er_entrega/src/Entidades/Reserva.java</file>
+            <file>file:/C:/Users/Fabricio%20Zalazar/Documents/GitHub/Grupo4_Resto_1er_entrega/src/Entidades/Producto.java</file>
+            <file>file:/C:/Users/Fabricio%20Zalazar/Documents/GitHub/Grupo4_Resto_1er_entrega/src/Entidades/Mesero.java</file>
+            <file>file:/C:/Users/Fabricio%20Zalazar/Documents/GitHub/Grupo4_Resto_1er_entrega/src/Persistencia/MesaData.java</file>
+            <file>file:/C:/Users/Fabricio%20Zalazar/Documents/GitHub/Grupo4_Resto_1er_entrega/src/Entidades/Pedido.java</file>
         </group>
     </open-files>
 </project-private>
