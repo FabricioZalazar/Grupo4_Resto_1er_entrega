@@ -36,6 +36,8 @@ public class Testing {
         //pruebaBuscarReservaDNI(cone);
         //pruebaListaReserva(cone);
         //pruebaActualizarReserva(cone);
+        //pruebaBajaLogicaReserva(cone);
+        //pruebaAltaLogicaReserva(cone);
         //pruebaBorrarReserva(cone); //No funciona
         //pruebaActualizarMesa(con);
         //pruebaBuscarMesa(con);
@@ -101,10 +103,15 @@ public class Testing {
         cone.actualizarReserva(new Reserva(2,"Fabricio zalaza", 38456852, LocalDate.of(2024, 10, 22), LocalTime.of(16, 30, 00), true));
         cone.actualizarReserva(new Reserva(3,"Abregu Juan", 36681811, LocalDate.of(2024, 10, 23), LocalTime.of(19, 40, 20), true));
     }
+    public static void pruebaBajaLogicaReserva(ReservaData cone) {
+        cone.bajaLogicaReserva(1);
+    }
+    public static void pruebaAltaLogicaReserva(ReservaData cone) {
+        cone.altaLogicaReserva(3);
+    }
     public static void pruebaBorrarReserva(ReservaData cone) {
         cone.borrarReserva(4);
     }
-    
     // CRUD - MESA
     public static void pruebaGuardarMesa(MesaData con) {
         //Reserva(String nombre, int dni, LocalDate fecha, LocalTime hora, boolean estado)

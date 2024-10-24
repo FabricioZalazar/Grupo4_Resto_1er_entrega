@@ -169,6 +169,34 @@ public class ReservaData {
             JOptionPane.showMessageDialog(null, "Error al actualizar la reserva: " + ex.getMessage());
         }
     }
+    
+    public void bajaLogicaReserva (int id) {
+        String querry = "UPDATE reserva SET estado = 0 WHERE idReserva = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(querry);
+            ps.setInt(1, id);
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "El alumno fue dado de baja");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void altaLogicaReserva (int id) {
+        String querry = "UPDATE reserva SET estado = 1 WHERE idReserva = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(querry);
+            ps.setInt(1, id);
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "El alumno fue dado de alta");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     // DELETE
     public void borrarReserva (int id) {
         try {
