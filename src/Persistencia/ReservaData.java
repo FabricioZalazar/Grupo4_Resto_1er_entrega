@@ -201,12 +201,12 @@ public class ReservaData {
     public void borrarReserva (int id) {
         try {
             //Primero borramos las conecciones
-            String query1 = "DELET FROM mesa WHERE IdReserva = ?";
+            String query1 = "UPDATE mesa SET IdReserva = NULL WHERE IdReserva = ?";
             PreparedStatement ps1 = con.prepareStatement(query1);
             ps1.setInt(1, id);
             int resutado1 = ps1.executeUpdate();
             //Luego borramos en la misma tabla
-            String query2 = "DELET FROM reserva WHERE IdReserva = ?";
+            String query2 = "DELETE FROM reserva WHERE IdReserva = ?";
             PreparedStatement ps2 = con.prepareStatement(query2);
             ps2.setInt(1, id);
             int resultado2 = ps2.executeUpdate();

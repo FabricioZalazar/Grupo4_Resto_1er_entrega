@@ -48,7 +48,7 @@ public class Testing {
         //pruebaActualizarReserva(cone);
         //pruebaBajaLogicaReserva(cone);
         //pruebaAltaLogicaReserva(cone);
-        //pruebaBorrarReserva(cone); //No funciona
+        pruebaBorrarReserva(cone); //No funciona
         
         
         
