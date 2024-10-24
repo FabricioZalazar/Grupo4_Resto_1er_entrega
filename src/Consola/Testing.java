@@ -5,9 +5,11 @@
 package Consola;
 
 import Entidades.Mesa;
+import Entidades.Mesero;
 import Entidades.Producto;
 import Entidades.Reserva;
 import Persistencia.MesaData;
+import Persistencia.MeseroData;
 import Persistencia.ProductoData;
 import Persistencia.ReservaData;
 import java.time.LocalDate;
@@ -27,24 +29,52 @@ public class Testing {
         MesaData con = new MesaData();
         ReservaData cone = new ReservaData();
         ProductoData pro = new ProductoData();
+        MeseroData mozo = new MeseroData();
         //pruebaGuardarMesa(con);
         //pruebaGuardarReserva(cone);
         //pruebaActualizarMesa(con);
         //pruebaBuscarMesa(con);
-        
+
+        //mozo
+        //pruebaAgregarMozo(mozo);
+        //pruebaBuscarMesero(mozo);
+        //pruebaBorrarMesero(mozo);
     }
-    public static void pruebaBorrarProducto(ProductoData pro){
-    pro.borrarProducto(1);
-    pro.borrarProducto(2);
-    pro.borrarProducto(3);
-    pro.borrarProducto(4);
-    pro.borrarProducto(5);
+    public static void pruebaBorrarMesero(MeseroData mozo){
+       mozo.borrarMozo(6);
+       mozo.borrarMozo(7);
     }
-    
+
+    public static void pruebaBuscarMesero(MeseroData meseroData) {
+        Mesero mozo = meseroData.buscarMozo(6); 
+
+        if (mozo != null) {
+            System.out.println("Mozo encontrado: " + mozo.getNombre());
+        } else {
+            System.out.println("No se encontró el mozo con el ID especificado");
+        }
+    }
+
+    public static void pruebaAgregarMozo(MeseroData meseroData) {
+        Mesero mozo = new Mesero(1, "Jorge");
+        Mesero mozo1 = new Mesero(2, "Rojerilo");
+        Mesero mozo2 = new Mesero(3, "raul");
+        meseroData.agregarMozo(mozo);
+        meseroData.agregarMozo(mozo1);
+        meseroData.agregarMozo(mozo2);
+    }
+
+    public static void pruebaBorrarProducto(ProductoData pro) {
+        pro.borrarProducto(1);
+        pro.borrarProducto(2);
+        pro.borrarProducto(3);
+        pro.borrarProducto(4);
+        pro.borrarProducto(5);
+    }
+
     public static void pruebaActualizarProducto(ProductoData pro) {
         //UTILICE EL CONSTUCTOR CON CODIGO 
 
-        
         pro.ActualizarProducto(new Producto(1, "cocacola", 1, 100.00));
         pro.ActualizarProducto(new Producto(2, "vino", 1, 1300.50));
         pro.ActualizarProducto(new Producto(3, "papas fritas", 1, 2500.00));
@@ -52,7 +82,7 @@ public class Testing {
         pro.ActualizarProducto(new Producto(5, "ensalada", 1, 200.00));
 
     }
-      
+
     public static void pruebaGuardarPruducto(ProductoData pro) {
         //(String nombre, int stock, double precio) {
         Producto p1 = new Producto("cocacola", 4, 100.00);
@@ -67,8 +97,9 @@ public class Testing {
         pro.GuardarProducto(p5);
 
     }
-    public static void pruebaGuardarReserva(ReservaData cone){
-        Reserva res = new Reserva("maximiliano macia", 32676125,LocalDate.of(2024, 10, 21),LocalTime.now(),true);
+
+    public static void pruebaGuardarReserva(ReservaData cone) {
+        Reserva res = new Reserva("maximiliano macia", 32676125, LocalDate.of(2024, 10, 21), LocalTime.now(), true);
         //Reserva res2 = new Reserva ("fabricio zalazar",38456852, LocalDate.of(2024, 10, 22),LocalTime.now(),true);
         cone.guardarReserva(res);
         //cone.guardarReserva(res2);
@@ -76,9 +107,9 @@ public class Testing {
 
     public static void pruebaGuardarMesa(MesaData con) {
         //Reserva(String nombre, int dni, LocalDate fecha, LocalTime hora, boolean estado)
-        Reserva res = new Reserva("maximiliano macia", 32676125,LocalDate.of(2024, 10, 21),LocalTime.of(20, 30),true);
-        Reserva res2 = new Reserva ("fabricio zalazar",38456852, LocalDate.of(2024, 10, 22),LocalTime.of(21, 30),true);
-        
+        Reserva res = new Reserva("maximiliano macia", 32676125, LocalDate.of(2024, 10, 21), LocalTime.of(20, 30), true);
+        Reserva res2 = new Reserva("fabricio zalazar", 38456852, LocalDate.of(2024, 10, 22), LocalTime.of(21, 30), true);
+
         Mesa mesa = new Mesa(10, 4, res, true);
         Mesa mesa2 = new Mesa(2, 4, res2, true);
         Mesa mesa3 = new Mesa(22, 1, true);      //Mesa insertada sin reserva
@@ -86,15 +117,15 @@ public class Testing {
         con.GuardarMesa(mesa2);
         con.GuardarMesa(mesa3);
     }
-    
-    public static void pruebaActualizarMesa(MesaData con){
-        Reserva res = new Reserva("maximiliano macia", 32676125,LocalDate.of(2024, 10, 21),LocalTime.of(20, 30),true);
+
+    public static void pruebaActualizarMesa(MesaData con) {
+        Reserva res = new Reserva("maximiliano macia", 32676125, LocalDate.of(2024, 10, 21), LocalTime.of(20, 30), true);
         Mesa mesa = new Mesa(2, 1, false);
         con.ActualizarMesa(mesa);
     }
 
-    public static void  pruebaBuscarMesa(MesaData con){
-        System.out.println( con.BuscarMesa(2));
-       
+    public static void pruebaBuscarMesa(MesaData con) {
+        System.out.println(con.BuscarMesa(2));
+
     }
 }
