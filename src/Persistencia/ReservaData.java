@@ -67,7 +67,7 @@ public class ReservaData {
                 reserva.setHora(resultado.getTime("hora").toLocalTime());
                 reserva.setEstado(resultado.getBoolean("estado"));
             } else {
-                JOptionPane.showMessageDialog(null, "Reserva no encontrada");
+                //JOptionPane.showMessageDialog(null, "Reserva no encontrada");
             }
             ps.close();
         } catch (SQLException ex) {

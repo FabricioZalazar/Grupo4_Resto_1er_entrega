@@ -29,8 +29,18 @@ public class Testing {
         ReservaData cone = new ReservaData();
         ProductoData pro = new ProductoData();
         //PRUEBAS 
+        
+        ///MESA
         //pruebaGuardarMesa(con);
-        //pruebaGuardarReserva(cone);
+        //pruebaBorrarMesa(con);
+        //pruebaActualizarMesa(con);
+        //pruebaAltaLogicaMesa(con);
+        //pruebaBajaLogicaMesa(con);
+        //pruebaBuscarMesa(con);
+        //pruebaListaMesa(con);
+        
+        ///RESERVA
+        //pruebaGuardarReserva(cone);  //Cada vez que se vuelva a guardar reiniciar el autoIncremental a 1 en la parte de operaciones
         //pruebaBuscarReservaID(cone);
         //pruebaBuscarReservaNombre(cone);
         //pruebaBuscarReservaDNI(cone);
@@ -39,8 +49,8 @@ public class Testing {
         //pruebaBajaLogicaReserva(cone);
         //pruebaAltaLogicaReserva(cone);
         //pruebaBorrarReserva(cone); //No funciona
-        //pruebaActualizarMesa(con);
-        //pruebaBuscarMesa(con);
+        
+        
         
     }
     // CRUD (CREATE - READ - UPDATE - DELETE)
@@ -79,13 +89,23 @@ public class Testing {
     }
     // CRUD - RESERVA
     public static void pruebaGuardarReserva(ReservaData cone){
-        Reserva res = new Reserva("maximiliano macia", 32676125,LocalDate.of(2024, 10, 21),LocalTime.now(),true);
-        Reserva res2 = new Reserva ("fabricio zalazar",38456852, LocalDate.of(2024, 10, 22),LocalTime.now(),true);
+        Reserva res = new Reserva("Maximiliano Macia", 32676125,LocalDate.of(2024, 10, 21),LocalTime.now(),true);
+        Reserva res2 = new Reserva ("Fabricio Zalazar",43456852, LocalDate.of(2024, 10, 22),LocalTime.now(),true);
+        Reserva res3 = new Reserva ("Christian Losada",12345, LocalDate.of(2024, 10, 26),LocalTime.now(),true);
+        Reserva res4 = new Reserva ("Juan Abregu",38456852, LocalDate.of(2024, 10, 12),LocalTime.now(),true);
+        Reserva res5 = new Reserva ("Diego Amieva",1319389, LocalDate.of(2024, 9, 22),LocalTime.now(),true);
+        
         cone.guardarReserva(res);
         cone.guardarReserva(res2);
+        cone.guardarReserva(res3);
+        cone.guardarReserva(res4);
+        cone.guardarReserva(res5);
     }
     public static void pruebaBuscarReservaID(ReservaData cone){
+        System.out.println("Prueba Buscar Reserva por ID");
         System.out.println(cone.buscarReservaID(1));
+        System.out.println(cone.buscarReservaID(2));
+        System.out.println(cone.buscarReservaID(22));
     }
     public static void pruebaBuscarReservaNombre(ReservaData cone){
         System.out.println(cone.buscarReservaNombre("fabricio zalaza"));
@@ -115,23 +135,59 @@ public class Testing {
     // CRUD - MESA
     public static void pruebaGuardarMesa(MesaData con) {
         //Reserva(String nombre, int dni, LocalDate fecha, LocalTime hora, boolean estado)
-        Reserva res = new Reserva("maximiliano macia", 32676125,LocalDate.of(2024, 10, 21),LocalTime.of(20, 30),true);
-        Reserva res2 = new Reserva ("fabricio zalazar",38456852, LocalDate.of(2024, 10, 22),LocalTime.of(21, 30),true);
+        ReservaData cone = new ReservaData();
         
-        Mesa mesa = new Mesa(10, 4, res, true);
-        Mesa mesa2 = new Mesa(2, 4, res2, true);
-        Mesa mesa3 = new Mesa(22, 1, true);      //Mesa insertada sin reserva
-        con.GuardarMesa(mesa);
-        con.GuardarMesa(mesa2);
-        con.GuardarMesa(mesa3);
+        Mesa mesa = new Mesa(1, 4, true);
+        Mesa mesa2 = new Mesa(2, 4, true);
+        Mesa mesa3 = new Mesa(3, 4, false);      /// Mesa insertada sin reserva
+        Mesa mesa4 = new Mesa(4, 2, true);     
+        Mesa mesa5 = new Mesa(5, 2, true);      
+        Mesa mesa6 = new Mesa(6, 6,cone.buscarReservaID(1), true);    /// Mesa insertada con Reserva     
+        
+        con.guardarMesa(mesa);
+        con.guardarMesa(mesa2);
+        con.guardarMesa(mesa3);
+        con.guardarMesa(mesa4);
+        con.guardarMesa(mesa5);
+        con.guardarMesa(mesa6);
     }
+    
     public static void pruebaActualizarMesa(MesaData con){
-        Reserva res = new Reserva("maximiliano macia", 32676125,LocalDate.of(2024, 10, 21),LocalTime.of(20, 30),true);
-        Mesa mesa = new Mesa(2, 1, false);
-        con.ActualizarMesa(mesa);
+        ReservaData cone = new ReservaData();
+        
+        Mesa mesa = new Mesa(1, 1, false);
+        Mesa mesa2 = new Mesa(5, 4, true);
+        Mesa mesa3 = new Mesa(4, 2,cone.buscarReservaID(2), true);
+        
+        con.actualizarMesa(mesa);
+        con.actualizarMesa(mesa2);
+        con.actualizarMesa(mesa3);
     }
+
+    public static void pruebaAltaLogicaMesa(MesaData con){
+        con.altaLogica(1);
+    }
+    
+    public static void pruebaBajaLogicaMesa(MesaData con){
+        con.bajaLogica(1);
+    }
+    
     public static void  pruebaBuscarMesa(MesaData con){
-        System.out.println( con.BuscarMesa(2));
-       
+        System.out.println( con.buscarMesa(6));  
+    }
+
+    public static void pruebaListaMesa(MesaData con){
+        for (Mesa mesa : con.listaMesa()) {
+            System.out.println(mesa.toString());
+        }
+    }
+    
+    public static void pruebaBorrarMesa(MesaData con){
+        con.borrarMesa(1);
+        con.borrarMesa(2);
+        con.borrarMesa(3);
+        con.borrarMesa(4);
+        con.borrarMesa(5);
+        con.borrarMesa(6);
     }
 }
