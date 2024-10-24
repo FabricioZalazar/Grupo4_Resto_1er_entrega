@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -39,6 +40,7 @@ public class MeseroData {
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el mozo");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al borrar el mozo");
         }
@@ -61,6 +63,7 @@ public class MeseroData {
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el mozo");
             }
+             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar el mozo: " + ex.getMessage());
         }
@@ -79,8 +82,27 @@ public class MeseroData {
                 mozo.setIdMesero(rs.getInt(1)); // Asumiendo que tienes un método setIdMesero en la clase Mesero
                 JOptionPane.showMessageDialog(null, "Mozo agregado correctamente");
             }
+             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error, el mozo no se agregó: " + ex.getMessage());
         }
+    }
+    
+     public ArrayList <Mesero> listaMeseros () {
+        ArrayList<Mesero> listaMeseros = new ArrayList();
+        try {
+            String query = "SELECT * FROM mesero";
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet resultado = ps.executeQuery();
+            while (resultado.next()) {
+                Mesero mozo = new Mesero();
+                mozo.setIdMesero(resultado.getInt("IdMesero"));
+                mozo.setNombre(resultado.getString("Nombre"));
+                listaMeseros.add(mozo);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al devolver la lista de reservas" + ex);
+        }
+        return listaMeseros;
     }
 }

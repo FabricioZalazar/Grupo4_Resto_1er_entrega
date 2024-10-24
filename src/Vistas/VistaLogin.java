@@ -4,17 +4,33 @@
  */
 package Vistas;
 
+import Entidades.Mesero;
+import Persistencia.MeseroData;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Fabricio Zalazar
  */
 public class VistaLogin extends javax.swing.JFrame {
 
+    MeseroData con = new MeseroData();
+    DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean isCellEditable(int fila, int columna) {
+            return false;
+        }
+    };
+
     /**
      * Creates new form VistaLogin
      */
     public VistaLogin() {
         initComponents();
+        iniciarTabla();
+        llenarTabla();
     }
 
     /**
@@ -33,11 +49,16 @@ public class VistaLogin extends javax.swing.JFrame {
         txtNombreMesero = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        txtTitulo1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         txtTitulo.setFont(new java.awt.Font("SimSun-ExtB", 0, 24)); // NOI18N
-        txtTitulo.setText("Resto Grupo 4");
+        txtTitulo.setText("ESTACION X");
 
         lblNombre.setText("Nombre");
 
@@ -61,45 +82,95 @@ public class VistaLogin extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setBorder(new javax.swing.border.MatteBorder(null));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton3.setText("Registrar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        txtTitulo1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        txtTitulo1.setText("Bienvenido");
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(19, 19, 19))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(192, 192, 192)
-                .addComponent(txtTitulo)
-                .addContainerGap(202, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtNombreMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(250, 250, 250)
-                .addComponent(lblNombre)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(235, 235, 235)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(txtTitulo1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(19, 19, 19))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtNombreMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(45, 45, 45))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblNombre)
+                        .addGap(110, 110, 110))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtTitulo)
+                        .addGap(75, 75, 75))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(80, 80, 80)
                 .addComponent(txtTitulo)
-                .addGap(117, 117, 117)
+                .addGap(30, 30, 30)
                 .addComponent(lblNombre)
                 .addGap(18, 18, 18)
                 .addComponent(txtNombreMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(16, 16, 16))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtTitulo1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(jSeparator1)
         );
 
         escritorio.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -135,17 +206,68 @@ public class VistaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreMeseroActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        escritorio.repaint();
-        //VistaPrincipal a1 = new VistaPrincipal();
-        NewJFrame a1 = new NewJFrame();
-        a1.setVisible(true);
-        escritorio.add(a1);
-        escritorio.moveToFront(a1);
+        boolean bandera = false;
+
+        for (Mesero mozo : con.listaMeseros()) {
+            if (txtNombreMesero.getText().equalsIgnoreCase(mozo.getNombre())) {
+                bandera = true;
+                try {
+
+                    VistaPrincipal ventana2 = new VistaPrincipal();
+                    ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    ventana2.setLocationRelativeTo(null);
+                    // Mostrar la ventana2
+                    ventana2.setVisible(true);
+
+                    // Cerrar la primera ventana
+                    this.dispose();
+
+                } catch (IllegalArgumentException er) {
+
+                }
+
+            }
+        }
+        if (txtNombreMesero.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Ingrese un Nombre");
+        } else if (bandera == false) {
+            JOptionPane.showMessageDialog(this, "Mozo no Registrado");
+        }
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        boolean bandera = false;
+
+        for (Mesero mozo : con.listaMeseros()) {
+            if (txtNombreMesero.getText().equalsIgnoreCase(mozo.getNombre())) {
+                JOptionPane.showMessageDialog(this, "Este nombre ya se encuentra registrado");
+                bandera = true;
+            }
+        }
+        if (txtNombreMesero.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Ingrese un Nombre");
+        } else if (bandera == false) {
+            Mesero mozo = new Mesero(txtNombreMesero.getText());
+            con.agregarMozo(mozo);
+            llenarTabla();
+        }
+
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int filaSelecionada = jTable1.getSelectedRow();
+        if (filaSelecionada != -1) {
+            String nombre = (String) jTable1.getValueAt(filaSelecionada, 1);
+            txtNombreMesero.setText(nombre + "");
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -186,9 +308,32 @@ public class VistaLogin extends javax.swing.JFrame {
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JTextField txtNombreMesero;
     private javax.swing.JLabel txtTitulo;
+    private javax.swing.JLabel txtTitulo1;
     // End of variables declaration//GEN-END:variables
+
+    public void iniciarTabla() {
+
+        modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
+
+        jTable1.setModel(modelo);
+    }
+
+    public void llenarTabla() {
+
+        ArrayList<Mesero> list = con.listaMeseros();
+        modelo.setRowCount(0);
+        for (Mesero m : list) {
+            modelo.addRow(new Object[]{m.getIdMesero(), m.getNombre()});
+        }
+    }
+
 }
