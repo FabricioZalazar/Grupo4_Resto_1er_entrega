@@ -50,7 +50,7 @@ public class Testing {
         //pruebaActualizarReserva(cone);
         //pruebaBajaLogicaReserva(cone);
         //pruebaAltaLogicaReserva(cone);
-        //pruebaBorrarReserva(cone); //No funciona
+        //pruebaBorrarReserva(cone);
         
         //PRODUCTO
         //pruebaGuardarPruducto(pro);   //VOLVERLO A UNO
