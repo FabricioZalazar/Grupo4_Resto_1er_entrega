@@ -5,17 +5,36 @@
  */
 package Vistas;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author mmaci
  */
 public class JfremePrincipal extends javax.swing.JFrame {
 
+    private JDesktopPane desktopPane;
+    DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean isCellEditable(int fila, int columna) {
+            return false;
+        }
+    };
+
     /**
      * Creates new form JfremePrincipal
      */
     public JfremePrincipal() {
+
+        
         initComponents();
+        iniciarTabla();
+
     }
 
     /**
@@ -143,7 +162,9 @@ public class JfremePrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+     
+       
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
@@ -174,11 +195,6 @@ public class JfremePrincipal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JfremePrincipal().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -195,4 +211,12 @@ public class JfremePrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+ public void iniciarTabla() {
+
+        modelo.addColumn("ID");
+        modelo.addColumn("Reservacion");
+        modelo.addColumn("Activa");
+        jTable1.setModel(modelo);
+    }
+
 }
