@@ -105,4 +105,28 @@ public class MeseroData {
         }
         return listaMeseros;
     }
+     
+     public Mesero buscarMozoPorNombre(String nombre) {
+        Mesero mozo = new Mesero();
+
+        String sql = "SELECT * FROM mesero WHERE Nombre = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                mozo.setIdMesero(rs.getInt("idMesero"));
+                mozo.setNombre(rs.getString("Nombre"));
+                // Asegúrate de que estás capturando todos los campos necesarios
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el mozo");
+            }
+             ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar el mozo: " + ex.getMessage());
+        }
+        return mozo;
+    }
 }
