@@ -8,9 +8,11 @@ import Entidades.Mesero;
 import Entidades.Producto;
 import Persistencia.ProductoData;
 import java.util.ArrayList;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -71,6 +73,11 @@ public class VistaInventario extends javax.swing.JFrame {
         });
 
         jButtonActualizar.setText("Actualizar");
+        jButtonActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActualizarActionPerformed(evt);
+            }
+        });
 
         jButtonBorrar.setText("Borrar");
 
@@ -96,6 +103,11 @@ public class VistaInventario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -105,12 +117,12 @@ public class VistaInventario extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(365, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButtonActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonAlta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(33, 33, 33))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -199,6 +211,33 @@ public class VistaInventario extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
+    private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
+        VistaGuardarProducto a1 = null;
+
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VistaGuardarProducto) {
+                a1 = (VistaGuardarProducto) frame;
+                break;
+            }
+        }
+
+        if (a1 == null) {
+            // Si no hay una instancia abierta, crear una nueva
+            a1 = new VistaGuardarProducto(this);
+            escritorio.add(a1);
+        }
+
+// Mostrar la ventana y moverla al frente
+        a1.setVisible(true);
+        escritorio.moveToFront(a1);
+        
+        actualizarTabla();
+    }//GEN-LAST:event_jButtonActualizarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+       
+    }//GEN-LAST:event_jTable1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
@@ -236,4 +275,17 @@ public class VistaInventario extends javax.swing.JFrame {
    public void actualizarTabla() {
     llenarTabla(); // Llama a tu método existente para rellenar la tabla
 }
+   public boolean ValidarCamposVacios(JDesktopPane jDesktopPane1) {
+        boolean bandera = true;
+        for (int i = 0; i < jDesktopPane1.getComponents().length; i++) {
+            if (!bandera) {
+                break;
+            }
+            if (jDesktopPane1.getComponents()[i] instanceof JTextField) {
+                bandera = !((JTextField) jDesktopPane1.getComponents()[i]).getText().equals("") ? true : false;
+                jDesktopPane1.getComponents()[i].requestFocus();
+            }
+        }
+        return bandera;
+    }
 }

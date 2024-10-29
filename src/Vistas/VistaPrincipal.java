@@ -5,12 +5,10 @@
  */
 package Vistas;
 
+import Entidades.Mesa;
 import Entidades.Mesero;
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JDesktopPane;
+import Persistencia.MesaData;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,23 +16,30 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author mmaci
  */
-public class VistaPrincipal extends javax.swing.JFrame {
+public final class VistaPrincipal extends javax.swing.JFrame {
+
+    private MesaData con = new MesaData();
 
     DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
         public boolean isCellEditable(int fila, int columna) {
             return false;
         }
     };
 
     private Mesero mozo;
+
     /**
      * Creates new form JfremePrincipal
+     * @param mozo
      */
     public VistaPrincipal(Mesero mozo) {
-        this.mozo=mozo;
+
+        this.mozo = mozo;
         initComponents();
         iniciarTabla();
         jLabel1.setText("Bienvenido " + mozo.getNombre());
+        llenarTabla();
     }
 
     /**
@@ -196,14 +201,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCrearMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearMesaActionPerformed
-         VistaCargarMesas ventana2 = new VistaCargarMesas(mozo);
-        ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana2.setLocationRelativeTo(null);
-        // Mostrar la ventana2
-        ventana2.setVisible(true);
 
-        // Cerrar la primera ventana
-        this.dispose();
+        Mesero mozo = new Mesero(); 
+        VistaCargarMesas ventana2 = new VistaCargarMesas(this, mozo); 
+        ventana2.setLocationRelativeTo(null); 
+        ventana2.setVisible(true);
     }//GEN-LAST:event_jButtonCrearMesaActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
@@ -261,9 +263,25 @@ public class VistaPrincipal extends javax.swing.JFrame {
  public void iniciarTabla() {
 
         modelo.addColumn("ID");
-        modelo.addColumn("Reservacion");
+        modelo.addColumn("Capacidad");
         modelo.addColumn("Activa");
+        modelo.addColumn("mozo");
         jTable1.setModel(modelo);
     }
+
+    public void llenarTabla() {
+
+        ArrayList<Mesa> list = con.listaMesa();
+        modelo.setRowCount(0);
+        for (Mesa p : list) {
+            modelo.addRow(new Object[]{p.getNum(),p.getCapacidad(), p.isEstado()});
+        }
+
+    }
+
+    public void actualizarTabla() {
+        llenarTabla();
+    }
+
 
 }

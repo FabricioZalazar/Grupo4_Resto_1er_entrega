@@ -177,4 +177,8 @@ public class MesaData {
         }
         return listaMesa;
     }
+
+    public void guardarMesa(MesaData m1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

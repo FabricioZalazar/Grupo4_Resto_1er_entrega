@@ -4,21 +4,31 @@
  */
 package Vistas;
 
+import Entidades.Mesa;
 import Entidades.Mesero;
+import Entidades.Reserva;
+import Persistencia.MesaData;
+import java.util.HashSet;
+
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Fabricio Zalazar
  */
 public class VistaCargarMesas extends javax.swing.JFrame {
-
+    private HashSet<Integer> numerodeMesa = new HashSet<>();
+    private MesaData con = new MesaData();
     private Mesero mozo;
+    private VistaPrincipal vistaPrincipal;
 
     /**
      * Creates new form VistaCargarMesas
      */
-    public VistaCargarMesas(Mesero mozo) {
+    public VistaCargarMesas(VistaPrincipal vistaPrincipal, Mesero mozo) {
+        this.vistaPrincipal = vistaPrincipal;
         this.mozo = mozo;
         initComponents();
 
@@ -41,13 +51,19 @@ public class VistaCargarMesas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btnSalir = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnSalir1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel4.setText("Estado");
 
         jButtonTomarPedido.setText("Tomar Pedido");
+        jButtonTomarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTomarPedidoActionPerformed(evt);
+            }
+        });
 
         jComboBoxCapacidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "4", "6" }));
         jComboBoxCapacidad.setSelectedIndex(-1);
@@ -71,10 +87,17 @@ public class VistaCargarMesas extends javax.swing.JFrame {
 
         jLabel3.setText("Capacidad");
 
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnSalir1.setText("Salir");
+        btnSalir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalir1ActionPerformed(evt);
             }
         });
 
@@ -82,30 +105,33 @@ public class VistaCargarMesas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldId)
-                    .addComponent(jComboBoxCapacidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxEstado, 0, 91, Short.MAX_VALUE))
-                .addGap(65, 65, 65))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 69, Short.MAX_VALUE)
-                .addComponent(jButtonTomarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldId)
+                            .addComponent(jComboBoxCapacidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxEstado, 0, 91, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonTomarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(46, 46, 46))
             .addGroup(layout.createSequentialGroup()
                 .addGap(153, 153, 153)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(btnGuardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalir1)
+                .addGap(79, 79, 79))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,10 +150,12 @@ public class VistaCargarMesas extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButtonTomarPedido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addContainerGap())
+                .addComponent(jButtonTomarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnSalir1))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -141,7 +169,25 @@ public class VistaCargarMesas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxEstadoActionPerformed
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        int numerodeMesa = Integer.parseInt(jTextFieldId.getText());
+        int capacidad = Integer.parseInt((String) jComboBoxCapacidad.getSelectedItem());
+        boolean estado = Boolean.parseBoolean((String) jComboBoxEstado.getSelectedItem());
+        Mesa m1 = new Mesa(numerodeMesa,capacidad,estado);
+      
+            
+        
+            
+        
+        
+        con.guardarMesa(m1); 
+        vistaPrincipal.llenarTabla();
+        hide();
+
+
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
         VistaPrincipal ventana2 = new VistaPrincipal(mozo);
         ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
@@ -150,11 +196,23 @@ public class VistaCargarMesas extends javax.swing.JFrame {
 
         // Cerrar la primera ventana
         this.dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
+    }//GEN-LAST:event_btnSalir1ActionPerformed
+
+    private void jButtonTomarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTomarPedidoActionPerformed
+       VistaPedidos ventana2 = new VistaPedidos(mozo);
+        ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana2.setLocationRelativeTo(null);
+        // Mostrar la ventana2
+        ventana2.setVisible(true);
+
+        // Cerrar la primera ventana
+        this.dispose();
+    }//GEN-LAST:event_jButtonTomarPedidoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnSalir1;
     private javax.swing.JButton jButtonTomarPedido;
     private javax.swing.JComboBox<String> jComboBoxCapacidad;
     private javax.swing.JComboBox<String> jComboBoxEstado;
@@ -164,4 +222,6 @@ public class VistaCargarMesas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField jTextFieldId;
     // End of variables declaration//GEN-END:variables
+
 }
+

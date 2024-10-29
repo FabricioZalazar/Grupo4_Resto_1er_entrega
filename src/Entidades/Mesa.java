@@ -9,11 +9,12 @@ package Entidades;
  * @author zalaz
  */
 public class Mesa {
-    
+        
         private int num;
         private int capacidad;
         private Reserva reserva;
         private boolean estado;
+        
 
     public Mesa() {
     }
@@ -22,8 +23,11 @@ public class Mesa {
         this.num = num;
         this.capacidad = capacidad;
         this.estado = estado;
-        this.reserva = null;
     }
+
+    
+    
+    
 
         
     public Mesa(int num, int capacidad, Reserva reserva, boolean estado) {
@@ -69,6 +73,8 @@ public class Mesa {
     public String toString() {
         return "Mesa{" + "num=" + num + ", capacidad=" + capacidad + ", reserva=" + reserva + ", estado=" + estado + '}';
     }
+  
+       
    
         
         

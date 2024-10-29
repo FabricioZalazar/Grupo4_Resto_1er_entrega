@@ -56,12 +56,12 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="365" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jButtonActualizar" max="32767" attributes="0"/>
                           <Component id="jButtonGuardar" max="32767" attributes="0"/>
                           <Component id="jButtonBorrar" max="32767" attributes="0"/>
                           <Component id="jButtonAlta" max="32767" attributes="0"/>
                           <Component id="jButtonBaja" max="32767" attributes="0"/>
                           <Component id="jButtonSalir" max="32767" attributes="0"/>
+                          <Component id="jButtonActualizar" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
@@ -109,6 +109,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Actualizar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonActualizarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonBorrar">
               <Properties>
@@ -151,6 +154,9 @@
                       </Table>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable1MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
