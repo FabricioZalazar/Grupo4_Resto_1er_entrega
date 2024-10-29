@@ -9,8 +9,10 @@ import Entidades.Conexion;
 import Entidades.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -79,5 +81,25 @@ public class ProductoData {
             JOptionPane.showMessageDialog(null, "error al guardar el producto");
         }
 
+    }
+    
+     public ArrayList <Producto> listaProductos () {
+        ArrayList<Producto> listaProductos = new ArrayList();
+        try {
+            String query = "SELECT * FROM producto";
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet resultado = ps.executeQuery();
+            while (resultado.next()) {
+                Producto proc = new Producto();
+                proc.setNombre(resultado.getString("Nombre"));
+                proc.setStock(resultado.getInt("Stock"));
+                proc.setPrecio(resultado.getDouble("Precio"));
+                proc.setCodigo(resultado.getInt("IdProducto"));
+                listaProductos.add(proc);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al devolver la lista de Productos" + ex);
+        }
+        return listaProductos;
     }
 }

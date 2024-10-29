@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import Entidades.Mesero;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,24 +18,23 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author mmaci
  */
-public class JfremePrincipal extends javax.swing.JFrame {
+public class VistaPrincipal extends javax.swing.JFrame {
 
-    private JDesktopPane desktopPane;
     DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
             return false;
         }
     };
 
+    private Mesero mozo;
     /**
      * Creates new form JfremePrincipal
      */
-    public JfremePrincipal() {
-
-        
+    public VistaPrincipal(Mesero mozo) {
+        this.mozo=mozo;
         initComponents();
         iniciarTabla();
-
+        jLabel1.setText("Bienvenido " + mozo.getNombre());
     }
 
     /**
@@ -85,16 +85,31 @@ public class JfremePrincipal extends javax.swing.JFrame {
         jButtonReservar.setText("Reservar");
 
         jButtonInventario.setText("Inventario");
+        jButtonInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInventarioActionPerformed(evt);
+            }
+        });
 
         jButtonAnularReserva.setText("Anular Reserva");
 
         jButtonPedido.setText("Pedidos");
+        jButtonPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPedidoActionPerformed(evt);
+            }
+        });
 
         jButtonCargarPedido.setText("Cargar Pedido");
 
         jButtonCobrar.setText("Cobrar Mesa");
 
         jButtonCerrar.setText("Cerrar Sesion");
+        jButtonCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCerrarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Nombre Mesero");
@@ -181,40 +196,52 @@ public class JfremePrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCrearMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearMesaActionPerformed
-       
-      
+         VistaCargarMesas ventana2 = new VistaCargarMesas(mozo);
+        ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana2.setLocationRelativeTo(null);
+        // Mostrar la ventana2
+        ventana2.setVisible(true);
 
+        // Cerrar la primera ventana
+        this.dispose();
     }//GEN-LAST:event_jButtonCrearMesaActionPerformed
+
+    private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
+        VistaLogin ventana2 = new VistaLogin();
+        ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana2.setLocationRelativeTo(null);
+        // Mostrar la ventana2
+        ventana2.setVisible(true);
+
+        // Cerrar la primera ventana
+        this.dispose();
+    }//GEN-LAST:event_jButtonCerrarActionPerformed
+
+    private void jButtonInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInventarioActionPerformed
+        VistaInventario ventana2 = new VistaInventario(mozo);
+        ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana2.setLocationRelativeTo(null);
+        // Mostrar la ventana2
+        ventana2.setVisible(true);
+
+        // Cerrar la primera ventana
+        this.dispose();
+    }//GEN-LAST:event_jButtonInventarioActionPerformed
+
+    private void jButtonPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoActionPerformed
+        VistaPedidos ventana2 = new VistaPedidos(mozo);
+        ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana2.setLocationRelativeTo(null);
+        // Mostrar la ventana2
+        ventana2.setVisible(true);
+
+        // Cerrar la primera ventana
+        this.dispose();
+    }//GEN-LAST:event_jButtonPedidoActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JfremePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JfremePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JfremePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JfremePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnularReserva;

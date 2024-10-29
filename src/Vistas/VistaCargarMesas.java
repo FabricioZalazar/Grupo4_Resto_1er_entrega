@@ -1,31 +1,28 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vistas;
 
-import javax.swing.JDesktopPane;
+import Entidades.Mesero;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-
 
 /**
  *
- * @author mmaci
+ * @author Fabricio Zalazar
  */
-public class VistaCargarMesa extends javax.swing.JInternalFrame {
-   
+public class VistaCargarMesas extends javax.swing.JFrame {
+
+    private Mesero mozo;
+
     /**
-     * Creates new form VistaCargarMesa
+     * Creates new form VistaCargarMesas
      */
-    public VistaCargarMesa() {
-         initComponents();
+    public VistaCargarMesas(Mesero mozo) {
+        this.mozo = mozo;
+        initComponents();
+
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,20 +33,17 @@ public class VistaCargarMesa extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldId = new javax.swing.JTextField();
         jButtonTomarPedido = new javax.swing.JButton();
         jComboBoxCapacidad = new javax.swing.JComboBox<>();
         jComboBoxEstado = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
-        jLabel1.setText("MESA");
-
-        jLabel2.setText("idMesa");
-
-        jLabel3.setText("Capacidad");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel4.setText("Estado");
 
@@ -71,6 +65,19 @@ public class VistaCargarMesa extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setText("MESA");
+
+        jLabel2.setText("idMesa");
+
+        jLabel3.setText("Capacidad");
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,13 +95,17 @@ public class VistaCargarMesa extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxEstado, 0, 91, Short.MAX_VALUE))
                 .addGap(65, 65, 65))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 66, Short.MAX_VALUE)
+                .addGap(0, 69, Short.MAX_VALUE)
                 .addComponent(jButtonTomarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(153, 153, 153)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +125,9 @@ public class VistaCargarMesa extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonTomarPedido)
-                .addGap(0, 29, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addContainerGap())
         );
 
         pack();
@@ -128,8 +141,20 @@ public class VistaCargarMesa extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxEstadoActionPerformed
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        VistaPrincipal ventana2 = new VistaPrincipal(mozo);
+        ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana2.setLocationRelativeTo(null);
+        // Mostrar la ventana2
+        ventana2.setVisible(true);
+
+        // Cerrar la primera ventana
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton jButtonTomarPedido;
     private javax.swing.JComboBox<String> jComboBoxCapacidad;
     private javax.swing.JComboBox<String> jComboBoxEstado;
@@ -139,8 +164,4 @@ public class VistaCargarMesa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField jTextFieldId;
     // End of variables declaration//GEN-END:variables
-
-
-
-
 }
