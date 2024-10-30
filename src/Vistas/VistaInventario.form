@@ -58,8 +58,6 @@
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="jButtonGuardar" max="32767" attributes="0"/>
                           <Component id="jButtonBorrar" max="32767" attributes="0"/>
-                          <Component id="jButtonAlta" max="32767" attributes="0"/>
-                          <Component id="jButtonBaja" max="32767" attributes="0"/>
                           <Component id="jButtonSalir" max="32767" attributes="0"/>
                           <Component id="jButtonActualizar" alignment="1" max="32767" attributes="0"/>
                       </Group>
@@ -82,11 +80,7 @@
                       <Component id="jButtonActualizar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButtonBorrar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                      <Component id="jButtonAlta" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButtonBaja" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="147" max="32767" attributes="0"/>
+                      <EmptySpace pref="281" max="32767" attributes="0"/>
                       <Component id="jButtonSalir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
@@ -117,16 +111,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Borrar"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButtonBaja">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Baja"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButtonAlta">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Alta"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonBorrarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonSalir">
               <Properties>

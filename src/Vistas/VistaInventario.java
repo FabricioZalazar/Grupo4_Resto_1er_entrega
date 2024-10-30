@@ -20,9 +20,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Fabricio Zalazar
  */
 public class VistaInventario extends javax.swing.JFrame {
-    
-    
-     private ProductoData con = new ProductoData();
+
+    private ProductoData con = new ProductoData();
     DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
             return false;
@@ -30,17 +29,15 @@ public class VistaInventario extends javax.swing.JFrame {
     };
 
     private Mesero mozo;
-    
 
     /**
      * Creates new form VistaInventarios
      */
-    public VistaInventario(Mesero mozo) {
+    public VistaInventario() {
         initComponents();
-        this.mozo = mozo;
         iniciarTabla();
         llenarTabla();
-        
+
     }
 
     /**
@@ -57,8 +54,6 @@ public class VistaInventario extends javax.swing.JFrame {
         jButtonGuardar = new javax.swing.JButton();
         jButtonActualizar = new javax.swing.JButton();
         jButtonBorrar = new javax.swing.JButton();
-        jButtonBaja = new javax.swing.JButton();
-        jButtonAlta = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -80,10 +75,11 @@ public class VistaInventario extends javax.swing.JFrame {
         });
 
         jButtonBorrar.setText("Borrar");
-
-        jButtonBaja.setText("Baja");
-
-        jButtonAlta.setText("Alta");
+        jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBorrarActionPerformed(evt);
+            }
+        });
 
         jButtonSalir.setText("Salir");
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -119,8 +115,6 @@ public class VistaInventario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonAlta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(33, 33, 33))
@@ -138,11 +132,7 @@ public class VistaInventario extends javax.swing.JFrame {
                 .addComponent(jButtonActualizar)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonBorrar)
-                .addGap(70, 70, 70)
-                .addComponent(jButtonAlta)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonBaja)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
                 .addComponent(jButtonSalir)
                 .addGap(24, 24, 24))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,54 +186,58 @@ public class VistaInventario extends javax.swing.JFrame {
 // Mostrar la ventana y moverla al frente
         a1.setVisible(true);
         escritorio.moveToFront(a1);
-
+        actualizarTabla();
 
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
-         VistaPrincipal ventana2 = new VistaPrincipal(mozo);
+        VistaPrincipal ventana2 = new VistaPrincipal();
         ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
         ventana2.setVisible(true);
-
         // Cerrar la primera ventana
         this.dispose();
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
-        VistaGuardarProducto a1 = null;
+
+        VistaActualizarProducto a1 = null;
 
         for (JInternalFrame frame : escritorio.getAllFrames()) {
-            if (frame instanceof VistaGuardarProducto) {
-                a1 = (VistaGuardarProducto) frame;
+            if (frame instanceof VistaActualizarProducto) {
+                a1 = (VistaActualizarProducto) frame;
                 break;
             }
         }
 
         if (a1 == null) {
             // Si no hay una instancia abierta, crear una nueva
-            a1 = new VistaGuardarProducto(this);
+            a1 = new VistaActualizarProducto(this);
             escritorio.add(a1);
         }
 
 // Mostrar la ventana y moverla al frente
         a1.setVisible(true);
         escritorio.moveToFront(a1);
-        
         actualizarTabla();
     }//GEN-LAST:event_jButtonActualizarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-       
+        int filaSelecionada = jTable1.getSelectedRow();
+        int id = (int) jTable1.getValueAt(filaSelecionada, 0);
+        VistaLogin.setProducto(con.buscarProducto(id));
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
+        con.borrarProducto(VistaLogin.getProducto().getCodigo());
+        actualizarTabla();
+    }//GEN-LAST:event_jButtonBorrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JButton jButtonActualizar;
-    private javax.swing.JButton jButtonAlta;
-    private javax.swing.JButton jButtonBaja;
     private javax.swing.JButton jButtonBorrar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonSalir;
@@ -260,22 +254,22 @@ public class VistaInventario extends javax.swing.JFrame {
         modelo.addColumn("Precio");
         jTable1.setModel(modelo);
     }
-    
-      public void llenarTabla() {
 
-        ArrayList<Producto> list =con.listaProductos();
+    public void llenarTabla() {
+
+        ArrayList<Producto> list = con.listaProductos();
         modelo.setRowCount(0);
         for (Producto p : list) {
-            modelo.addRow(new Object[]{p.getCodigo(),p.getNombre(),p.getStock(),p.getPrecio()});
+            modelo.addRow(new Object[]{p.getCodigo(), p.getNombre(), p.getStock(), p.getPrecio()});
         }
-        
-        
+
     }
-      
-   public void actualizarTabla() {
-    llenarTabla(); // Llama a tu método existente para rellenar la tabla
-}
-   public boolean ValidarCamposVacios(JDesktopPane jDesktopPane1) {
+
+    public void actualizarTabla() {
+        llenarTabla(); // Llama a tu método existente para rellenar la tabla
+    }
+
+    public boolean ValidarCamposVacios(JDesktopPane jDesktopPane1) {
         boolean bandera = true;
         for (int i = 0; i < jDesktopPane1.getComponents().length; i++) {
             if (!bandera) {

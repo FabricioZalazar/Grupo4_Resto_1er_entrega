@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VistaPedidos extends javax.swing.JFrame {
 
-    private Mesero mozo;
     DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
             return false;
@@ -24,8 +23,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     /**
      * Creates new form VistaPedidos
      */
-    public VistaPedidos(Mesero mozo) {
-        this.mozo=mozo;
+    public VistaPedidos() {
         initComponents();
         iniciarTabla();
     }
@@ -127,7 +125,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxPedidoActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-         VistaPrincipal ventana2 = new VistaPrincipal(mozo);
+         VistaPrincipal ventana2 = new VistaPrincipal();
         ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2

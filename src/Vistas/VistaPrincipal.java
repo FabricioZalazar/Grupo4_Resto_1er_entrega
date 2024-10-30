@@ -33,12 +33,12 @@ public final class VistaPrincipal extends javax.swing.JFrame {
      * Creates new form JfremePrincipal
      * @param mozo
      */
-    public VistaPrincipal(Mesero mozo) {
-
-        this.mozo = mozo;
+    
+    
+    public VistaPrincipal() {
         initComponents();
         iniciarTabla();
-        jLabel1.setText("Bienvenido " + mozo.getNombre());
+        jLabel1.setText("Bienvenido " + VistaLogin.getMozo().getNombre());
         llenarTabla();
     }
 
@@ -88,6 +88,11 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         });
 
         jButtonReservar.setText("Reservar");
+        jButtonReservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReservarActionPerformed(evt);
+            }
+        });
 
         jButtonInventario.setText("Inventario");
         jButtonInventario.addActionListener(new java.awt.event.ActionListener() {
@@ -202,10 +207,14 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
     private void jButtonCrearMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearMesaActionPerformed
 
-        Mesero mozo = new Mesero(); 
-        VistaCargarMesas ventana2 = new VistaCargarMesas(this, mozo); 
-        ventana2.setLocationRelativeTo(null); 
+        VistaCargarMesas ventana2 = new VistaCargarMesas(); 
+         ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana2.setLocationRelativeTo(null);
+        // Mostrar la ventana2
         ventana2.setVisible(true);
+
+        // Cerrar la primera ventana
+        this.dispose();
     }//GEN-LAST:event_jButtonCrearMesaActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
@@ -220,7 +229,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCerrarActionPerformed
 
     private void jButtonInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInventarioActionPerformed
-        VistaInventario ventana2 = new VistaInventario(mozo);
+        VistaInventario ventana2 = new VistaInventario();
         ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
@@ -231,7 +240,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonInventarioActionPerformed
 
     private void jButtonPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoActionPerformed
-        VistaPedidos ventana2 = new VistaPedidos(mozo);
+        VistaPedidos ventana2 = new VistaPedidos();
         ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
@@ -240,6 +249,17 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         // Cerrar la primera ventana
         this.dispose();
     }//GEN-LAST:event_jButtonPedidoActionPerformed
+
+    private void jButtonReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReservarActionPerformed
+        VistaReserva ventana2 = new VistaReserva();
+        ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana2.setLocationRelativeTo(null);
+        // Mostrar la ventana2
+        ventana2.setVisible(true);
+
+        // Cerrar la primera ventana
+        this.dispose();
+    }//GEN-LAST:event_jButtonReservarActionPerformed
 
     /**
      * @param args the command line arguments

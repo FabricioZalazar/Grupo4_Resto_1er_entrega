@@ -5,6 +5,7 @@
 package Vistas;
 
 import Entidades.Mesero;
+import Entidades.Producto;
 import Persistencia.MeseroData;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -16,13 +17,31 @@ import javax.swing.table.DefaultTableModel;
  * @author Fabricio Zalazar
  */
 public class VistaLogin extends javax.swing.JFrame {
-
+    
+    static Producto producto;
+    static Mesero mozo;
     MeseroData con = new MeseroData();
     DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
             return false;
         }
     };
+
+    public static Mesero getMozo() {
+        return mozo;
+    }
+
+    public static void setMozo(Mesero mozo) {
+        VistaLogin.mozo = mozo;
+    }
+
+    public static Producto getProducto() {
+        return producto;
+    }
+
+    public static void setProducto(Producto producto) {
+        VistaLogin.producto = producto;
+    }
 
     /**
      * Creates new form VistaLogin
@@ -230,8 +249,8 @@ public class VistaLogin extends javax.swing.JFrame {
             if (txtNombreMesero.getText().equalsIgnoreCase(mozo.getNombre())) {
                 bandera = true;
                 try {
-
-                    VistaPrincipal ventana2 = new VistaPrincipal(con.buscarMozoPorNombre(txtNombreMesero.getText()));
+                    this.mozo=con.buscarMozoPorNombre(txtNombreMesero.getText());
+                    VistaPrincipal ventana2 = new VistaPrincipal();
                     ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     ventana2.setLocationRelativeTo(null);
                     // Mostrar la ventana2

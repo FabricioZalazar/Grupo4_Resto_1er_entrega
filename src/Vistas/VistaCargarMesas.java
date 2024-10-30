@@ -21,15 +21,11 @@ import javax.swing.table.DefaultTableModel;
 public class VistaCargarMesas extends javax.swing.JFrame {
     private HashSet<Integer> numerodeMesa = new HashSet<>();
     private MesaData con = new MesaData();
-    private Mesero mozo;
-    private VistaPrincipal vistaPrincipal;
 
     /**
      * Creates new form VistaCargarMesas
      */
-    public VistaCargarMesas(VistaPrincipal vistaPrincipal, Mesero mozo) {
-        this.vistaPrincipal = vistaPrincipal;
-        this.mozo = mozo;
+    public VistaCargarMesas() {
         initComponents();
 
     }
@@ -174,21 +170,12 @@ public class VistaCargarMesas extends javax.swing.JFrame {
         int capacidad = Integer.parseInt((String) jComboBoxCapacidad.getSelectedItem());
         boolean estado = Boolean.parseBoolean((String) jComboBoxEstado.getSelectedItem());
         Mesa m1 = new Mesa(numerodeMesa,capacidad,estado);
-      
-            
-        
-            
-        
-        
         con.guardarMesa(m1); 
-        vistaPrincipal.llenarTabla();
-        hide();
-
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
-        VistaPrincipal ventana2 = new VistaPrincipal(mozo);
+        VistaPrincipal ventana2 = new VistaPrincipal();
         ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
@@ -199,7 +186,7 @@ public class VistaCargarMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalir1ActionPerformed
 
     private void jButtonTomarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTomarPedidoActionPerformed
-       VistaPedidos ventana2 = new VistaPedidos(mozo);
+       VistaPedidos ventana2 = new VistaPedidos();
         ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
