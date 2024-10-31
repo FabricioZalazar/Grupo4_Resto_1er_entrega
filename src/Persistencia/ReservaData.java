@@ -33,15 +33,16 @@ public class ReservaData {
     // CREATE
     public void guardarReserva (Reserva reserva) {
 
-        String sql = "INSERT INTO reserva (Nombre, Dni, Fecha, Hora, Estado) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO reserva (Nombre, Dni, Fecha, Hora, HoraHasta, Estado) VALUES (?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, reserva.getNombre());
             ps.setInt(2, reserva.getDni());
             ps.setDate(3, Date.valueOf(reserva.getFecha()));
-            ps.setTime(4, Time.valueOf(reserva.getHora()));
-            ps.setBoolean(5, reserva.isEstado());
+            ps.setTime(4, Time.valueOf(reserva.getHoraDe()));
+            ps.setTime(5, Time.valueOf(reserva.getHoraHasta()));
+            ps.setBoolean(6, reserva.isEstado());
             int rs = ps.executeUpdate();
             if (rs > 0) {
                 JOptionPane.showMessageDialog(null, "Reserva  Guardada");
@@ -64,7 +65,8 @@ public class ReservaData {
                 reserva.setNombre(resultado.getString("nombre"));
                 reserva.setDni(resultado.getInt("dni"));
                 reserva.setFecha(resultado.getDate("fecha").toLocalDate());
-                reserva.setHora(resultado.getTime("hora").toLocalTime());
+                reserva.setHoraDe(resultado.getTime("hora").toLocalTime());
+                reserva.setHoraHasta(resultado.getTime("HoraHasta").toLocalTime());
                 reserva.setEstado(resultado.getBoolean("estado"));
             } else {
                 //JOptionPane.showMessageDialog(null, "Reserva no encontrada");
@@ -88,7 +90,8 @@ public class ReservaData {
                 reserva.setNombre(nombre);
                 reserva.setDni(resultado.getInt("dni"));
                 reserva.setFecha(resultado.getDate("fecha").toLocalDate());
-                reserva.setHora(resultado.getTime("hora").toLocalTime());
+                reserva.setHoraDe(resultado.getTime("hora").toLocalTime());
+                reserva.setHoraHasta(resultado.getTime("HoraHasta").toLocalTime());
                 reserva.setEstado(resultado.getBoolean("estado"));
             } else {
                 JOptionPane.showMessageDialog(null, "Persona de la reserva no encontrada");
@@ -112,7 +115,8 @@ public class ReservaData {
                 reserva.setNombre(resultado.getString("nombre"));
                 reserva.setDni(dni);
                 reserva.setFecha(resultado.getDate("fecha").toLocalDate());
-                reserva.setHora(resultado.getTime("hora").toLocalTime());
+                reserva.setHoraDe(resultado.getTime("hora").toLocalTime());
+                reserva.setHoraHasta(resultado.getTime("HoraHasta").toLocalTime());
                 reserva.setEstado(resultado.getBoolean("estado"));
             } else {
                 JOptionPane.showMessageDialog(null, "DNI de la persona que reservo no fue encontrado");
@@ -136,7 +140,8 @@ public class ReservaData {
                 reserva.setNombre(resultado.getString("nombre"));
                 reserva.setDni(resultado.getInt("dni"));
                 reserva.setFecha(resultado.getDate("fecha").toLocalDate());
-                reserva.setHora(resultado.getTime("hora").toLocalTime());
+                reserva.setHoraDe(resultado.getTime("hora").toLocalTime());
+                reserva.setHoraHasta(resultado.getTime("HoraHasta").toLocalTime());
                 reserva.setEstado(resultado.getBoolean("estado"));
                 listaReserva.add(reserva);
             }
@@ -147,7 +152,7 @@ public class ReservaData {
     }
     // UPDATE
     public void actualizarReserva (Reserva reserva) {
-        String query = "UPDATE reserva SET Nombre = ?, Dni = ?, Fecha = ?, Hora = ?, Estado = ? WHERE IdReserva = ?";
+        String query = "UPDATE reserva SET Nombre = ?, Dni = ?, Fecha = ?, Hora = ?,HoraHasta = ?, Estado = ? WHERE IdReserva = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(query);
@@ -155,9 +160,10 @@ public class ReservaData {
             ps.setString(1, reserva.getNombre());
             ps.setInt(2, reserva.getDni());
             ps.setDate(3, Date.valueOf(reserva.getFecha()));
-            ps.setTime(4, Time.valueOf(reserva.getHora()));
-            ps.setBoolean(5, reserva.isEstado());
-            ps.setInt(6, reserva.getIdReserva());
+            ps.setTime(4, Time.valueOf(reserva.getHoraDe()));
+            ps.setTime(5, Time.valueOf(reserva.getHoraHasta()));
+            ps.setBoolean(6, reserva.isEstado());
+            ps.setInt(7, reserva.getIdReserva());
             //Ejecuta la consulta
             int rs = ps.executeUpdate();
             if (rs == 1) {

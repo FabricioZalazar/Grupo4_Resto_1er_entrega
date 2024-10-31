@@ -17,35 +17,44 @@ public class Reserva {
     private String nombre;
     private int dni;
     private LocalDate fecha;
-    private LocalTime hora;
+    private LocalTime horaDe;
+    private LocalTime horaHasta;
     private boolean estado;
 
     public Reserva() {
     }
 
-    public Reserva(String nombre, int dni, LocalDate fecha, LocalTime hora) {
-        this.nombre = nombre;
-        this.dni = dni;
-        this.fecha = fecha;
-        this.hora = hora;
-    }
     
-    public Reserva(String nombre, int dni, LocalDate fecha, LocalTime hora, boolean estado) {
-        this.nombre = nombre;
-        this.dni = dni;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.estado = estado;
-    }
 
-    public Reserva(int IdReserva, String nombre, int dni, LocalDate fecha, LocalTime hora, boolean estado) {
+    public Reserva(int IdReserva, String nombre, int dni, LocalDate fecha, LocalTime horaDe, LocalTime horaHasta, boolean estado) {
         this.IdReserva = IdReserva;
         this.nombre = nombre;
         this.dni = dni;
         this.fecha = fecha;
-        this.hora = hora;
+        this.horaDe = horaDe;
+        this.horaHasta = horaHasta;
         this.estado = estado;
     }
+
+    public Reserva(String nombre, int dni, LocalDate fecha, LocalTime horaDe, LocalTime horaHasta, boolean estado) {
+        this.nombre = nombre;
+        this.dni = dni;
+        this.fecha = fecha;
+        this.horaDe = horaDe;
+        this.horaHasta = horaHasta;
+        this.estado = estado;
+    }
+
+    
+    public LocalTime getHoraHasta() {
+        return horaHasta;
+    }
+
+    public void setHoraHasta(LocalTime horaHasta) {
+        this.horaHasta = horaHasta;
+    }
+    
+   
 
     public int getIdReserva() {
         return IdReserva;
@@ -79,12 +88,12 @@ public class Reserva {
         this.fecha = fecha;
     }
 
-    public LocalTime getHora() {
-        return hora;
+    public LocalTime getHoraDe() {
+        return horaDe;
     }
 
-    public void setHora(LocalTime hora) {
-        this.hora = hora;
+    public void setHoraDe(LocalTime horaDe) {
+        this.horaDe = horaDe;
     }
 
     public boolean isEstado() {
@@ -97,7 +106,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" + "IdReserva=" + IdReserva + ", nombre=" + nombre + ", dni=" + dni + ", fecha=" + fecha + ", hora=" + hora + ", estado=" + estado + '}';
+        return "Reserva{" + "IdReserva=" + IdReserva + ", nombre=" + nombre + ", dni=" + dni + ", fecha=" + fecha + ", hora=" + horaDe + ", estado=" + estado + '}';
     }
 
     
