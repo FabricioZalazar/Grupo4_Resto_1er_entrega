@@ -31,7 +31,7 @@ public class Conexion {
                 Class.forName("org.mariadb.jdbc.Driver");
                
                 connection = DriverManager.getConnection(URL + DB,USUARIO, PASSWORD);
-                JOptionPane.showMessageDialog(null, "conectado");
+                //JOptionPane.showMessageDialog(null, "conectado");
                 
                 
             } catch (SQLException ex) {
