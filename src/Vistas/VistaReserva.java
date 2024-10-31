@@ -21,13 +21,14 @@ import javax.swing.table.DefaultTableModel;
  * @author Fabricio Zalazar
  */
 public class VistaReserva extends javax.swing.JFrame {
-
+    
     ReservaData con = new ReservaData();
     DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
             return false;
         }
     };
+
     /**
      * Creates new form VistaReserva
      */
@@ -126,8 +127,18 @@ public class VistaReserva extends javax.swing.JFrame {
         });
 
         jButton4.setText("Borrar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Baja");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Alta");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -163,8 +174,8 @@ public class VistaReserva extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)))
+                        .addComponent(jDateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(36, 36, 36))
             .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -173,7 +184,7 @@ public class VistaReserva extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -276,36 +287,40 @@ public class VistaReserva extends javax.swing.JFrame {
         String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
         DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
-
+        
         String selecetHoraHasta = (String) cbHorasHasta.getSelectedItem();
         DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
-
+        
         Reserva reserva = new Reserva(nombre, dni, fecha, horaDe, horaHasta, true);
         con.guardarReserva(reserva);
-llenarTabla();
+        llenarTabla();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        int filaSelecionada = jTable1.getSelectedRow();
+        int id = (int) jTable1.getValueAt(filaSelecionada, 0);
+        
+        con.altaLogicaReserva(id);
+        llenarTabla();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-                       
+        
         String nombre = txtNombre.getText();
         int dni = Integer.parseInt(txtDni.getText());
         LocalDate fecha = jDateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
         DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
-
+        
         String selecetHoraHasta = (String) cbHorasHasta.getSelectedItem();
         DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
-
+        
         int id = con.buscarReservaDNI(dni).getIdReserva();
-        Reserva reserva = new Reserva(id,nombre, dni, fecha, horaDe, horaHasta, true);
-
+        Reserva reserva = new Reserva(id, nombre, dni, fecha, horaDe, horaHasta, true);
+        
         con.actualizarReserva(reserva);
         llenarTabla();
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -313,17 +328,31 @@ llenarTabla();
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int filaSelecionada = jTable1.getSelectedRow();
         int id = (int) jTable1.getValueAt(filaSelecionada, 0);
-        Reserva r=con.buscarReservaID(id);
-        
+        Reserva r = con.buscarReservaID(id);
         txtNombre.setText(r.getNombre());
-        txtDni.setText(r.getDni()+"");
+        txtDni.setText(r.getDni() + "");
         jDateFecha.setDate(Date.from(r.getFecha().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        cbHorasDe.setSelectedItem(r.getHoraDe()+"");
-        cbHorasHasta.setSelectedItem(r.getHoraHasta()+"");
+        cbHorasDe.setSelectedItem(r.getHoraDe() + "");
+        cbHorasHasta.setSelectedItem(r.getHoraHasta() + "");
     }//GEN-LAST:event_jTable1MouseClicked
 
-     public void iniciarTabla() {
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int filaSelecionada = jTable1.getSelectedRow();
+        int id = (int) jTable1.getValueAt(filaSelecionada, 0);
+        con.borrarReserva(id);
+        llenarTabla();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        int filaSelecionada = jTable1.getSelectedRow();
+        int id = (int) jTable1.getValueAt(filaSelecionada, 0);
+        
+        con.bajaLogicaReserva(id);
+        llenarTabla();
+    }//GEN-LAST:event_jButton5ActionPerformed
+    
+    public void iniciarTabla() {
+        
         modelo.addColumn("ID");
         modelo.addColumn("Nombre");
         modelo.addColumn("DNI");
@@ -333,22 +362,27 @@ llenarTabla();
         modelo.addColumn("Estado");
         jTable1.setModel(modelo);
     }
-     
-      public void llenarTabla() {
-
+    
+    public void llenarTabla() {
+        String estado;
         ArrayList<Reserva> list = con.listaReserva();
         modelo.setRowCount(0);
         for (Reserva r : list) {
-            modelo.addRow(new Object[]{r.getIdReserva(),r.getNombre(),r.getDni(),r.getFecha(),r.getHoraDe(),r.getHoraHasta(),r.isEstado()});
+            if(r.isEstado()){
+                estado="Reservado";
+            }else{
+                estado="Sin Reserva";
+            }
+            modelo.addRow(new Object[]{r.getIdReserva(), r.getNombre(), r.getDni(), r.getFecha(), r.getHoraDe(), r.getHoraHasta(), estado});
         }
-
+        
     }
-
+    
     public void llenarCombo() {
         llenarComboHoraDe();
         llenarComboHoraHasta();
     }
-
+    
     public void llenarComboHoraDe() {
         String[] horas = {
             "09:00", "10:00", "11:00",
@@ -357,14 +391,14 @@ llenarTabla();
             "19:00", "20:00", "21:00",
             "22:00", "23:00", "00:00",
             "01:00"
-
+        
         };
-
+        
         for (String hora : horas) {
             cbHorasDe.addItem(hora);
         }
     }
-
+    
     public void llenarComboHoraHasta() {
         String[] horas = {
             "10:00", "11:00",
@@ -373,9 +407,9 @@ llenarTabla();
             "20:00", "21:00",
             "22:00", "23:00", "00:00",
             "01:00", "02:00"
-
+        
         };
-
+        
         for (String hora : horas) {
             cbHorasHasta.addItem(hora);
         }

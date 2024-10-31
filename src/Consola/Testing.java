@@ -125,11 +125,11 @@ public class Testing {
 
     // CRUD - RESERVA
     public static void pruebaGuardarReserva(ReservaData cone) {
-        Reserva res = new Reserva("Maximiliano Macia", 32676125, LocalDate.of(2024, 10, 21), LocalTime.now(), true);
-        Reserva res2 = new Reserva("Fabricio Zalazar", 43456852, LocalDate.of(2024, 10, 22), LocalTime.now(), true);
-        Reserva res3 = new Reserva("Christian Losada", 12345, LocalDate.of(2024, 10, 26), LocalTime.now(), true);
-        Reserva res4 = new Reserva("Juan Abregu", 38456852, LocalDate.of(2024, 10, 12), LocalTime.now(), true);
-        Reserva res5 = new Reserva("Diego Amieva", 1319389, LocalDate.of(2024, 9, 22), LocalTime.now(), true);
+        Reserva res = new Reserva("Maximiliano Macia", 32676125, LocalDate.of(2024, 10, 21), LocalTime.now(),LocalTime.now(), true);
+        Reserva res2 = new Reserva("Fabricio Zalazar", 43456852, LocalDate.of(2024, 10, 22), LocalTime.now(),LocalTime.now(), true);
+        Reserva res3 = new Reserva("Christian Losada", 12345, LocalDate.of(2024, 10, 26), LocalTime.now(),LocalTime.now(), true);
+        Reserva res4 = new Reserva("Juan Abregu", 38456852, LocalDate.of(2024, 10, 12), LocalTime.now(),LocalTime.now(), true);
+        Reserva res5 = new Reserva("Diego Amieva", 1319389, LocalDate.of(2024, 9, 22), LocalTime.now(),LocalTime.now(), true);
 
         cone.guardarReserva(res);
         cone.guardarReserva(res2);
@@ -160,9 +160,9 @@ public class Testing {
     }
 
     public static void pruebaActualizarReserva(ReservaData cone) {
-        cone.actualizarReserva(new Reserva(1, "maximiliano mac", 32676125, LocalDate.of(2024, 10, 21), LocalTime.of(14, 50, 00), true));
-        cone.actualizarReserva(new Reserva(2, "Fabricio zalaza", 38456852, LocalDate.of(2024, 10, 22), LocalTime.of(16, 30, 00), true));
-        cone.actualizarReserva(new Reserva(3, "Abregu Juan", 36681811, LocalDate.of(2024, 10, 23), LocalTime.of(19, 40, 20), true));
+        cone.actualizarReserva(new Reserva(1, "maximiliano mac", 32676125, LocalDate.of(2024, 10, 21), LocalTime.of(14, 50, 00),LocalTime.now(), true));
+        cone.actualizarReserva(new Reserva(2, "Fabricio zalaza", 38456852, LocalDate.of(2024, 10, 22), LocalTime.of(16, 30, 00),LocalTime.now(), true));
+        cone.actualizarReserva(new Reserva(3, "Abregu Juan", 36681811, LocalDate.of(2024, 10, 23), LocalTime.of(19, 40, 20),LocalTime.now(), true));
     }
 
     public static void pruebaBajaLogicaReserva(ReservaData cone) {
