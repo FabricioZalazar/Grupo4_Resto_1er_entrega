@@ -15,7 +15,17 @@ public class Detalle {
     private Producto producto;
     private int cantidad;
 
+    public Detalle() {
+    }
+
     public Detalle(Pedido pedido, Producto producto, int cantidad) {
+        this.pedido = pedido;
+        this.producto = producto;
+        this.cantidad = cantidad;
+    }
+
+    public Detalle(int idDetalle, Pedido pedido, Producto producto, int cantidad) {
+        this.idDetalle = idDetalle;
         this.pedido = pedido;
         this.producto = producto;
         this.cantidad = cantidad;

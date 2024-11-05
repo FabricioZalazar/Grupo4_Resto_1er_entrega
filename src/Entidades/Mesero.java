@@ -13,6 +13,9 @@ public class Mesero {
     private int idMesero;
     private String nombre;
 
+    public Mesero() {
+    }
+
     public Mesero(String nombre) {
         this.nombre = nombre;
     }

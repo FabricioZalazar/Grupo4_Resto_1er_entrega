@@ -4,11 +4,13 @@
  */
 package Consola;
 
+import Entidades.Detalle;
 import Entidades.Mesa;
 import Entidades.Mesero;
 import Entidades.Pedido;
 import Entidades.Producto;
 import Entidades.Reserva;
+import Persistencia.DetalleData;
 import Persistencia.MesaData;
 import Persistencia.MeseroData;
 import Persistencia.PedidoData;
@@ -34,6 +36,7 @@ public class Testing {
         ProductoData pro = new ProductoData();
         MeseroData mes = new MeseroData();
         PedidoData pes = new PedidoData();
+        DetalleData det = new DetalleData();
         //PRUEBAS 
 
         ///MESA
@@ -62,7 +65,6 @@ public class Testing {
         //pruebaGuardarMesero(mes);   //VOLVERLO A UNO
         //pruebaBorrarMesero(mes);
         // pruebaListaMeseros(mes);
-        
         //PEDIDO
         //pruebaGuardarPedido(pes,mes,con);
         //pruebaBorrarPedido(pes);
@@ -70,11 +72,44 @@ public class Testing {
         //pruebaBuscarPedido(pes);
         //pruebaBajaLogicaPedido(pes);
         //pruebaAltaLogicaPedido(pes);
-        pruebaListaPedidos(pes);
+        //pruebaListaPedidos(pes);
+        //DETALLE
+        //pruebaGuardarDetalle(det,pes,pro);
+        //pruebaBuscarDetalleID(det);
+        //pruebaListaDetalle(det); //No anda
+        //pruebaActualizarDetalle(det,pes,pro); //tampoco anda 
+        pruebaBorrarDetalle(det);
+        
     }
 
     // CRUD (CREATE - READ - UPDATE - DELETE)
     // CRUD - PRODUCTO
+    
+    public static void pruebaGuardarDetalle (DetalleData detalle, PedidoData pedido, ProductoData producto) {
+        Pedido ped = pedido.buscarPedido(1);
+        Producto pro = producto.buscarProducto(2);
+        Detalle det = new Detalle(ped,pro,1);
+        detalle.guardarDetalle(det);
+    }
+    
+    public static void pruebaBuscarDetalleID (DetalleData det) {
+        System.out.println(det.buscarDetalleID(1));
+    }
+    
+    public static void pruebaListaDetalle (DetalleData det) {
+        System.out.println(det.listaDetalle());
+    }
+    
+    public static void pruebaActualizarDetalle (DetalleData detalle, PedidoData pedido, ProductoData producto) {
+        Pedido ped = pedido.buscarPedido(2);
+        Producto pro = producto.buscarProducto(4);
+        Detalle det = new Detalle(1,ped,pro,3);
+        detalle.actualizarDetalle(det);
+    }
+    
+    public static void pruebaBorrarDetalle (DetalleData detalle) {
+        detalle.borrarDetalle(1);
+    }
     
     public static void pruebaListaPedidos(PedidoData pes){
         
