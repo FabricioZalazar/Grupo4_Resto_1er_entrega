@@ -6,10 +6,12 @@ package Consola;
 
 import Entidades.Mesa;
 import Entidades.Mesero;
+import Entidades.Pedido;
 import Entidades.Producto;
 import Entidades.Reserva;
 import Persistencia.MesaData;
 import Persistencia.MeseroData;
+import Persistencia.PedidoData;
 import Persistencia.ProductoData;
 import Persistencia.ReservaData;
 import java.time.LocalDate;
@@ -30,7 +32,8 @@ public class Testing {
         MesaData con = new MesaData();
         ReservaData cone = new ReservaData();
         ProductoData pro = new ProductoData();
-        MeseroData mes=new MeseroData();
+        MeseroData mes = new MeseroData();
+        PedidoData pes = new PedidoData();
         //PRUEBAS 
 
         ///MESA
@@ -51,44 +54,81 @@ public class Testing {
         //pruebaBajaLogicaReserva(cone);
         //pruebaAltaLogicaReserva(cone);
         //pruebaBorrarReserva(cone);
-        
         //PRODUCTO
         //pruebaGuardarPruducto(pro);   //VOLVERLO A UNO
         //pruebaActualizarProducto(pro);
         //pruebaBorrarProducto(pro);
-        
         //MESERO
         //pruebaGuardarMesero(mes);   //VOLVERLO A UNO
         //pruebaBorrarMesero(mes);
-       // pruebaListaMeseros(mes);
+        // pruebaListaMeseros(mes);
+        //PEDIDO
+        //pruebaGuardarPedido(pes,mes,con);
+        //pruebaBorrarPedido(pes);
+        //pruebaActualizarPedido(pes,mes,con);
+        //pruebaBuscarPedido(pes);
+        pruebaBajaLogicaPedido(pes);
+        //pruebaAltaLogicaPedido(pes);
     }
 
     // CRUD (CREATE - READ - UPDATE - DELETE)
     // CRUD - PRODUCTO
-    public static void pruebaGuardarMesero(MeseroData mes){
-        Mesero mozo1=new Mesero("Maximiliano Macia");
-        Mesero mozo2=new Mesero("Mario Bros");
-        Mesero mozo3=new Mesero("Batman");
-        Mesero mozo4=new Mesero("Mati Macia");
-        
+    public static void pruebaGuardarPedido(PedidoData pes, MeseroData mes, MesaData con) {
+        Mesa m = con.buscarMesa(22);
+        Mesero x = mes.buscarMozo(2);
+        Pedido pedido = new Pedido(m, x, true, 0);
+        pes.guardarPedido(pedido);
+    }
+    
+    public static void pruebaBorrarPedido(PedidoData pes) {
+       pes.borrarPedido(2);
+    }
+    
+    public static void pruebaActualizarPedido(PedidoData pes, MeseroData mes, MesaData con) {
+        Mesa m = con.buscarMesa(23);
+        Mesero x = mes.buscarMozo(3);
+        Pedido pedido = new Pedido(2,m, x, false, 0);
+        pes.actualizarPedido(pedido);
+    }
+    
+    public static void pruebaBuscarPedido(PedidoData pes){
+       Pedido p = pes.buscarPedido(2);
+        System.out.println(p.toString());
+    }
+    
+    public static void pruebaAltaLogicaPedido(PedidoData pes){
+       pes.altaLogica(2);
+    }
+    
+     public static void pruebaBajaLogicaPedido(PedidoData pes){
+       pes.bajaLogica(2);
+    }
+    
+
+    public static void pruebaGuardarMesero(MeseroData mes) {
+        Mesero mozo1 = new Mesero("Maximiliano Macia");
+        Mesero mozo2 = new Mesero("Mario Bros");
+        Mesero mozo3 = new Mesero("Batman");
+        Mesero mozo4 = new Mesero("Mati Macia");
+
         mes.agregarMozo(mozo1);
         mes.agregarMozo(mozo2);
         mes.agregarMozo(mozo3);
         mes.agregarMozo(mozo4);
     }
-    
-    public static void pruebaBorrarMesero(MeseroData mes){
-        int can=mes.listaMeseros().size();
-        for (int i = 1; i < can+1; i++) {
+
+    public static void pruebaBorrarMesero(MeseroData mes) {
+        int can = mes.listaMeseros().size();
+        for (int i = 1; i < can + 1; i++) {
             mes.borrarMozo(i);
         }
-        
+
     }
-    
-    public static void pruebaListaMeseros(MeseroData mes){
+
+    public static void pruebaListaMeseros(MeseroData mes) {
         System.out.println(mes.listaMeseros());
     }
-    
+
     public static void pruebaBorrarProducto(ProductoData pro) {
         pro.borrarProducto(1);
         pro.borrarProducto(2);
@@ -125,11 +165,11 @@ public class Testing {
 
     // CRUD - RESERVA
     public static void pruebaGuardarReserva(ReservaData cone) {
-        Reserva res = new Reserva("Maximiliano Macia", 32676125, LocalDate.of(2024, 10, 21), LocalTime.now(),LocalTime.now(), true);
-        Reserva res2 = new Reserva("Fabricio Zalazar", 43456852, LocalDate.of(2024, 10, 22), LocalTime.now(),LocalTime.now(), true);
-        Reserva res3 = new Reserva("Christian Losada", 12345, LocalDate.of(2024, 10, 26), LocalTime.now(),LocalTime.now(), true);
-        Reserva res4 = new Reserva("Juan Abregu", 38456852, LocalDate.of(2024, 10, 12), LocalTime.now(),LocalTime.now(), true);
-        Reserva res5 = new Reserva("Diego Amieva", 1319389, LocalDate.of(2024, 9, 22), LocalTime.now(),LocalTime.now(), true);
+        Reserva res = new Reserva("Maximiliano Macia", 32676125, LocalDate.of(2024, 10, 21), LocalTime.now(), LocalTime.now(), true);
+        Reserva res2 = new Reserva("Fabricio Zalazar", 43456852, LocalDate.of(2024, 10, 22), LocalTime.now(), LocalTime.now(), true);
+        Reserva res3 = new Reserva("Christian Losada", 12345, LocalDate.of(2024, 10, 26), LocalTime.now(), LocalTime.now(), true);
+        Reserva res4 = new Reserva("Juan Abregu", 38456852, LocalDate.of(2024, 10, 12), LocalTime.now(), LocalTime.now(), true);
+        Reserva res5 = new Reserva("Diego Amieva", 1319389, LocalDate.of(2024, 9, 22), LocalTime.now(), LocalTime.now(), true);
 
         cone.guardarReserva(res);
         cone.guardarReserva(res2);
@@ -160,9 +200,9 @@ public class Testing {
     }
 
     public static void pruebaActualizarReserva(ReservaData cone) {
-        cone.actualizarReserva(new Reserva(1, "maximiliano mac", 32676125, LocalDate.of(2024, 10, 21), LocalTime.of(14, 50, 00),LocalTime.now(), true));
-        cone.actualizarReserva(new Reserva(2, "Fabricio zalaza", 38456852, LocalDate.of(2024, 10, 22), LocalTime.of(16, 30, 00),LocalTime.now(), true));
-        cone.actualizarReserva(new Reserva(3, "Abregu Juan", 36681811, LocalDate.of(2024, 10, 23), LocalTime.of(19, 40, 20),LocalTime.now(), true));
+        cone.actualizarReserva(new Reserva(1, "maximiliano mac", 32676125, LocalDate.of(2024, 10, 21), LocalTime.of(14, 50, 00), LocalTime.now(), true));
+        cone.actualizarReserva(new Reserva(2, "Fabricio zalaza", 38456852, LocalDate.of(2024, 10, 22), LocalTime.of(16, 30, 00), LocalTime.now(), true));
+        cone.actualizarReserva(new Reserva(3, "Abregu Juan", 36681811, LocalDate.of(2024, 10, 23), LocalTime.of(19, 40, 20), LocalTime.now(), true));
     }
 
     public static void pruebaBajaLogicaReserva(ReservaData cone) {

@@ -23,6 +23,17 @@ public class Pedido {
         this.total = total;
     }
 
+    public Pedido() {
+    }
+
+    public Pedido(int idPedido, Mesa mesa, Mesero mesero, boolean estado, double total) {
+        this.idPedido = idPedido;
+        this.mesa = mesa;
+        this.mesero = mesero;
+        this.estado = estado;
+        this.total = total;
+    }
+
     public int getIdPedido() {
         return idPedido;
     }
