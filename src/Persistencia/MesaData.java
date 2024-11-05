@@ -30,18 +30,17 @@ public class MesaData {
 
     public void guardarMesa(Mesa mesa) {
 
-        String sql = "INSERT INTO mesa(IdMesa, Capacidad, IdReserva, Estado) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO mesa(Capacidad, IdReserva, Estado) VALUES (?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, mesa.getNum());
-            ps.setInt(2, mesa.getCapacidad());
+            ps.setInt(1, mesa.getCapacidad());
             if(mesa.getReserva() != null){
-              ps.setInt(3, mesa.getReserva().getIdReserva());  
+              ps.setInt(2, mesa.getReserva().getIdReserva());  
             }else{
-                ps.setObject(3, null);
+                ps.setObject(2, null);
             }
-            ps.setBoolean(4, mesa.isEstado());
+            ps.setBoolean(3, mesa.isEstado());
             int rs = ps.executeUpdate();
             if (rs > 0) {
                 JOptionPane.showMessageDialog(null, "Mesa Guardada");
@@ -54,7 +53,7 @@ public class MesaData {
     }
 
     public void actualizarMesa(Mesa mesa) {
-        String sql = "UPDATE mesa SET Capacidad=?,IdReserva=?,Estado=? WHERE IdMesa = ?";
+        String sql = "UPDATE mesa SET Capacidad=?,IdReserva=?, Estado = ? WHERE IdMesa = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -169,12 +168,16 @@ public class MesaData {
                 }else{
                     mesa.setReserva(null);
                 }
-                
+                mesa.setEstado(resultado.getBoolean("Estado"));
                 listaMesa.add(mesa);
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error al devolver la lista de mesas" + ex);
         }
         return listaMesa;
+    }
+
+    public void guardarMesa(MesaData m1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
