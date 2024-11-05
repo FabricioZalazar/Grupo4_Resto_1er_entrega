@@ -62,17 +62,26 @@ public class Testing {
         //pruebaGuardarMesero(mes);   //VOLVERLO A UNO
         //pruebaBorrarMesero(mes);
         // pruebaListaMeseros(mes);
+        
         //PEDIDO
         //pruebaGuardarPedido(pes,mes,con);
         //pruebaBorrarPedido(pes);
         //pruebaActualizarPedido(pes,mes,con);
         //pruebaBuscarPedido(pes);
-        pruebaBajaLogicaPedido(pes);
+        //pruebaBajaLogicaPedido(pes);
         //pruebaAltaLogicaPedido(pes);
+        pruebaListaPedidos(pes);
     }
 
     // CRUD (CREATE - READ - UPDATE - DELETE)
     // CRUD - PRODUCTO
+    
+    public static void pruebaListaPedidos(PedidoData pes){
+        
+        for (Pedido pedido : pes.listaProductos()) {
+            System.out.println(pedido.toString());
+        }
+    }
     public static void pruebaGuardarPedido(PedidoData pes, MeseroData mes, MesaData con) {
         Mesa m = con.buscarMesa(22);
         Mesero x = mes.buscarMozo(2);

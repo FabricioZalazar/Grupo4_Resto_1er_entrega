@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -108,8 +109,8 @@ public class PedidoData {
         }
         return pedido;
     }
-    
-     public void bajaLogica(int id) {
+
+    public void bajaLogica(int id) {
         try {
             String sql = "UPDATE pedido SET estado = 0 WHERE IdPedido = ?";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -124,8 +125,8 @@ public class PedidoData {
         }
 
     }
-     
-      public void altaLogica(int id) {
+
+    public void altaLogica(int id) {
         try {
             String sql = "UPDATE pedido SET estado = 1 WHERE IdPedido = ?";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -139,6 +140,29 @@ public class PedidoData {
             Logger.getLogger(MesaData.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    public ArrayList<Pedido> listaProductos() {
+        MesaData con = new MesaData();
+        MeseroData mes = new MeseroData();
+        ArrayList<Pedido> listaPedidos = new ArrayList();
+        try {
+            String query = "SELECT * FROM pedido";
+            PreparedStatement ps = this.con.prepareStatement(query);
+            ResultSet resultado = ps.executeQuery();
+            while (resultado.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(resultado.getInt("IdPedido"));
+                pedido.setMesa(con.buscarMesa(resultado.getInt("IdMesa")));
+                pedido.setMesero(mes.buscarMozo(resultado.getInt("IdMesero")));
+                pedido.setEstado(resultado.getBoolean("Estado"));
+                pedido.setTotal(resultado.getDouble("SubTotal"));
+                listaPedidos.add(pedido);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al devolver la lista de Pedidos" + ex);
+        }
+        return listaPedidos;
     }
 
 }
