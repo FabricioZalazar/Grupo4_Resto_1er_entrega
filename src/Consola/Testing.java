@@ -31,12 +31,14 @@ public class Testing {
      */
     public static void main(String[] args) {
         // CLASES.DATA
+        
         MesaData con = new MesaData();
         ReservaData cone = new ReservaData();
         ProductoData pro = new ProductoData();
         MeseroData mes = new MeseroData();
         PedidoData pes = new PedidoData();
         DetalleData det = new DetalleData();
+        
         //PRUEBAS 
 
         ///MESA
@@ -47,6 +49,7 @@ public class Testing {
         //pruebaBajaLogicaMesa(con);
         //pruebaBuscarMesa(con);
         //pruebaListaMesa(con);
+        
         ///RESERVA
         //pruebaGuardarReserva(cone);  //Cada vez que se vuelva a guardar reiniciar el autoIncremental a 1 en la parte de operaciones
         //pruebaBuscarReservaID(cone);
@@ -57,14 +60,17 @@ public class Testing {
         //pruebaBajaLogicaReserva(cone);
         //pruebaAltaLogicaReserva(cone);
         //pruebaBorrarReserva(cone);
+        
         //PRODUCTO
         //pruebaGuardarPruducto(pro);   //VOLVERLO A UNO
         //pruebaActualizarProducto(pro);
         //pruebaBorrarProducto(pro);
+        
         //MESERO
         //pruebaGuardarMesero(mes);   //VOLVERLO A UNO
         //pruebaBorrarMesero(mes);
-        // pruebaListaMeseros(mes);
+        //pruebaListaMeseros(mes);
+        
         //PEDIDO
         //pruebaGuardarPedido(pes,mes,con);
         //pruebaBorrarPedido(pes);
@@ -73,82 +79,85 @@ public class Testing {
         //pruebaBajaLogicaPedido(pes);
         //pruebaAltaLogicaPedido(pes);
         //pruebaListaPedidos(pes);
+        
         //DETALLE
         //pruebaGuardarDetalle(det,pes,pro);
         //pruebaBuscarDetalleID(det);
-        //pruebaListaDetalle(det); //No anda
-        //pruebaActualizarDetalle(det,pes,pro); //tampoco anda 
-        pruebaBorrarDetalle(det);
-        
+        //pruebaListaDetalle(det);
+        //pruebaActualizarDetalle(det,pes,pro);
+        //pruebaBorrarDetalle(det);
     }
 
     // CRUD (CREATE - READ - UPDATE - DELETE)
-    // CRUD - PRODUCTO
     
-    public static void pruebaGuardarDetalle (DetalleData detalle, PedidoData pedido, ProductoData producto) {
-        Pedido ped = pedido.buscarPedido(1);
-        Producto pro = producto.buscarProducto(2);
-        Detalle det = new Detalle(ped,pro,1);
-        detalle.guardarDetalle(det);
-    }
-    
-    public static void pruebaBuscarDetalleID (DetalleData det) {
-        System.out.println(det.buscarDetalleID(1));
-    }
-    
-    public static void pruebaListaDetalle (DetalleData det) {
-        System.out.println(det.listaDetalle());
-    }
-    
-    public static void pruebaActualizarDetalle (DetalleData detalle, PedidoData pedido, ProductoData producto) {
+    // CRUD - DETALLE
+    public static void pruebaGuardarDetalle(DetalleData detalle, PedidoData pedido, ProductoData producto) {
         Pedido ped = pedido.buscarPedido(2);
         Producto pro = producto.buscarProducto(4);
-        Detalle det = new Detalle(1,ped,pro,3);
+        Detalle det = new Detalle(ped, pro, 1);
+        detalle.guardarDetalle(det);
+    }
+
+    public static void pruebaBuscarDetalleID(DetalleData det) {
+        System.out.println(det.buscarDetalleID(1));
+    }
+
+    public static void pruebaListaDetalle(DetalleData det) {
+        System.out.println(det.listaDetalle());
+    }
+
+    public static void pruebaActualizarDetalle(DetalleData detalle, PedidoData pedido, ProductoData producto) {
+        Pedido ped = pedido.buscarPedido(5);
+        Producto pro = producto.buscarProducto(5);
+        Detalle det = new Detalle(3, ped, pro, 30);
         detalle.actualizarDetalle(det);
     }
-    
-    public static void pruebaBorrarDetalle (DetalleData detalle) {
+
+    public static void pruebaBorrarDetalle(DetalleData detalle) {
         detalle.borrarDetalle(1);
     }
-    
-    public static void pruebaListaPedidos(PedidoData pes){
-        
+
+    // CRUD - PEDIDO
+    public static void pruebaListaPedidos(PedidoData pes) {
+
         for (Pedido pedido : pes.listaProductos()) {
             System.out.println(pedido.toString());
         }
     }
+
     public static void pruebaGuardarPedido(PedidoData pes, MeseroData mes, MesaData con) {
-        Mesa m = con.buscarMesa(22);
+        Mesa m = con.buscarMesa(2);
         Mesero x = mes.buscarMozo(2);
         Pedido pedido = new Pedido(m, x, true, 0);
         pes.guardarPedido(pedido);
     }
-    
+
     public static void pruebaBorrarPedido(PedidoData pes) {
-       pes.borrarPedido(2);
+        pes.borrarPedido(2);
     }
-    
+
     public static void pruebaActualizarPedido(PedidoData pes, MeseroData mes, MesaData con) {
         Mesa m = con.buscarMesa(23);
         Mesero x = mes.buscarMozo(3);
-        Pedido pedido = new Pedido(2,m, x, false, 0);
+        Pedido pedido = new Pedido(2, m, x, false, 0);
         pes.actualizarPedido(pedido);
     }
-    
-    public static void pruebaBuscarPedido(PedidoData pes){
-       Pedido p = pes.buscarPedido(2);
+
+    public static void pruebaBuscarPedido(PedidoData pes) {
+        Pedido p = pes.buscarPedido(2);
         System.out.println(p.toString());
     }
-    
-    public static void pruebaAltaLogicaPedido(PedidoData pes){
-       pes.altaLogica(2);
-    }
-    
-     public static void pruebaBajaLogicaPedido(PedidoData pes){
-       pes.bajaLogica(2);
-    }
-    
 
+    public static void pruebaAltaLogicaPedido(PedidoData pes) {
+        pes.altaLogica(2);
+    }
+
+    public static void pruebaBajaLogicaPedido(PedidoData pes) {
+        pes.bajaLogica(2);
+    }
+
+    // CRUD - MESERO
+    
     public static void pruebaGuardarMesero(MeseroData mes) {
         Mesero mozo1 = new Mesero("Maximiliano Macia");
         Mesero mozo2 = new Mesero("Mario Bros");
@@ -173,6 +182,8 @@ public class Testing {
         System.out.println(mes.listaMeseros());
     }
 
+    // CRUD - PRODUCTO
+    
     public static void pruebaBorrarProducto(ProductoData pro) {
         pro.borrarProducto(1);
         pro.borrarProducto(2);
@@ -208,6 +219,7 @@ public class Testing {
     }
 
     // CRUD - RESERVA
+    
     public static void pruebaGuardarReserva(ReservaData cone) {
         Reserva res = new Reserva("Maximiliano Macia", 32676125, LocalDate.of(2024, 10, 21), LocalTime.now(), LocalTime.now(), true);
         Reserva res2 = new Reserva("Fabricio Zalazar", 43456852, LocalDate.of(2024, 10, 22), LocalTime.now(), LocalTime.now(), true);
@@ -262,6 +274,7 @@ public class Testing {
     }
 
     // CRUD - MESA
+    
     public static void pruebaGuardarMesa(MesaData con) {
         //Reserva(String nombre, int dni, LocalDate fecha, LocalTime hora, boolean estado)
         ReservaData cone = new ReservaData();

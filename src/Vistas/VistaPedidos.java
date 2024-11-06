@@ -4,7 +4,12 @@
  */
 package Vistas;
 
+import Entidades.Mesa;
 import Entidades.Mesero;
+import Entidades.Pedido;
+import Persistencia.MesaData;
+import Persistencia.PedidoData;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Fabricio Zalazar
  */
 public class VistaPedidos extends javax.swing.JFrame {
-
+    PedidoData con=new PedidoData();
     DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
             return false;
@@ -26,6 +31,8 @@ public class VistaPedidos extends javax.swing.JFrame {
     public VistaPedidos() {
         initComponents();
         iniciarTabla();
+        llenarTabla();
+        llenarCombo();
     }
 
     /**
@@ -40,7 +47,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButtonTotal = new javax.swing.JButton();
-        jComboBoxPedido = new javax.swing.JComboBox<>();
+        cbPedidos = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldTotal = new javax.swing.JTextField();
         btnSalir = new javax.swing.JButton();
@@ -62,9 +69,9 @@ public class VistaPedidos extends javax.swing.JFrame {
 
         jButtonTotal.setText("Total");
 
-        jComboBoxPedido.addActionListener(new java.awt.event.ActionListener() {
+        cbPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxPedidoActionPerformed(evt);
+                cbPedidosActionPerformed(evt);
             }
         });
 
@@ -90,7 +97,7 @@ public class VistaPedidos extends javax.swing.JFrame {
                         .addGap(15, 15, 15))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(jComboBoxPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -106,12 +113,12 @@ public class VistaPedidos extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBoxPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(jButtonTotal)
                 .addGap(31, 31, 31)
                 .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
                 .addComponent(btnSalir)
                 .addGap(14, 14, 14))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -120,13 +127,13 @@ public class VistaPedidos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBoxPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPedidoActionPerformed
+    private void cbPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPedidosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxPedidoActionPerformed
+    }//GEN-LAST:event_cbPedidosActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-         VistaPrincipal ventana2 = new VistaPrincipal();
-        ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        VistaPrincipal ventana2 = new VistaPrincipal();
+        ventana2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
         ventana2.setVisible(true);
@@ -141,8 +148,8 @@ public class VistaPedidos extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox<String> cbPedidos;
     private javax.swing.JButton jButtonTotal;
-    private javax.swing.JComboBox<String> jComboBoxPedido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
@@ -156,5 +163,28 @@ public class VistaPedidos extends javax.swing.JFrame {
         modelo.addColumn("ID Mesero");
         modelo.addColumn("SubTotal");
         jTable1.setModel(modelo);
+    }
+    
+    public void llenarTabla() {
+
+        ArrayList<Pedido> list = con.listaPedidos();
+        modelo.setRowCount(0);
+        for (Pedido p : list) {
+            modelo.addRow(new Object[]{p.getIdPedido(),p.getMesa().getNum(),p.getMesero().getIdMesero(),p.getTotal()});
+        }
+
+    }
+    
+    public void llenarCombo(){
+        MesaData mesaD =new MesaData();
+        cbPedidos.addItem("Todos");
+        for (Mesa m : mesaD.listaMesa()) {
+            for (Pedido p : con.listaPedidos()) {
+                if(m.getNum()==p.getMesa().getNum()){
+                    cbPedidos.addItem(m.getNum()+"");
+                }
+            }
+            
+        }
     }
 }

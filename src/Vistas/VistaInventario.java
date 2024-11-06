@@ -192,7 +192,7 @@ public class VistaInventario extends javax.swing.JFrame {
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         VistaPrincipal ventana2 = new VistaPrincipal();
-        ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
         ventana2.setVisible(true);

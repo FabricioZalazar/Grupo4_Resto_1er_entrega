@@ -157,20 +157,5 @@ public class ProductoData {
         return proc;
       }
       
-      public void altaLogica(int id) {
-        try {
-            String sql = " UPDATE producto SET estado = 1 WHERE IdProducto = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            int resultado = ps.executeUpdate();
-            if (resultado == 1) {
-                JOptionPane.showMessageDialog(null, "Producto dado de Alta");
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(MesaData.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
       
 }

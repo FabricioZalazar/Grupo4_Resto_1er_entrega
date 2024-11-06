@@ -78,7 +78,7 @@ public class DetalleData {
             ResultSet resultado = ps.executeQuery();
             while (resultado.next()) {
                 Detalle detalle = new Detalle();
-                detalle.setIdDetalle(resultado.getInt("idReserva"));
+                detalle.setIdDetalle(resultado.getInt("IdDetalle"));
                 detalle.setPedido(pedidoData.buscarPedido(resultado.getInt("idPedido")));
                 detalle.setProducto(productoData.buscarProducto(resultado.getInt("idProducto")));
                 detalle.setCantidad(resultado.getInt("cantidad"));

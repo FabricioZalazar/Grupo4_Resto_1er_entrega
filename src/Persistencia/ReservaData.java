@@ -183,7 +183,7 @@ public class ReservaData {
             ps.setInt(1, id);
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "El alumno fue dado de baja");
+                JOptionPane.showMessageDialog(null, "La Reserva fue dada de baja");
             }
         } catch (SQLException ex) {
             Logger.getLogger(ReservaData.class.getName()).log(Level.SEVERE, null, ex);
@@ -197,7 +197,7 @@ public class ReservaData {
             ps.setInt(1, id);
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "El alumno fue dado de alta");
+                JOptionPane.showMessageDialog(null, "La Reserva fue dada de alta");
             }
         } catch (SQLException ex) {
             Logger.getLogger(ReservaData.class.getName()).log(Level.SEVERE, null, ex);

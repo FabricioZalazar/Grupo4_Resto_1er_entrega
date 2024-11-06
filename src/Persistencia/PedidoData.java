@@ -142,7 +142,7 @@ public class PedidoData {
 
     }
 
-    public ArrayList<Pedido> listaProductos() {
+    public ArrayList<Pedido> listaPedidos() {
         MesaData con = new MesaData();
         MeseroData mes = new MeseroData();
         ArrayList<Pedido> listaPedidos = new ArrayList();

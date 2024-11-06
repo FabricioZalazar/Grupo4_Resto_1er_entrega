@@ -280,7 +280,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
         VistaLogin ventana2 = new VistaLogin();
-        ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
         ventana2.setVisible(true);
@@ -290,7 +290,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCerrarActionPerformed
 
     private void btnBorrarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarMesaActionPerformed
-         int filaSelecionada = jTable1.getSelectedRow();
+        int filaSelecionada = jTable1.getSelectedRow();
         int id = (int) jTable1.getValueAt(filaSelecionada, 0);
         con.borrarMesa(id);
         actualizarTabla();
@@ -298,7 +298,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
     private void jButtonInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInventarioActionPerformed
         VistaInventario ventana2 = new VistaInventario();
-        ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
         ventana2.setVisible(true);
@@ -309,7 +309,6 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
     private void jButtonReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReservarActionPerformed
         VistaReserva ventana2 = new VistaReserva();
-        ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
         ventana2.setVisible(true);
@@ -336,7 +335,14 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButtonPedido3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedido3ActionPerformed
-        // TODO add your handling code here:
+        VistaPedidos ventana2 = new VistaPedidos();
+        ventana2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        ventana2.setLocationRelativeTo(null);
+        // Mostrar la ventana2
+        ventana2.setVisible(true);
+
+        // Cerrar la primera ventana
+        this.dispose();
     }//GEN-LAST:event_jButtonPedido3ActionPerformed
 
     /**
@@ -403,7 +409,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         ArrayList<Mesa> list = con.listaMesa();
         modelo.setRowCount(0);
         for (Mesa p : list) {
-            modelo.addRow(new Object[]{p.getNum(), p.getCapacidad(), p.isEstado(),p.getReserva(),"Nadie"});
+            modelo.addRow(new Object[]{p.getNum(), p.getCapacidad(), p.isEstado(), p.getReserva(), "Nadie"});
         }
 
     }

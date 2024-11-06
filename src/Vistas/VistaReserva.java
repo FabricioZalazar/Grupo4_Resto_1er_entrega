@@ -6,6 +6,8 @@ package Vistas;
 
 import Entidades.Reserva;
 import Persistencia.ReservaData;
+import java.awt.Component;
+import java.awt.Container;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -14,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Fabricio Zalazar
  */
 public class VistaReserva extends javax.swing.JFrame {
-    
+
     ReservaData con = new ReservaData();
     DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
@@ -37,7 +40,23 @@ public class VistaReserva extends javax.swing.JFrame {
         iniciarTabla();
         llenarTabla();
         llenarCombo();
+
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                // Mostrar una confirmación antes de cerrar
+                int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas salir?", 
+                        "Confirmación de salida", JOptionPane.YES_NO_OPTION);
+
+                if (opcion == JOptionPane.YES_OPTION) {
+                    System.exit(0); // Cerrar la aplicación
+                }
+            }
+        });
     }
+
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,7 +78,7 @@ public class VistaReserva extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         cbHorasHasta = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         jDateFecha = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         cbHorasDe = new javax.swing.JComboBox<>();
@@ -71,8 +90,7 @@ public class VistaReserva extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic Light", 1, 24)); // NOI18N
         jLabel1.setText("Reservar");
@@ -92,10 +110,10 @@ public class VistaReserva extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Salir");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -174,8 +192,7 @@ public class VistaReserva extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jDateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(36, 36, 36))
             .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -184,7 +201,7 @@ public class VistaReserva extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -193,7 +210,7 @@ public class VistaReserva extends javax.swing.JFrame {
                         .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -236,7 +253,7 @@ public class VistaReserva extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                        .addComponent(jButton2))
+                        .addComponent(btnSalir))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(22, 22, 22))
         );
@@ -269,16 +286,16 @@ public class VistaReserva extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         VistaPrincipal ventana2 = new VistaPrincipal();
-        ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
         ventana2.setVisible(true);
 
         // Cerrar la primera ventana
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nombre = txtNombre.getText();
@@ -287,11 +304,11 @@ public class VistaReserva extends javax.swing.JFrame {
         String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
         DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
-        
+
         String selecetHoraHasta = (String) cbHorasHasta.getSelectedItem();
         DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
-        
+
         Reserva reserva = new Reserva(nombre, dni, fecha, horaDe, horaHasta, true);
         con.guardarReserva(reserva);
         llenarTabla();
@@ -300,27 +317,27 @@ public class VistaReserva extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         int filaSelecionada = jTable1.getSelectedRow();
         int id = (int) jTable1.getValueAt(filaSelecionada, 0);
-        
+
         con.altaLogicaReserva(id);
         llenarTabla();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+
         String nombre = txtNombre.getText();
         int dni = Integer.parseInt(txtDni.getText());
         LocalDate fecha = jDateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
         DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
-        
+
         String selecetHoraHasta = (String) cbHorasHasta.getSelectedItem();
         DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
-        
+
         int id = con.buscarReservaDNI(dni).getIdReserva();
         Reserva reserva = new Reserva(id, nombre, dni, fecha, horaDe, horaHasta, true);
-        
+
         con.actualizarReserva(reserva);
         llenarTabla();
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -346,13 +363,13 @@ public class VistaReserva extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         int filaSelecionada = jTable1.getSelectedRow();
         int id = (int) jTable1.getValueAt(filaSelecionada, 0);
-        
+
         con.bajaLogicaReserva(id);
         llenarTabla();
     }//GEN-LAST:event_jButton5ActionPerformed
-    
+
     public void iniciarTabla() {
-        
+
         modelo.addColumn("ID");
         modelo.addColumn("Nombre");
         modelo.addColumn("DNI");
@@ -362,27 +379,27 @@ public class VistaReserva extends javax.swing.JFrame {
         modelo.addColumn("Estado");
         jTable1.setModel(modelo);
     }
-    
+
     public void llenarTabla() {
         String estado;
         ArrayList<Reserva> list = con.listaReserva();
         modelo.setRowCount(0);
         for (Reserva r : list) {
-            if(r.isEstado()){
-                estado="Reservado";
-            }else{
-                estado="Sin Reserva";
+            if (r.isEstado()) {
+                estado = "Reservado";
+            } else {
+                estado = "Sin Reserva";
             }
             modelo.addRow(new Object[]{r.getIdReserva(), r.getNombre(), r.getDni(), r.getFecha(), r.getHoraDe(), r.getHoraHasta(), estado});
         }
-        
+
     }
-    
+
     public void llenarCombo() {
         llenarComboHoraDe();
         llenarComboHoraHasta();
     }
-    
+
     public void llenarComboHoraDe() {
         String[] horas = {
             "09:00", "10:00", "11:00",
@@ -391,14 +408,14 @@ public class VistaReserva extends javax.swing.JFrame {
             "19:00", "20:00", "21:00",
             "22:00", "23:00", "00:00",
             "01:00"
-        
+
         };
-        
+
         for (String hora : horas) {
             cbHorasDe.addItem(hora);
         }
     }
-    
+
     public void llenarComboHoraHasta() {
         String[] horas = {
             "10:00", "11:00",
@@ -407,9 +424,9 @@ public class VistaReserva extends javax.swing.JFrame {
             "20:00", "21:00",
             "22:00", "23:00", "00:00",
             "01:00", "02:00"
-        
+
         };
-        
+
         for (String hora : horas) {
             cbHorasHasta.addItem(hora);
         }
@@ -420,10 +437,10 @@ public class VistaReserva extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbHorasDe;
     private javax.swing.JComboBox<String> cbHorasHasta;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

@@ -193,7 +193,7 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
 
         if (jCheckBoxReserva.isSelected()) {
             VistaListaReservas ventana2 = new VistaListaReservas(this);
-            ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            ventana2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             ventana2.setLocationRelativeTo(null);
             ventana2.setVisible(true);
         }

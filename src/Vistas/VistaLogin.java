@@ -5,8 +5,12 @@
 package Vistas;
 
 import Entidades.Mesero;
+import Entidades.Pedido;
 import Entidades.Producto;
 import Persistencia.MeseroData;
+import Persistencia.PedidoData;
+import java.awt.EventQueue;
+import static java.lang.System.exit;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,9 +21,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Fabricio Zalazar
  */
 public class VistaLogin extends javax.swing.JFrame {
-    
+
     static Producto producto;
     static Mesero mozo;
+    PedidoData pedidos = new PedidoData();
     MeseroData con = new MeseroData();
     DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
@@ -243,9 +248,9 @@ public class VistaLogin extends javax.swing.JFrame {
             if (txtNombreMesero.getText().equalsIgnoreCase(mozo.getNombre())) {
                 bandera = true;
                 try {
-                    this.mozo=con.buscarMozoPorNombre(txtNombreMesero.getText());
+                    this.mozo = con.buscarMozoPorNombre(txtNombreMesero.getText());
                     VistaPrincipal ventana2 = new VistaPrincipal();
-                    ventana2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    ventana2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                     ventana2.setLocationRelativeTo(null);
                     // Mostrar la ventana2
                     ventana2.setVisible(true);
@@ -303,6 +308,12 @@ public class VistaLogin extends javax.swing.JFrame {
             if (txtNombreMesero.getText().equalsIgnoreCase(mozo.getNombre())) {
                 int respuesta = JOptionPane.showConfirmDialog(this, "Este nombre ya se encuentra registrado. ¿Desea borrarlo?", "Confirmación", JOptionPane.YES_NO_OPTION);
                 if (respuesta == JOptionPane.YES_OPTION) {
+                    for (Pedido p : pedidos.listaPedidos()) {
+                        if (p.getMesero().getIdMesero() == mozo.getIdMesero()) {
+                            JOptionPane.showMessageDialog(this, "El Mozo tiene pedidos pendientes");
+                            return;
+                        }
+                    }
                     con.borrarMozo(mozo.getIdMesero());
                     llenarTabla();
                 }
@@ -313,7 +324,7 @@ public class VistaLogin extends javax.swing.JFrame {
 
         if (!bandera) {
             JOptionPane.showMessageDialog(this, "El Mozo no existe");
-        } 
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
