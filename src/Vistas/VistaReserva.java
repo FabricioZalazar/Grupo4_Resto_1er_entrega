@@ -8,11 +8,14 @@ import Entidades.Reserva;
 import Persistencia.ReservaData;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.HeadlessException;
 import java.sql.Date;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JFrame;
@@ -46,7 +49,7 @@ public class VistaReserva extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent e) {
                 // Mostrar una confirmación antes de cerrar
-                int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas salir?", 
+                int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas salir?",
                         "Confirmación de salida", JOptionPane.YES_NO_OPTION);
 
                 if (opcion == JOptionPane.YES_OPTION) {
@@ -55,8 +58,6 @@ public class VistaReserva extends javax.swing.JFrame {
             }
         });
     }
-
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -298,20 +299,41 @@ public class VistaReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String nombre = txtNombre.getText();
-        int dni = Integer.parseInt(txtDni.getText());
-        LocalDate fecha = jDateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
-        DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
+        try {
+            String nombre = txtNombre.getText();
+            int dni = Integer.parseInt(txtDni.getText());
 
-        String selecetHoraHasta = (String) cbHorasHasta.getSelectedItem();
-        DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
+            LocalDate fecha = jDateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
+            DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
 
-        Reserva reserva = new Reserva(nombre, dni, fecha, horaDe, horaHasta, true);
-        con.guardarReserva(reserva);
-        llenarTabla();
+            String selecetHoraHasta = (String) cbHorasHasta.getSelectedItem();
+            DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
+            Duration duracion = Duration.between(horaDe, horaHasta);
+            if (duracion.isNegative()) {
+               duracion= duracion.plusHours(24);
+            }
+
+            if (duracion.toHours() <= 2) {
+
+                Reserva reserva = new Reserva(nombre, dni, fecha, horaDe, horaHasta, true);
+                con.guardarReserva(reserva);
+                llenarTabla();
+            } else {
+                JOptionPane.showMessageDialog(this, "la reserva debe ser menor a dos horas");
+            }
+
+        } catch (NumberFormatException e) {
+            {
+                JOptionPane.showMessageDialog(this, "ingrese un dni valido");
+            }
+
+        } catch (HeadlessException e) {
+
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
