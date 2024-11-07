@@ -9,6 +9,7 @@ import Entidades.Mesa;
 import Entidades.Pedido;
 import Entidades.Producto;
 import Persistencia.DetalleData;
+import Persistencia.PedidoData;
 import Persistencia.ProductoData;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VistaCargarPedido extends javax.swing.JInternalFrame {
 
+    private PedidoData ped = new PedidoData();
     private ProductoData con = new ProductoData();
     private DetalleData date = new DetalleData();
     private Mesa mesa;
@@ -106,6 +108,11 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
         jLabel3.setText("Cant :");
 
         jButton2.setText("Borrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -202,20 +209,42 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         //new pedido
-        Pedido pedido = new Pedido(mesa, VistaLogin.getMozo(), false, 0);
-        
-        System.out.println(pedido);
-        //new detalle
+        if (ped.buscarPedidoPorMesa(mesa.getNum()).getIdPedido() == 0) {
+            Pedido pedido = new Pedido(mesa, VistaLogin.getMozo(), false, 0);
+            ped.guardarPedido(pedido);
+        }
+
         int filaSelecionada = tableProducto.getSelectedRow();
         String nombre = (String) tableProducto.getValueAt(filaSelecionada, 0);
-        int cant = (int) SpinnerCant.getValue(); 
+        int cant = (int) SpinnerCant.getValue();
+
         Producto p = con.buscarProductoPorNombre(nombre);
-        con.ActualizarProducto(new Producto(p.getCodigo(),p.getNombre(),(p.getStock()-cant),p.getPrecio()));
-        System.out.println(p);
-        Detalle detalle = new Detalle(pedido, p, cant);
-        System.out.println(detalle);
-        date.guardarDetalle(detalle);
-        
+
+        Detalle bandera = date.buscarDetallePorMesaYProducto(mesa.getNum(), p.getCodigo());
+        System.out.println(bandera);
+        if (bandera.getIdDetalle() == 0) {
+            //new detalle
+            Detalle detalle = new Detalle(ped.buscarPedidoPorMesa(mesa.getNum()), p, cant);
+            date.guardarDetalle(detalle);
+            con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() - cant), p.getPrecio()));
+        } else {
+            Detalle d = date.buscarDetallePorMesaYProducto(mesa.getNum(), p.getCodigo());
+
+            if (cant > d.getCantidad()) {
+                System.out.println("resta");
+                int diferencia = cant - d.getCantidad();
+                con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() - diferencia), p.getPrecio()));
+            } else if (cant < d.getCantidad()) {
+                System.out.println("suma");
+                int diferencia = d.getCantidad() - cant;
+                con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() + diferencia), p.getPrecio()));
+            }
+            
+            Detalle detalle = new Detalle(d.getIdDetalle(), d.getPedido(), p, cant);
+            date.actualizarDetalle(detalle);
+
+        }
+
         llenarTablaDetalle();
         llenarTablaProducto();
     }//GEN-LAST:event_btnCargarActionPerformed
@@ -223,6 +252,19 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       int filaSelecionada = tableDetalle.getSelectedRow();
+        String nombre = (String) tableDetalle.getValueAt(filaSelecionada, 0);
+         Producto p=con.buscarProductoPorNombre(nombre);
+        Detalle d=date.buscarDetallePorMesaYProducto(mesa.getNum(), p.getCodigo());
+       
+        con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() + d.getCantidad()), p.getPrecio()));
+        date.borrarDetalle(d.getIdDetalle());
+        
+        llenarTablaDetalle();
+        llenarTablaProducto();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void iniciarTablaProducto() {
         modelo.addColumn("Nombre");

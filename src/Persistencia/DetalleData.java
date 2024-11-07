@@ -68,6 +68,55 @@ public class DetalleData {
         return detalle;
     }
 
+    
+     
+    public Detalle buscarDetallePorMesaYProducto(int mesa,int proc) {
+        Detalle detalle = new Detalle();
+        PedidoData pedidoData = new PedidoData();
+        ProductoData productoData = new ProductoData();
+        try {
+            String query = "SELECT detalle.IdDetalle, detalle.IdPedido,detalle.IdProducto,detalle.Cantidad  \n"
+                    + "FROM detalle \n"
+                    + "JOIN pedido ON detalle.IdPedido=pedido.IdPedido \n"
+                    + "JOIN mesa on mesa.IdMesa=pedido.IdMesa\n" 
+                    + "WHERE mesa.IdMesa=? and detalle.IdProducto =?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, mesa);
+            ps.setInt(2, proc);
+            ResultSet resultado = ps.executeQuery();
+            if (resultado.next()) {
+                detalle.setIdDetalle(resultado.getInt("IdDetalle"));
+                detalle.setPedido(pedidoData.buscarPedido(resultado.getInt("idPedido")));
+                detalle.setProducto(productoData.buscarProducto(resultado.getInt("idProducto")));
+                detalle.setCantidad(resultado.getInt("cantidad"));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al devolver la reserva" + ex);
+        }
+        return detalle;
+    }
+
+    public Detalle buscarDetallePorProducto(int id) {
+        Detalle detalle = new Detalle();
+        PedidoData pedidoData = new PedidoData();
+        ProductoData productoData = new ProductoData();
+        try {
+            String query = "SELECT * FROM `detalle` WHERE IdProducto = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet resultado = ps.executeQuery();
+            if (resultado.next()) {
+                detalle.setIdDetalle(resultado.getInt("IdDetalle"));
+                detalle.setPedido(pedidoData.buscarPedido(resultado.getInt("idPedido")));
+                detalle.setProducto(productoData.buscarProducto(id));
+                detalle.setCantidad(resultado.getInt("cantidad"));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al devolver la reserva" + ex);
+        }
+        return detalle;
+    }
+
     public ArrayList<Detalle> listaDetalle() {
         ArrayList<Detalle> listaDetalle = new ArrayList();
         PedidoData pedidoData = new PedidoData();
@@ -143,7 +192,7 @@ public class DetalleData {
                     + "JOIN mesa ON mesa.IdMesa = pedido.IdMesa\n"
                     + "WHERE mesa.IdMesa=?";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setInt(1,mesa);
+            ps.setInt(1, mesa);
             ResultSet resultado = ps.executeQuery();
             while (resultado.next()) {
                 Detalle detalle = new Detalle();

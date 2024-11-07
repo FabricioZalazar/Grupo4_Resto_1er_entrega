@@ -109,6 +109,31 @@ public class PedidoData {
         }
         return pedido;
     }
+    
+    public Pedido buscarPedidoPorMesa(int id) {
+        MesaData con = new MesaData();
+        MeseroData mes = new MeseroData();
+        Pedido pedido = new Pedido();
+        String query = "SELECT * FROM pedido WHERE IdMesa=?";
+        try {
+            PreparedStatement ps = this.con.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet resultado = ps.executeQuery();
+            if (resultado.next()) {
+                pedido.setIdPedido(resultado.getInt("IdPedido"));
+                pedido.setMesa(con.buscarMesa(resultado.getInt("IdMesa")));
+                pedido.setMesero(mes.buscarMozo(resultado.getInt("IdMesero")));
+                pedido.setEstado(resultado.getBoolean("Estado"));
+                pedido.setTotal(resultado.getDouble("SubTotal"));
+            } else {
+                JOptionPane.showMessageDialog(null, "Pedido no encontrado");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MesaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pedido;
+    }
 
     public void bajaLogica(int id) {
         try {
