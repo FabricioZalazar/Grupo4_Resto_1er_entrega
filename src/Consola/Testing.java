@@ -120,7 +120,7 @@ public class Testing {
     // CRUD - PEDIDO
     public static void pruebaListaPedidos(PedidoData pes) {
 
-        for (Pedido pedido : pes.listaProductos()) {
+        for (Pedido pedido : pes.listaPedidos()) {
             System.out.println(pedido.toString());
         }
     }

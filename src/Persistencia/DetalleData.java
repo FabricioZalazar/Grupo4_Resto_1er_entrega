@@ -21,17 +21,17 @@ import javax.swing.JOptionPane;
  * @author Nedisane
  */
 public class DetalleData {
-    
+
     private Connection con = null;
 
     public DetalleData() {
 
         con = (Connection) Conexion.getConexion();
     }
-    
+
     public void guardarDetalle(Detalle detalle) {
         String sql = "INSERT INTO detalle(IdPedido, IdProducto, Cantidad) VALUES (?,?,?)";
-        
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, detalle.getPedido().getIdPedido());
@@ -46,8 +46,8 @@ public class DetalleData {
             Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public Detalle buscarDetalleID (int id) {
+
+    public Detalle buscarDetalleID(int id) {
         Detalle detalle = new Detalle();
         PedidoData pedidoData = new PedidoData();
         ProductoData productoData = new ProductoData();
@@ -67,8 +67,8 @@ public class DetalleData {
         }
         return detalle;
     }
-    
-    public ArrayList <Detalle> listaDetalle () {
+
+    public ArrayList<Detalle> listaDetalle() {
         ArrayList<Detalle> listaDetalle = new ArrayList();
         PedidoData pedidoData = new PedidoData();
         ProductoData productoData = new ProductoData();
@@ -89,40 +89,40 @@ public class DetalleData {
         }
         return listaDetalle;
     }
-    
-    public void actualizarDetalle (Detalle detalle) {
+
+    public void actualizarDetalle(Detalle detalle) {
         PedidoData pedidoData = new PedidoData();
         ProductoData productoData = new ProductoData();
-        
+
         String query = "UPDATE detalle SET idPedido = ?, idProducto = ?, cantidad = ? WHERE IdDetalle = ?";
-        
+
         try {
             PreparedStatement ps = con.prepareStatement(query);
-            
+
             ps.setInt(1, detalle.getPedido().getIdPedido());
             ps.setInt(2, detalle.getProducto().getCodigo());
             ps.setInt(3, detalle.getCantidad());
             ps.setInt(4, detalle.getIdDetalle());
-            
+
             int rs = ps.executeUpdate();
             if (rs == 1) {
                 JOptionPane.showMessageDialog(null, "Detalle actualizado");
             }
             ps.close();
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al actualizar el Detalle: " + ex.getMessage());
         }
     }
-    
-    public void borrarDetalle (int id) {
+
+    public void borrarDetalle(int id) {
         try {
             //Luego borramos en la misma tabla
             String query = "DELETE FROM detalle WHERE IdDetalle = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             int resultado = ps.executeUpdate();
-            
+
             if (resultado == 1) {
                 JOptionPane.showMessageDialog(null, "El detalle fue eliminado Exitosamente");
             }
@@ -130,5 +130,32 @@ public class DetalleData {
         } catch (SQLException ex) {
             Logger.getLogger(ReservaData.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public ArrayList<Detalle> listaDetallePorMesa(int mesa) {
+        ArrayList<Detalle> listaDetalle = new ArrayList();
+        PedidoData pedidoData = new PedidoData();
+        ProductoData productoData = new ProductoData();
+        try {
+            String query = "SELECT  detalle.IdDetalle, detalle.IdPedido, detalle.IdProducto,detalle.Cantidad\n"
+                    + "FROM detalle\n"
+                    + "JOIN pedido ON pedido.IdPedido = detalle.IdPedido\n"
+                    + "JOIN mesa ON mesa.IdMesa = pedido.IdMesa\n"
+                    + "WHERE mesa.IdMesa=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1,mesa);
+            ResultSet resultado = ps.executeQuery();
+            while (resultado.next()) {
+                Detalle detalle = new Detalle();
+                detalle.setIdDetalle(resultado.getInt("IdDetalle"));
+                detalle.setPedido(pedidoData.buscarPedido(resultado.getInt("idPedido")));
+                detalle.setProducto(productoData.buscarProducto(resultado.getInt("idProducto")));
+                detalle.setCantidad(resultado.getInt("cantidad"));
+                listaDetalle.add(detalle);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al devolver la lista de detalles" + ex);
+        }
+        return listaDetalle;
     }
 }

@@ -257,7 +257,6 @@ public class VistaLogin extends javax.swing.JFrame {
 
                     // Cerrar la primera ventana
                     this.dispose();
-
                 } catch (IllegalArgumentException er) {
 
                 }

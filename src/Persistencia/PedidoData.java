@@ -164,5 +164,29 @@ public class PedidoData {
         }
         return listaPedidos;
     }
+    
+     public ArrayList<Pedido> listaPedidosPorMesa(int mesa) {
+        MesaData con = new MesaData();
+        MeseroData mes = new MeseroData();
+        ArrayList<Pedido> listaPedidos = new ArrayList();
+        try {
+            String query = "SELECT * FROM pedido WHERE IdMesa=? ";
+            PreparedStatement ps = this.con.prepareStatement(query);
+            ps.setInt(1, mesa);
+            ResultSet resultado = ps.executeQuery();
+            while (resultado.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(resultado.getInt("IdPedido"));
+                pedido.setMesa(con.buscarMesa(resultado.getInt("IdMesa")));
+                pedido.setMesero(mes.buscarMozo(resultado.getInt("IdMesero")));
+                pedido.setEstado(resultado.getBoolean("Estado"));
+                pedido.setTotal(resultado.getDouble("SubTotal"));
+                listaPedidos.add(pedido);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al devolver la lista de Pedidos" + ex);
+        }
+        return listaPedidos;
+    }
 
 }

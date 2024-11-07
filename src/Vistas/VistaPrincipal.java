@@ -134,8 +134,18 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         });
 
         jButtonCargarPedido.setText("Cargar Pedido");
+        jButtonCargarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCargarPedidoActionPerformed(evt);
+            }
+        });
 
         jButtonCobrar.setText("Cobrar Mesa");
+        jButtonCobrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCobrarActionPerformed(evt);
+            }
+        });
 
         jButtonCerrar.setText("Cerrar Sesion");
         jButtonCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -345,54 +355,75 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonPedido3ActionPerformed
 
+    private void jButtonCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCobrarActionPerformed
+
+        VistaCobrarMesa a1 = null;
+
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VistaCobrarMesa) {
+                a1 = (VistaCobrarMesa) frame;
+                break;
+            }
+        }
+
+        if (a1 == null) {
+            // Si no hay una instancia abierta, crear una nueva
+            a1 = new VistaCobrarMesa();
+            escritorio.add(a1);
+        }
+
+// Mostrar la ventana y moverla al frente
+        a1.setVisible(true);
+        escritorio.moveToFront(a1);
+
+    }//GEN-LAST:event_jButtonCobrarActionPerformed
+
+    private void jButtonCargarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarPedidoActionPerformed
+        VistaCargarPedido a1 = null;
+
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VistaCargarPedido) {
+                a1 = (VistaCargarPedido) frame;
+                break;
+            }
+        }
+
+        if (a1 == null) {
+
+            int filaSelecionada = jTable1.getSelectedRow();
+            int id = (int) jTable1.getValueAt(filaSelecionada, 0);
+            
+            // Si no hay una instancia abierta, crear una nueva
+            a1 = new VistaCargarPedido(con.buscarMesa(id));
+            escritorio.add(a1);
+        }
+
+// Mostrar la ventana y moverla al frente
+        a1.setVisible(true);
+        escritorio.moveToFront(a1);
+
+    }//GEN-LAST:event_jButtonCargarPedidoActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarMesa;
-    private javax.swing.JButton btnActualizarMesa1;
-    private javax.swing.JButton btnActualizarMesa2;
     private javax.swing.JButton btnBorrarMesa;
     private javax.swing.JDesktopPane escritorio;
-    private javax.swing.JButton jButtonAnularReserva1;
-    private javax.swing.JButton jButtonAnularReserva2;
     private javax.swing.JButton jButtonCargarPedido;
-    private javax.swing.JButton jButtonCargarPedido1;
-    private javax.swing.JButton jButtonCargarPedido2;
     private javax.swing.JButton jButtonCerrar;
-    private javax.swing.JButton jButtonCerrar1;
-    private javax.swing.JButton jButtonCerrar2;
     private javax.swing.JButton jButtonCobrar;
-    private javax.swing.JButton jButtonCobrar1;
-    private javax.swing.JButton jButtonCobrar2;
     private javax.swing.JButton jButtonCrearMesa;
-    private javax.swing.JButton jButtonCrearMesa1;
-    private javax.swing.JButton jButtonCrearMesa2;
     private javax.swing.JButton jButtonInventario;
-    private javax.swing.JButton jButtonInventario1;
-    private javax.swing.JButton jButtonInventario2;
-    private javax.swing.JButton jButtonPedido1;
-    private javax.swing.JButton jButtonPedido2;
     private javax.swing.JButton jButtonPedido3;
     private javax.swing.JButton jButtonReservar;
-    private javax.swing.JButton jButtonReservar1;
-    private javax.swing.JButton jButtonReservar2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
  public void iniciarTabla() {
 

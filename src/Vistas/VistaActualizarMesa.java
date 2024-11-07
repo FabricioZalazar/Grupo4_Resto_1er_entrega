@@ -16,17 +16,18 @@ import javax.swing.JInternalFrame;
  * @author zalaz
  */
 public class VistaActualizarMesa extends javax.swing.JInternalFrame {
+
     VistaPrincipal vista;
     ReservaData con = new ReservaData();
     private MesaData cone = new MesaData();
 
     public VistaActualizarMesa(VistaPrincipal vista) {
-        this.vista=vista;
+        this.vista = vista;
         initComponents();
         llenarCampos();
-      repaint();
+        repaint();
 
-        if(VistaPrincipal.getMesa().getReserva()!=null){
+        if (VistaPrincipal.getMesa().getReserva() != null) {
             VistaPrincipal.setId(VistaPrincipal.getMesa().getReserva().getIdReserva());
         }
     }
@@ -180,7 +181,7 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
             Mesa mesa = new Mesa(id, cap, r, estado);
             cone.actualizarMesa(mesa);
             vista.llenarTabla();
-        }else{
+        } else {
             Mesa mesa = new Mesa(id, cap, estado);
             cone.actualizarMesa(mesa);
             vista.llenarTabla();
@@ -220,24 +221,24 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
         jCheckBoxReserva.repaint();
     }
 
-public void repaint(){
-    try{
-         if(jCheckBoxReserva.isSelected()){
-            jCheckBoxReserva.setText("Numero : "+VistaPrincipal.getMesa().getReserva().getIdReserva());
-        }else{
-            jCheckBoxReserva.setText("Sin Reserva");
+    public void repaint() {
+        try {
+            if (jCheckBoxReserva.isSelected()) {
+                jCheckBoxReserva.setText("Numero : " + VistaPrincipal.getMesa().getReserva().getIdReserva());
+            } else {
+                jCheckBoxReserva.setText("Sin Reserva");
+            }
+
+            if (jCheckBoxEstado.isSelected()) {
+                jCheckBoxEstado.setText("Ocupada");
+            } else {
+                jCheckBoxEstado.setText("Libre");
+            }
+        } catch (NullPointerException r) {
+
         }
-        
-        if(jCheckBoxEstado.isSelected()){
-            jCheckBoxEstado.setText("Ocupada");
-        }else{
-            jCheckBoxEstado.setText("Libre");
-        }
-    }catch(NullPointerException r){
-        
+
     }
-   
-}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

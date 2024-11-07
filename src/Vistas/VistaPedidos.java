@@ -18,7 +18,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Fabricio Zalazar
  */
 public class VistaPedidos extends javax.swing.JFrame {
-    PedidoData con=new PedidoData();
+
+    PedidoData con = new PedidoData();
     DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
             return false;
@@ -49,7 +50,6 @@ public class VistaPedidos extends javax.swing.JFrame {
         jButtonTotal = new javax.swing.JButton();
         cbPedidos = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jTextFieldTotal = new javax.swing.JTextField();
         btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,14 +68,24 @@ public class VistaPedidos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButtonTotal.setText("Total");
+        jButtonTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTotalActionPerformed(evt);
+            }
+        });
 
+        cbPedidos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbPedidosItemStateChanged(evt);
+            }
+        });
         cbPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbPedidosActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("seleccione el pedido");
+        jLabel1.setText("Seleccione la Mesa");
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -92,36 +102,31 @@ public class VistaPedidos extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(15, 15, 15))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(cbPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnSalir)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButtonTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldTotal)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButtonTotal))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(23, 23, 23))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(87, 87, 87)
                 .addComponent(jButtonTotal)
-                .addGap(31, 31, 31)
-                .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir)
-                .addGap(14, 14, 14))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(21, 21, 21))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
         );
 
         pack();
@@ -142,10 +147,28 @@ public class VistaPedidos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void cbPedidosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbPedidosItemStateChanged
+        if (!((String) cbPedidos.getSelectedItem()).equalsIgnoreCase("Todos")) {
+            int id = Integer.parseInt((String) cbPedidos.getSelectedItem());
+            ArrayList<Pedido> list = con.listaPedidosPorMesa(id);
+            modelo.setRowCount(0);
+            for (Pedido p : list) {
+                modelo.addRow(new Object[]{p.getIdPedido(), p.getMesa().getNum(), p.getMesero().getIdMesero(), p.getTotal()});
+            }
+        }else{
+            llenarTabla();
+        }
+
+    }//GEN-LAST:event_cbPedidosItemStateChanged
+
+    private void jButtonTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonTotalActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbPedidos;
@@ -153,9 +176,8 @@ public class VistaPedidos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextFieldTotal;
     // End of variables declaration//GEN-END:variables
-    
+
     public void iniciarTabla() {
 
         modelo.addColumn("ID Pedido");
@@ -164,27 +186,27 @@ public class VistaPedidos extends javax.swing.JFrame {
         modelo.addColumn("SubTotal");
         jTable1.setModel(modelo);
     }
-    
+
     public void llenarTabla() {
 
         ArrayList<Pedido> list = con.listaPedidos();
         modelo.setRowCount(0);
         for (Pedido p : list) {
-            modelo.addRow(new Object[]{p.getIdPedido(),p.getMesa().getNum(),p.getMesero().getIdMesero(),p.getTotal()});
+            modelo.addRow(new Object[]{p.getIdPedido(), p.getMesa().getNum(), p.getMesero().getIdMesero(), p.getTotal()});
         }
 
     }
-    
-    public void llenarCombo(){
-        MesaData mesaD =new MesaData();
+
+    public void llenarCombo() {
+        MesaData mesaD = new MesaData();
         cbPedidos.addItem("Todos");
         for (Mesa m : mesaD.listaMesa()) {
             for (Pedido p : con.listaPedidos()) {
-                if(m.getNum()==p.getMesa().getNum()){
-                    cbPedidos.addItem(m.getNum()+"");
+                if (m.getNum() == p.getMesa().getNum()) {
+                    cbPedidos.addItem(m.getNum() + "");
                 }
             }
-            
+
         }
     }
 }
