@@ -329,13 +329,21 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
     private void jButtonCrearMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearMesaActionPerformed
         try {
-            int cap = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la capacidad de la mesa"));
+            String cancelar = JOptionPane.showInputDialog("Ingrese la capacidad de la mesa");
+            if (cancelar == null) {
+                return;
+
+            }
+
+            int cap = Integer.parseInt(cancelar);
             Mesa mesa = new Mesa(cap, false);
             con.guardarMesa(mesa);
             llenarTabla();
         } catch (NumberFormatException r) {
-
+            JOptionPane.showMessageDialog(this,"ingrese solo numeros");
         }
+
+
     }//GEN-LAST:event_jButtonCrearMesaActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -392,7 +400,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
             int filaSelecionada = jTable1.getSelectedRow();
             int id = (int) jTable1.getValueAt(filaSelecionada, 0);
-            
+
             // Si no hay una instancia abierta, crear una nueva
             a1 = new VistaCargarPedido(con.buscarMesa(id));
             escritorio.add(a1);
