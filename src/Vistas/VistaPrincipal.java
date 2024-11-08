@@ -300,10 +300,14 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCerrarActionPerformed
 
     private void btnBorrarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarMesaActionPerformed
+      try{
         int filaSelecionada = jTable1.getSelectedRow();
         int id = (int) jTable1.getValueAt(filaSelecionada, 0);
         con.borrarMesa(id);
         actualizarTabla();
+      }catch(ArrayIndexOutOfBoundsException a){
+          JOptionPane.showMessageDialog(this, "seleccione una fila, por favor");
+      }
     }//GEN-LAST:event_btnBorrarMesaActionPerformed
 
     private void jButtonInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInventarioActionPerformed
