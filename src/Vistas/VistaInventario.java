@@ -201,10 +201,9 @@ public class VistaInventario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
-
+        try{
         VistaActualizarProducto a1 = null;
-
-        for (JInternalFrame frame : escritorio.getAllFrames()) {
+         for (JInternalFrame frame : escritorio.getAllFrames()) {
             if (frame instanceof VistaActualizarProducto) {
                 a1 = (VistaActualizarProducto) frame;
                 break;
@@ -221,6 +220,9 @@ public class VistaInventario extends javax.swing.JFrame {
         a1.setVisible(true);
         escritorio.moveToFront(a1);
         actualizarTabla();
+        }catch(NullPointerException n){
+            JOptionPane.showMessageDialog(this, "Error , por favor seleccione una celda");
+        }
     }//GEN-LAST:event_jButtonActualizarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked

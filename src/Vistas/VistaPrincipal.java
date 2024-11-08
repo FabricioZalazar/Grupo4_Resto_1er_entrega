@@ -391,6 +391,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCobrarActionPerformed
 
     private void jButtonCargarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarPedidoActionPerformed
+       try{
         VistaCargarPedido a1 = null;
 
         for (JInternalFrame frame : escritorio.getAllFrames()) {
@@ -413,7 +414,9 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 // Mostrar la ventana y moverla al frente
         a1.setVisible(true);
         escritorio.moveToFront(a1);
-
+       }catch(ArrayIndexOutOfBoundsException a){
+           JOptionPane.showMessageDialog(this, "No hay ningun objeto en el inventario");
+       }
     }//GEN-LAST:event_jButtonCargarPedidoActionPerformed
 
     /**

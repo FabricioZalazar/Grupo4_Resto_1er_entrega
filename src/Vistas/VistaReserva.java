@@ -313,7 +313,7 @@ public class VistaReserva extends javax.swing.JFrame {
             LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
             Duration duracion = Duration.between(horaDe, horaHasta);
             if (duracion.isNegative()) {
-               duracion= duracion.plusHours(24);
+                duracion = duracion.plusHours(24);
             }
 
             if (duracion.toHours() <= 2) {
@@ -337,31 +337,47 @@ public class VistaReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        int filaSelecionada = jTable1.getSelectedRow();
-        int id = (int) jTable1.getValueAt(filaSelecionada, 0);
+        try {
+            int filaSelecionada = jTable1.getSelectedRow();
+            int id = (int) jTable1.getValueAt(filaSelecionada, 0);
 
-        con.altaLogicaReserva(id);
-        llenarTabla();
+            con.altaLogicaReserva(id);
+            llenarTabla();
+            LimpiarCampos();
+        } catch (ArrayIndexOutOfBoundsException a) {
+            JOptionPane.showMessageDialog(this, "Error , debe seleccionar una fila");
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            String nombre = txtNombre.getText();
+            int dni = Integer.parseInt(txtDni.getText());
+            LocalDate fecha = jDateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
+            DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
+            String selecetHoraHasta = (String) cbHorasHasta.getSelectedItem();
+            DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
+            Duration duracion = Duration.between(horaDe, horaHasta);
+            if (duracion.isNegative()) {
+                duracion = duracion.plusHours(24);
+            }
 
-        String nombre = txtNombre.getText();
-        int dni = Integer.parseInt(txtDni.getText());
-        LocalDate fecha = jDateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
-        DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
+            if (duracion.toHours() <= 2) {
+                int id = con.buscarReservaDNI(dni).getIdReserva();
+                Reserva reserva = new Reserva(id, nombre, dni, fecha, horaDe, horaHasta, true);
 
-        String selecetHoraHasta = (String) cbHorasHasta.getSelectedItem();
-        DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
-
-        int id = con.buscarReservaDNI(dni).getIdReserva();
-        Reserva reserva = new Reserva(id, nombre, dni, fecha, horaDe, horaHasta, true);
-
-        con.actualizarReserva(reserva);
-        llenarTabla();
+                con.actualizarReserva(reserva);
+                llenarTabla();
+                LimpiarCampos();
+            }else {
+                JOptionPane.showMessageDialog(this, "la reserva debe ser menor a dos horas");
+            }
+        } catch (NumberFormatException n) {
+            JOptionPane.showMessageDialog(this, "Error, Debe seleccionar una fila");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -376,18 +392,28 @@ public class VistaReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        int filaSelecionada = jTable1.getSelectedRow();
-        int id = (int) jTable1.getValueAt(filaSelecionada, 0);
-        con.borrarReserva(id);
-        llenarTabla();
+        try {
+            int filaSelecionada = jTable1.getSelectedRow();
+            int id = (int) jTable1.getValueAt(filaSelecionada, 0);
+            con.borrarReserva(id);
+            llenarTabla();
+            LimpiarCampos();
+        } catch (ArrayIndexOutOfBoundsException a) {
+            JOptionPane.showMessageDialog(this, "Error, debe seleccionar una fila");
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        int filaSelecionada = jTable1.getSelectedRow();
-        int id = (int) jTable1.getValueAt(filaSelecionada, 0);
+        try {
+            int filaSelecionada = jTable1.getSelectedRow();
+            int id = (int) jTable1.getValueAt(filaSelecionada, 0);
 
-        con.bajaLogicaReserva(id);
-        llenarTabla();
+            con.bajaLogicaReserva(id);
+            llenarTabla();
+            LimpiarCampos();
+        } catch (ArrayIndexOutOfBoundsException a) {
+            JOptionPane.showMessageDialog(this, "Error,Debe seleccionar una fila");
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     public void iniciarTabla() {
@@ -482,4 +508,14 @@ public class VistaReserva extends javax.swing.JFrame {
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+public void LimpiarCampos(){
+    txtNombre.setText("");
+    txtDni.setText("");
+    jDateFecha.setDate(null);
+    cbHorasDe.setSelectedItem(null);
+    cbHorasHasta.setSelectedItem(null);
+}
+
+
+
 }
