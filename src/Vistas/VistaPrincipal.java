@@ -266,7 +266,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarMesaActionPerformed
-
+        try{
         VistaActualizarMesa a1 = null;
 
         for (JInternalFrame frame : escritorio.getAllFrames()) {
@@ -286,6 +286,9 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         a1.setVisible(true);
         escritorio.moveToFront(a1);
         actualizarTabla();
+        }catch(NullPointerException n){
+            JOptionPane.showMessageDialog(this, "seleccione una mesa");
+        }
     }//GEN-LAST:event_btnActualizarMesaActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
@@ -391,32 +394,24 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCobrarActionPerformed
 
     private void jButtonCargarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarPedidoActionPerformed
-       try{
-        VistaCargarPedido a1 = null;
-
-        for (JInternalFrame frame : escritorio.getAllFrames()) {
-            if (frame instanceof VistaCargarPedido) {
-                a1 = (VistaCargarPedido) frame;
+       VistaActualizarProducto a1 = null;
+        for (JInternalFrame frame: escritorio.getAllFrames()) {
+            if (frame instanceof VistaActualizarProducto) {
+                a1 =(VistaActualizarProducto)frame;
                 break;
             }
+            
         }
-
         if (a1 == null) {
-
-            int filaSelecionada = jTable1.getSelectedRow();
-            int id = (int) jTable1.getValueAt(filaSelecionada, 0);
-
-            // Si no hay una instancia abierta, crear una nueva
-            a1 = new VistaCargarPedido(con.buscarMesa(id));
+            
+         a1 = new VistaActualizarProducto(this);
             escritorio.add(a1);
+            
         }
+             a1.setVisible(true);
+              escritorio.moveToFront(a1);
 
-// Mostrar la ventana y moverla al frente
-        a1.setVisible(true);
-        escritorio.moveToFront(a1);
-       }catch(ArrayIndexOutOfBoundsException a){
-           JOptionPane.showMessageDialog(this, "No hay ningun objeto en el inventario");
-       }
+       
     }//GEN-LAST:event_jButtonCargarPedidoActionPerformed
 
     /**

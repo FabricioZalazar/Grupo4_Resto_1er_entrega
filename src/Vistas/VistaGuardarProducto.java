@@ -6,6 +6,7 @@ package Vistas;
 
 import Entidades.Producto;
 import Persistencia.ProductoData;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,13 +16,14 @@ public class VistaGuardarProducto extends javax.swing.JInternalFrame {
 
     private VistaInventario vistaInventario;
     private ProductoData con = new ProductoData();
+
     /**
      * Creates new form VistaGuardarProducto
      */
     public VistaGuardarProducto(VistaInventario vistaInventario) {
-    this.vistaInventario = vistaInventario;
-    initComponents();
-}
+        this.vistaInventario = vistaInventario;
+        initComponents();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,7 +43,7 @@ public class VistaGuardarProducto extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jSpinnerStock = new javax.swing.JSpinner();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonOK = new javax.swing.JButton();
 
         jLabel1.setText("Nombre");
 
@@ -68,10 +70,15 @@ public class VistaGuardarProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setText("OK");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOK.setText("OK");
+        jButtonOK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonOKMouseClicked(evt);
+            }
+        });
+        jButtonOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonOKActionPerformed(evt);
             }
         });
 
@@ -96,7 +103,7 @@ public class VistaGuardarProducto extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -119,7 +126,7 @@ public class VistaGuardarProducto extends javax.swing.JInternalFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonOK))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -154,18 +161,26 @@ public class VistaGuardarProducto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String nombre=txtNombre.getText();
-        int stock= (int) jSpinnerStock.getValue();
-        double precio= Double.parseDouble(txtPrecio.getText());
-        Producto proc= new Producto(nombre,stock,precio);
+    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
+    try{
+        if (txtNombre.getText().isEmpty()|txtPrecio.getText().isEmpty()||jSpinnerStock.getValue() == null) {
+             JOptionPane.showMessageDialog(this, "llene los campos");
+            }else{
+            String nombre = txtNombre.getText(); 
+            int stock = (int) jSpinnerStock.getValue(); 
+            double precio = Double.parseDouble(txtPrecio.getText());
+            
+            Producto proc = new Producto(nombre, stock, precio);
+            
+            con.GuardarProducto(proc);
+            vistaInventario.actualizarTabla();
+            hide();
+        }
+    }catch(NumberFormatException e){
+        JOptionPane.showMessageDialog(this, "por favor ingresar un precio valido");
+    }
         
-        con.GuardarProducto(proc);
-        vistaInventario.actualizarTabla();
-        
-        hide();
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         hide();
@@ -175,10 +190,16 @@ public class VistaGuardarProducto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecioActionPerformed
 
+    private void jButtonOKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonOKMouseClicked
+       
+            
+        
+    }//GEN-LAST:event_jButtonOKMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonOK;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

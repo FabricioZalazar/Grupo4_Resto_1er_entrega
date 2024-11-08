@@ -198,4 +198,10 @@ public class VistaActualizarProducto extends javax.swing.JInternalFrame {
         txtPrecio.setText(proc.getPrecio()+"");
         jSpinnerStock.setValue(proc.getStock());
     }
+    public void LimpiarCampos(){
+    txtNombre.setText("");
+    txtPrecio.setText("");
+       jSpinnerStock.setValue(null);
+    }
+   
 }
