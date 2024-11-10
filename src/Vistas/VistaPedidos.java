@@ -4,9 +4,11 @@
  */
 package Vistas;
 
+import Entidades.Detalle;
 import Entidades.Mesa;
 import Entidades.Mesero;
 import Entidades.Pedido;
+import Persistencia.DetalleData;
 import Persistencia.MesaData;
 import Persistencia.PedidoData;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VistaPedidos extends javax.swing.JFrame {
 
+    DetalleData cone = new DetalleData();
     PedidoData con = new PedidoData();
     DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
@@ -35,7 +38,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         iniciarTabla();
         llenarTabla();
         llenarCombo();
-        
+
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -153,7 +156,6 @@ public class VistaPedidos extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         VistaPrincipal ventana2 = new VistaPrincipal();
-        ventana2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
         ventana2.setVisible(true);
@@ -165,12 +167,12 @@ public class VistaPedidos extends javax.swing.JFrame {
     private void cbPedidosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbPedidosItemStateChanged
         if (!((String) cbPedidos.getSelectedItem()).equalsIgnoreCase("Todos")) {
             int id = Integer.parseInt((String) cbPedidos.getSelectedItem());
-            ArrayList<Pedido> list = con.listaPedidosPorMesa(id);
+            ArrayList<Detalle> list = cone.listaDetallePorMesa(id);
             modelo.setRowCount(0);
-            for (Pedido p : list) {
-                modelo.addRow(new Object[]{p.getIdPedido(), p.getMesa().getNum(), p.getMesero().getIdMesero(), p.getTotal()});
+            for (Detalle d : list) {
+                modelo.addRow(new Object[]{d.getIdDetalle(), d.getPedido().getIdPedido(), d.getProducto().getCodigo(), d.getCantidad()});
             }
-        }else{
+        } else {
             llenarTabla();
         }
 
@@ -194,20 +196,19 @@ public class VistaPedidos extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void iniciarTabla() {
-
-        modelo.addColumn("ID Pedido");
-        modelo.addColumn("ID Mesa");
-        modelo.addColumn("ID Mesero");
-        modelo.addColumn("SubTotal");
+        modelo.addColumn("Nro Detalle");
+        modelo.addColumn("Nro Pedido");
+        modelo.addColumn("Nro Producto");
+        modelo.addColumn("Cantidad");
         jTable1.setModel(modelo);
     }
 
     public void llenarTabla() {
 
-        ArrayList<Pedido> list = con.listaPedidos();
+        ArrayList<Detalle> list = cone.listaDetalle();
         modelo.setRowCount(0);
-        for (Pedido p : list) {
-            modelo.addRow(new Object[]{p.getIdPedido(), p.getMesa().getNum(), p.getMesero().getIdMesero(), p.getTotal()});
+        for (Detalle d : list) {
+            modelo.addRow(new Object[]{d.getIdDetalle(), d.getPedido().getIdPedido(), d.getProducto().getCodigo(), d.getCantidad()});
         }
 
     }
@@ -216,11 +217,8 @@ public class VistaPedidos extends javax.swing.JFrame {
         MesaData mesaD = new MesaData();
         cbPedidos.addItem("Todos");
         for (Mesa m : mesaD.listaMesa()) {
-            for (Pedido p : con.listaPedidos()) {
-                if (m.getNum() == p.getMesa().getNum()) {
-                    cbPedidos.addItem(m.getNum() + "");
-                }
-            }
+
+            cbPedidos.addItem(m.getNum() + "");
 
         }
     }

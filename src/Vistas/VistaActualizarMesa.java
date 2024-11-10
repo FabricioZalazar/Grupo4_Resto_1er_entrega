@@ -48,11 +48,11 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jSpinnerCapacidad = new javax.swing.JSpinner();
-        jSpinnerID = new javax.swing.JSpinner();
         jCheckBoxReserva = new javax.swing.JCheckBox();
         jCheckBoxEstado = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        txtNumeroMesa = new javax.swing.JLabel();
 
         jLabel1.setText("Capacidad:");
 
@@ -86,6 +86,8 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
             }
         });
 
+        txtNumeroMesa.setText("0");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -93,7 +95,6 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jButton1)
@@ -108,20 +109,22 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
                                 .addComponent(jCheckBoxReserva)
                                 .addComponent(jCheckBoxEstado))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
                         .addGap(49, 49, 49)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jSpinnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinnerCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNumeroMesa)
+                            .addComponent(jSpinnerCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jSpinnerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumeroMesa))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -134,7 +137,7 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jCheckBoxEstado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -173,7 +176,7 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int id = (int) jSpinnerID.getValue();
+        int id = VistaPrincipal.getMesa().getNum();
         int cap = (int) jSpinnerCapacidad.getValue();
         boolean estado = jCheckBoxEstado.isSelected();
         if (jCheckBoxReserva.isSelected()) {
@@ -194,7 +197,6 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
 
         if (jCheckBoxReserva.isSelected()) {
             VistaListaReservas ventana2 = new VistaListaReservas(this);
-            ventana2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             ventana2.setLocationRelativeTo(null);
             ventana2.setVisible(true);
         }
@@ -204,7 +206,7 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
 
     public void llenarCampos() {
         boolean x;
-        jSpinnerID.setValue(VistaPrincipal.getMesa().getNum());
+        txtNumeroMesa.setText(VistaPrincipal.getMesa().getNum()+"");
         jSpinnerCapacidad.setValue(VistaPrincipal.getMesa().getCapacidad());
         if (VistaPrincipal.getMesa().getReserva() == null) {
             x = false;
@@ -251,6 +253,6 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jSpinnerCapacidad;
-    private javax.swing.JSpinner jSpinnerID;
+    private javax.swing.JLabel txtNumeroMesa;
     // End of variables declaration//GEN-END:variables
 }
