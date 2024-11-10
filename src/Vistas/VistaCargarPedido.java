@@ -12,6 +12,7 @@ import Persistencia.DetalleData;
 import Persistencia.PedidoData;
 import Persistencia.ProductoData;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -65,9 +66,10 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
         btnCargar = new javax.swing.JButton();
         SpinnerCant = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
+        jLabel1.setFont(new java.awt.Font("SimSun-ExtB", 0, 18)); // NOI18N
         jLabel1.setText("Productos");
 
         tableProducto.setModel(new javax.swing.table.DefaultTableModel(
@@ -81,8 +83,14 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tableProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableProductoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableProducto);
 
+        jLabel2.setFont(new java.awt.Font("SimSun-ExtB", 0, 18)); // NOI18N
         jLabel2.setText("Detalle");
 
         tableDetalle.setModel(new javax.swing.table.DefaultTableModel(
@@ -96,9 +104,16 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tableDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDetalleMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableDetalle);
 
+        btnCargar.setBackground(new java.awt.Color(94, 202, 108));
         btnCargar.setText("Cargar");
+        btnCargar.setEnabled(false);
         btnCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCargarActionPerformed(evt);
@@ -107,10 +122,12 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Cant :");
 
-        jButton2.setText("Borrar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnBorrar.setBackground(new java.awt.Color(226, 70, 70));
+        btnBorrar.setText("Borrar");
+        btnBorrar.setEnabled(false);
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnBorrarActionPerformed(evt);
             }
         });
 
@@ -131,29 +148,31 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(jLabel1)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(btnCargar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGap(54, 54, 54)
-                                .addComponent(btnSalir))
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(SpinnerCant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(btnCargar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(SpinnerCant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(63, 63, 63))))
+                                .addComponent(btnBorrar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(55, 55, 55))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,16 +187,16 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
                         .addGap(81, 81, 81)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnCargar)
-                            .addComponent(jButton2))
+                            .addComponent(btnBorrar))
                         .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(SpinnerCant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                         .addComponent(btnSalir)
                         .addContainerGap())
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
 
         jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -217,54 +236,69 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
         int filaSelecionada = tableProducto.getSelectedRow();
         String nombre = (String) tableProducto.getValueAt(filaSelecionada, 0);
         int cant = (int) SpinnerCant.getValue();
+        if (cant > 0) {
+            Producto p = con.buscarProductoPorNombre(nombre);
 
-        Producto p = con.buscarProductoPorNombre(nombre);
+            Detalle bandera = date.buscarDetallePorMesaYProducto(mesa.getNum(), p.getCodigo());
+            System.out.println(bandera);
+            if (bandera.getIdDetalle() == 0) {
+                //new detalle
+                Detalle detalle = new Detalle(ped.buscarPedidoPorMesa(mesa.getNum()), p, cant);
+                date.guardarDetalle(detalle);
+                con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() - cant), p.getPrecio()));
+            } else {
+                Detalle d = date.buscarDetallePorMesaYProducto(mesa.getNum(), p.getCodigo());
 
-        Detalle bandera = date.buscarDetallePorMesaYProducto(mesa.getNum(), p.getCodigo());
-        System.out.println(bandera);
-        if (bandera.getIdDetalle() == 0) {
-            //new detalle
-            Detalle detalle = new Detalle(ped.buscarPedidoPorMesa(mesa.getNum()), p, cant);
-            date.guardarDetalle(detalle);
-            con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() - cant), p.getPrecio()));
-        } else {
-            Detalle d = date.buscarDetallePorMesaYProducto(mesa.getNum(), p.getCodigo());
+                if (cant > d.getCantidad()) {
+                    System.out.println("resta");
+                    int diferencia = cant - d.getCantidad();
+                    con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() - diferencia), p.getPrecio()));
+                } else if (cant < d.getCantidad()) {
+                    System.out.println("suma");
+                    int diferencia = d.getCantidad() - cant;
+                    con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() + diferencia), p.getPrecio()));
+                }
 
-            if (cant > d.getCantidad()) {
-                System.out.println("resta");
-                int diferencia = cant - d.getCantidad();
-                con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() - diferencia), p.getPrecio()));
-            } else if (cant < d.getCantidad()) {
-                System.out.println("suma");
-                int diferencia = d.getCantidad() - cant;
-                con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() + diferencia), p.getPrecio()));
+                Detalle detalle = new Detalle(d.getIdDetalle(), d.getPedido(), p, cant);
+                date.actualizarDetalle(detalle);
+
             }
-            
-            Detalle detalle = new Detalle(d.getIdDetalle(), d.getPedido(), p, cant);
-            date.actualizarDetalle(detalle);
-
+        }else{
+            JOptionPane.showMessageDialog(this, "Ingrese un numero valido");
         }
 
         llenarTablaDetalle();
         llenarTablaProducto();
+        btnCargar.setEnabled(false);
+        btnBorrar.setEnabled(false);
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       int filaSelecionada = tableDetalle.getSelectedRow();
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        int filaSelecionada = tableDetalle.getSelectedRow();
         String nombre = (String) tableDetalle.getValueAt(filaSelecionada, 0);
-         Producto p=con.buscarProductoPorNombre(nombre);
-        Detalle d=date.buscarDetallePorMesaYProducto(mesa.getNum(), p.getCodigo());
-       
+        Producto p = con.buscarProductoPorNombre(nombre);
+        Detalle d = date.buscarDetallePorMesaYProducto(mesa.getNum(), p.getCodigo());
+
         con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() + d.getCantidad()), p.getPrecio()));
         date.borrarDetalle(d.getIdDetalle());
-        
+
         llenarTablaDetalle();
         llenarTablaProducto();
-    }//GEN-LAST:event_jButton2ActionPerformed
+        btnCargar.setEnabled(false);
+        btnBorrar.setEnabled(false);
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void tableDetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDetalleMouseClicked
+        btnBorrar.setEnabled(true);
+    }//GEN-LAST:event_tableDetalleMouseClicked
+
+    private void tableProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProductoMouseClicked
+        btnCargar.setEnabled(true);
+    }//GEN-LAST:event_tableProductoMouseClicked
 
     public void iniciarTablaProducto() {
         modelo.addColumn("Nombre");
@@ -300,9 +334,9 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner SpinnerCant;
+    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

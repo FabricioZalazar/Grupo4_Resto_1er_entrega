@@ -58,6 +58,20 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         iniciarTabla();
         jLabel1.setText("Bienvenido " + VistaLogin.getMozo().getNombre());
         llenarTabla();
+
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                // Mostrar una confirmación antes de cerrar
+                int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas salir?",
+                        "Confirmación de salida", JOptionPane.YES_NO_OPTION);
+
+                if (opcion == JOptionPane.YES_OPTION) {
+                    System.exit(0); // Cerrar la aplicación
+                }
+            }
+        });
     }
 
     /**
@@ -266,34 +280,33 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarMesaActionPerformed
-        try{
-        VistaActualizarMesa a1 = null;
+        try {
+            VistaActualizarMesa a1 = null;
 
-        for (JInternalFrame frame : escritorio.getAllFrames()) {
-            if (frame instanceof VistaActualizarMesa) {
-                a1 = (VistaActualizarMesa) frame;
-                break;
+            for (JInternalFrame frame : escritorio.getAllFrames()) {
+                if (frame instanceof VistaActualizarMesa) {
+                    a1 = (VistaActualizarMesa) frame;
+                    break;
+                }
             }
-        }
 
-        if (a1 == null) {
-            // Si no hay una instancia abierta, crear una nueva
-            a1 = new VistaActualizarMesa(this);
-            escritorio.add(a1);
-        }
+            if (a1 == null) {
+                // Si no hay una instancia abierta, crear una nueva
+                a1 = new VistaActualizarMesa(this);
+                escritorio.add(a1);
+            }
 
 // Mostrar la ventana y moverla al frente
-        a1.setVisible(true);
-        escritorio.moveToFront(a1);
-        actualizarTabla();
-        }catch(NullPointerException n){
-            JOptionPane.showMessageDialog(this, "seleccione una mesa");
+            a1.setVisible(true);
+            escritorio.moveToFront(a1);
+            actualizarTabla();
+        } catch (NullPointerException n) {
+            JOptionPane.showMessageDialog(this, "Seleccione una mesa");
         }
     }//GEN-LAST:event_btnActualizarMesaActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
         VistaLogin ventana2 = new VistaLogin();
-        ventana2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
         ventana2.setVisible(true);
@@ -303,19 +316,18 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCerrarActionPerformed
 
     private void btnBorrarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarMesaActionPerformed
-      try{
-        int filaSelecionada = jTable1.getSelectedRow();
-        int id = (int) jTable1.getValueAt(filaSelecionada, 0);
-        con.borrarMesa(id);
-        actualizarTabla();
-      }catch(ArrayIndexOutOfBoundsException a){
-          JOptionPane.showMessageDialog(this, "seleccione una fila, por favor");
-      }
+        try {
+            int filaSelecionada = jTable1.getSelectedRow();
+            int id = (int) jTable1.getValueAt(filaSelecionada, 0);
+            con.borrarMesa(id);
+            actualizarTabla();
+        } catch (ArrayIndexOutOfBoundsException a) {
+            JOptionPane.showMessageDialog(this, "Seleccione una mesa, por favor");
+        }
     }//GEN-LAST:event_btnBorrarMesaActionPerformed
 
     private void jButtonInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInventarioActionPerformed
         VistaInventario ventana2 = new VistaInventario();
-        ventana2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
         ventana2.setVisible(true);
@@ -347,7 +359,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
             con.guardarMesa(mesa);
             llenarTabla();
         } catch (NumberFormatException r) {
-            JOptionPane.showMessageDialog(this,"ingrese solo numeros");
+            JOptionPane.showMessageDialog(this, "ingrese solo numeros");
         }
 
 
@@ -361,7 +373,6 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
     private void jButtonPedido3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedido3ActionPerformed
         VistaPedidos ventana2 = new VistaPedidos();
-        ventana2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
         // Mostrar la ventana2
         ventana2.setVisible(true);
@@ -394,24 +405,28 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCobrarActionPerformed
 
     private void jButtonCargarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarPedidoActionPerformed
-       VistaActualizarProducto a1 = null;
-        for (JInternalFrame frame: escritorio.getAllFrames()) {
-            if (frame instanceof VistaActualizarProducto) {
-                a1 =(VistaActualizarProducto)frame;
-                break;
-            }
-            
-        }
-        if (a1 == null) {
-            
-         a1 = new VistaActualizarProducto(this);
-            escritorio.add(a1);
-            
-        }
-             a1.setVisible(true);
-              escritorio.moveToFront(a1);
 
-       
+        try {
+            VistaCargarPedido a1 = null;
+            for (JInternalFrame frame : escritorio.getAllFrames()) {
+                if (frame instanceof VistaCargarPedido) {
+                    a1 = (VistaCargarPedido) frame;
+                    break;
+                }
+
+            }
+            if (a1 == null) {
+
+                a1 = new VistaCargarPedido(mesa);
+                escritorio.add(a1);
+
+            }
+            a1.setVisible(true);
+            escritorio.moveToFront(a1);
+
+        } catch (NullPointerException n) {
+            JOptionPane.showMessageDialog(this, "Seleccione una mesa");
+        }
     }//GEN-LAST:event_jButtonCargarPedidoActionPerformed
 
     /**

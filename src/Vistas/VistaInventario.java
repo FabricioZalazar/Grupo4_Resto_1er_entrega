@@ -38,6 +38,19 @@ public class VistaInventario extends javax.swing.JFrame {
         iniciarTabla();
         llenarTabla();
 
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                // Mostrar una confirmación antes de cerrar
+                int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas salir?",
+                        "Confirmación de salida", JOptionPane.YES_NO_OPTION);
+
+                if (opcion == JOptionPane.YES_OPTION) {
+                    System.exit(0); // Cerrar la aplicación
+                }
+            }
+        });
     }
 
     /**
