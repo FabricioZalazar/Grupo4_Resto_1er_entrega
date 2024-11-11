@@ -170,7 +170,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             ArrayList<Detalle> list = cone.listaDetallePorMesa(id);
             modelo.setRowCount(0);
             for (Detalle d : list) {
-                modelo.addRow(new Object[]{d.getIdDetalle(), d.getPedido().getIdPedido(), d.getProducto().getCodigo(), d.getCantidad()});
+                modelo.addRow(new Object[]{d.getIdDetalle(), d.getPedido().getIdPedido(), d.getProducto().getNombre(), d.getCantidad(), cone.subTotalDetalle(d.getIdDetalle())});
             }
         } else {
             llenarTabla();
@@ -179,7 +179,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_cbPedidosItemStateChanged
 
     private void jButtonTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTotalActionPerformed
-        
+
     }//GEN-LAST:event_jButtonTotalActionPerformed
 
     /**
@@ -198,8 +198,9 @@ public class VistaPedidos extends javax.swing.JFrame {
     public void iniciarTabla() {
         modelo.addColumn("Nro Detalle");
         modelo.addColumn("Nro Pedido");
-        modelo.addColumn("Nro Producto");
+        modelo.addColumn("Producto");
         modelo.addColumn("Cantidad");
+        modelo.addColumn("SubTotal");
         jTable1.setModel(modelo);
     }
 
@@ -208,7 +209,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         ArrayList<Detalle> list = cone.listaDetalle();
         modelo.setRowCount(0);
         for (Detalle d : list) {
-            modelo.addRow(new Object[]{d.getIdDetalle(), d.getPedido().getIdPedido(), d.getProducto().getCodigo(), d.getCantidad()});
+            modelo.addRow(new Object[]{d.getIdDetalle(), d.getPedido().getIdPedido(), d.getProducto().getNombre(), d.getCantidad(), cone.subTotalDetalle(d.getIdDetalle())});
         }
 
     }

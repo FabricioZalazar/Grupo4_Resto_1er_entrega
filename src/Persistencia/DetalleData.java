@@ -39,7 +39,7 @@ public class DetalleData {
             ps.setInt(3, detalle.getCantidad());
             int rs = ps.executeUpdate();
             if (rs > 0) {
-              //  JOptionPane.showMessageDialog(null, "Detalle Guardado");
+                //  JOptionPane.showMessageDialog(null, "Detalle Guardado");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -68,9 +68,7 @@ public class DetalleData {
         return detalle;
     }
 
-    
-     
-    public Detalle buscarDetallePorMesaYProducto(int mesa,int proc) {
+    public Detalle buscarDetallePorMesaYProducto(int mesa, int proc) {
         Detalle detalle = new Detalle();
         PedidoData pedidoData = new PedidoData();
         ProductoData productoData = new ProductoData();
@@ -78,7 +76,7 @@ public class DetalleData {
             String query = "SELECT detalle.IdDetalle, detalle.IdPedido,detalle.IdProducto,detalle.Cantidad  \n"
                     + "FROM detalle \n"
                     + "JOIN pedido ON detalle.IdPedido=pedido.IdPedido \n"
-                    + "JOIN mesa on mesa.IdMesa=pedido.IdMesa\n" 
+                    + "JOIN mesa on mesa.IdMesa=pedido.IdMesa\n"
                     + "WHERE mesa.IdMesa=? and detalle.IdProducto =?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, mesa);
@@ -207,4 +205,23 @@ public class DetalleData {
         }
         return listaDetalle;
     }
+
+    public double subTotalDetalle(int id) {
+        try {
+            String sql = "SELECT SUM(Cantidad * producto.Precio) as SubTotal\n"
+                    + "FROM detalle\n"
+                    + "JOIN producto on detalle.IdProducto=producto.IdProducto WHERE IdDetalle=?";
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet resultado= ps.executeQuery();
+             if (resultado.next()) {
+            return resultado.getDouble("SubTotal");
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(DetalleData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
 }
