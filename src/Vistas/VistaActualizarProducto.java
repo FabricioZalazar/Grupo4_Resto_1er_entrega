@@ -98,7 +98,7 @@ public class VistaActualizarProducto extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -165,13 +165,14 @@ public class VistaActualizarProducto extends javax.swing.JInternalFrame {
         
         con.ActualizarProducto(proc);
         vistaInventario.actualizarTabla();
-        
-        hide();
+        LimpiarCampos();
+        VistaLogin.setProducto(null);
+        this.dispose();
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        hide();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
@@ -201,7 +202,7 @@ public class VistaActualizarProducto extends javax.swing.JInternalFrame {
     public void LimpiarCampos(){
     txtNombre.setText("");
     txtPrecio.setText("");
-       jSpinnerStock.setValue(null);
+       jSpinnerStock.setValue(0);
     }
    
 }

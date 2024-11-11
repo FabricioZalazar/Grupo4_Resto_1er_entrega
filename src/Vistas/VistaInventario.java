@@ -53,6 +53,8 @@ public class VistaInventario extends javax.swing.JFrame {
         });
     }
 
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -181,23 +183,10 @@ public class VistaInventario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        // TODO add your handling  escritorio.repaint();
+
         VistaGuardarProducto a1 = null;
-
-        for (JInternalFrame frame : escritorio.getAllFrames()) {
-            if (frame instanceof VistaGuardarProducto) {
-                a1 = (VistaGuardarProducto) frame;
-                break;
-            }
-        }
-
-        if (a1 == null) {
-            // Si no hay una instancia abierta, crear una nueva
-            a1 = new VistaGuardarProducto(this);
-            escritorio.add(a1);
-        }
-
-// Mostrar la ventana y moverla al frente
+        a1 = new VistaGuardarProducto(this);
+        escritorio.add(a1);
         a1.setVisible(true);
         escritorio.moveToFront(a1);
         actualizarTabla();
@@ -215,28 +204,14 @@ public class VistaInventario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
-    
-        
-        
+
         try {
             VistaActualizarProducto a1 = null;
-            for (JInternalFrame frame : escritorio.getAllFrames()) {
-                if (frame instanceof VistaActualizarProducto) {
-                    a1 = (VistaActualizarProducto) frame;
-                    break;
-                }
-            }
-
-            if (a1 == null) {
-                // Si no hay una instancia abierta, crear una nueva
-                a1 = new VistaActualizarProducto(this);
-                escritorio.add(a1);
-            }
-
-// Mostrar la ventana y moverla al frente
+            a1 = new VistaActualizarProducto(this);
+            escritorio.add(a1);
             a1.setVisible(true);
             escritorio.moveToFront(a1);
-            actualizarTabla();
+            
         } catch (NullPointerException n) {
             JOptionPane.showMessageDialog(this, "Error , por favor seleccione una celda");
         }
@@ -247,17 +222,18 @@ public class VistaInventario extends javax.swing.JFrame {
         int filaSelecionada = jTable1.getSelectedRow();
         int id = (int) jTable1.getValueAt(filaSelecionada, 0);
         VistaLogin.setProducto(con.buscarProducto(id));
-    
+
 
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
-    try{        
-        con.borrarProducto(VistaLogin.getProducto().getCodigo());
-        actualizarTabla();
-    }catch(NullPointerException n){
-           JOptionPane.showMessageDialog(this, "Error, seleccione un producto");
-}
+        try {
+            con.borrarProducto(VistaLogin.getProducto().getCodigo());
+            VistaLogin.setProducto(null);
+            actualizarTabla();
+        } catch (NullPointerException n) {
+            JOptionPane.showMessageDialog(this, "Error, seleccione un producto");
+        }
     }//GEN-LAST:event_jButtonBorrarActionPerformed
 
 

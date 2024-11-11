@@ -103,7 +103,7 @@ public class VistaGuardarProducto extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonOK)
                 .addGap(7, 7, 7)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -174,7 +174,8 @@ public class VistaGuardarProducto extends javax.swing.JInternalFrame {
             
             con.GuardarProducto(proc);
             vistaInventario.actualizarTabla();
-            hide();
+             VistaLogin.setProducto(null);
+             this.dispose();
         }
     }catch(NumberFormatException e){
         JOptionPane.showMessageDialog(this, "por favor ingresar un precio valido");
@@ -183,7 +184,7 @@ public class VistaGuardarProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        hide();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
