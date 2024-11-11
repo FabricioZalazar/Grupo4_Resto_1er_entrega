@@ -179,7 +179,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_cbPedidosItemStateChanged
 
     private void jButtonTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTotalActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButtonTotalActionPerformed
 
     /**

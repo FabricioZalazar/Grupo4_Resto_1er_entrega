@@ -7,11 +7,13 @@ package Vistas;
 
 import Entidades.Mesa;
 import Entidades.Mesero;
+import Persistencia.ColorCeldas;
 import Persistencia.MesaData;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,10 +21,11 @@ import javax.swing.table.DefaultTableModel;
  * @author mmaci
  */
 public final class VistaPrincipal extends javax.swing.JFrame {
-
+    private ColorCeldas colorCeldas;
     private MesaData con = new MesaData();
     static Mesa mesa;
     static int id;
+    
     DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int fila, int columna) {
@@ -54,11 +57,14 @@ public final class VistaPrincipal extends javax.swing.JFrame {
      * @param mozo
      */
     public VistaPrincipal() {
-        initComponents();
-        iniciarTabla();
+       initComponents();
+       iniciarTabla();
+        
+        
         jLabel1.setText("Bienvenido " + VistaLogin.getMozo().getNombre());
         llenarTabla();
-
+      
+       
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -86,7 +92,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         jButtonCrearMesa = new javax.swing.JButton();
         jButtonReservar = new javax.swing.JButton();
         jButtonInventario = new javax.swing.JButton();
@@ -101,7 +107,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -112,12 +118,12 @@ public final class VistaPrincipal extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Tabla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                TablaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Tabla);
 
         jButtonCrearMesa.setText("Crear Mesa");
         jButtonCrearMesa.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +174,6 @@ public final class VistaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel1.setText("Nombre Mesero");
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -317,8 +322,8 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
     private void btnBorrarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarMesaActionPerformed
         try {
-            int filaSelecionada = jTable1.getSelectedRow();
-            int id = (int) jTable1.getValueAt(filaSelecionada, 0);
+            int filaSelecionada = Tabla.getSelectedRow();
+            int id = (int) Tabla.getValueAt(filaSelecionada, 0);
             con.borrarMesa(id);
             actualizarTabla();
         } catch (ArrayIndexOutOfBoundsException a) {
@@ -365,11 +370,11 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonCrearMesaActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int filaSelecionada = jTable1.getSelectedRow();
-        int id = (int) jTable1.getValueAt(filaSelecionada, 0);
+    private void TablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMouseClicked
+        int filaSelecionada = Tabla.getSelectedRow();
+        int id = (int) Tabla.getValueAt(filaSelecionada, 0);
         mesa = con.buscarMesa(id);
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_TablaMouseClicked
 
     private void jButtonPedido3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedido3ActionPerformed
         VistaPedidos ventana2 = new VistaPedidos();
@@ -434,6 +439,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Tabla;
     private javax.swing.JButton btnActualizarMesa;
     private javax.swing.JButton btnBorrarMesa;
     private javax.swing.JDesktopPane escritorio;
@@ -448,7 +454,6 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
  public void iniciarTabla() {
 
@@ -457,7 +462,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         modelo.addColumn("Activa");
         modelo.addColumn("Reserva");
         modelo.addColumn("Mozo");
-        jTable1.setModel(modelo);
+        Tabla.setModel(modelo);
     }
 
     public void llenarTabla() {

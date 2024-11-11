@@ -5,10 +5,10 @@
         <group>
             <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Vistas/VistaActualizarProducto.java</file>
             <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Vistas/VistaPrincipal.java</file>
-            <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Vistas/VistaLogin.java</file>
+            <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Vistas/VistaPedidos.java</file>
+            <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Persistencia/ColorCeldas.java</file>
             <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Vistas/VistaActualizarMesa.java</file>
-            <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Vistas/VistaListaReservas.java</file>
-            <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Vistas/VistaReserva.java</file>
+            <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Vistas/VistaCargarPedido.java</file>
             <file>file:/C:/Users/mmaci/Documents/NetBeansProjects/Grupo4_Resto_1er_entrega/src/Vistas/VistaInventario.java</file>
         </group>
     </open-files>

@@ -70,6 +70,11 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
         });
 
         jCheckBoxEstado.setText("(Ocupado)");
+        jCheckBoxEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxEstadoActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Actualizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -203,6 +208,10 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_jCheckBoxReservaActionPerformed
+
+    private void jCheckBoxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBoxEstadoActionPerformed
 
     public void llenarCampos() {
         boolean x;
