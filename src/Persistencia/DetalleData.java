@@ -39,7 +39,7 @@ public class DetalleData {
             ps.setInt(3, detalle.getCantidad());
             int rs = ps.executeUpdate();
             if (rs > 0) {
-                JOptionPane.showMessageDialog(null, "Detalle Guardado");
+              //  JOptionPane.showMessageDialog(null, "Detalle Guardado");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -155,7 +155,7 @@ public class DetalleData {
 
             int rs = ps.executeUpdate();
             if (rs == 1) {
-                JOptionPane.showMessageDialog(null, "Detalle actualizado");
+                //JOptionPane.showMessageDialog(null, "Detalle actualizado");
             }
             ps.close();
 
@@ -173,7 +173,7 @@ public class DetalleData {
             int resultado = ps.executeUpdate();
 
             if (resultado == 1) {
-                JOptionPane.showMessageDialog(null, "El detalle fue eliminado Exitosamente");
+                //JOptionPane.showMessageDialog(null, "El detalle fue eliminado Exitosamente");
             }
             ps.close();
         } catch (SQLException ex) {

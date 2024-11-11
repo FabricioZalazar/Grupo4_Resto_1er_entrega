@@ -119,7 +119,7 @@ public class ReservaData {
                 reserva.setHoraHasta(resultado.getTime("HoraHasta").toLocalTime());
                 reserva.setEstado(resultado.getBoolean("estado"));
             } else {
-                JOptionPane.showMessageDialog(null, "DNI de la persona que reservo no fue encontrado");
+                //JOptionPane.showMessageDialog(null, "DNI de la persona que reservo no fue encontrado");
             }
             ps.close();
         } catch (SQLException ex) {

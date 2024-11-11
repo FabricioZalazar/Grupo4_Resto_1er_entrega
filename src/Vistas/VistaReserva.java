@@ -10,6 +10,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.HeadlessException;
 import java.sql.Date;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -302,8 +303,9 @@ public class VistaReserva extends javax.swing.JFrame {
         try {
             String nombre = txtNombre.getText();
             int dni = Integer.parseInt(txtDni.getText());
-
+            if(con.buscarReservaDNI(dni).getIdReserva()==0){
             LocalDate fecha = jDateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
             String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
             DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
             LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
@@ -312,19 +314,30 @@ public class VistaReserva extends javax.swing.JFrame {
             DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
             LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
             Duration duracion = Duration.between(horaDe, horaHasta);
-            if (duracion.isNegative()) {
-                duracion = duracion.plusHours(24);
-            }
 
-            if (duracion.toHours() <= 2) {
-
-                Reserva reserva = new Reserva(nombre, dni, fecha, horaDe, horaHasta, true);
-                con.guardarReserva(reserva);
-                llenarTabla();
+            if (fecha.isBefore(LocalDate.now())) {
+                JOptionPane.showMessageDialog(this, "Fecha no valida");
             } else {
-                JOptionPane.showMessageDialog(this, "la reserva debe ser menor a dos horas");
-            }
+                if (duracion.isNegative()) {
+                    duracion = duracion.plusHours(24);
+                }
+                if (!horaDe.equals(horaHasta)) {
+                    if (duracion.toHours() <= 2) {
 
+                        Reserva reserva = new Reserva(nombre, dni, fecha, horaDe, horaHasta, true);
+                        con.guardarReserva(reserva);
+                        llenarTabla();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "La reserva debe ser menor a dos horas");
+                    }
+                }else{
+                     JOptionPane.showMessageDialog(this, "Hora de reserva invalida");
+                }
+
+            }
+            }else{
+                JOptionPane.showMessageDialog(this, "Este Dni ya tiene reserva");
+            }
         } catch (NumberFormatException e) {
             {
                 JOptionPane.showMessageDialog(this, "ingrese un dni valido");
@@ -333,7 +346,7 @@ public class VistaReserva extends javax.swing.JFrame {
         } catch (HeadlessException e) {
 
         }
-
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -372,7 +385,7 @@ public class VistaReserva extends javax.swing.JFrame {
                 con.actualizarReserva(reserva);
                 llenarTabla();
                 LimpiarCampos();
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(this, "la reserva debe ser menor a dos horas");
             }
         } catch (NumberFormatException n) {
@@ -508,14 +521,12 @@ public class VistaReserva extends javax.swing.JFrame {
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
-public void LimpiarCampos(){
-    txtNombre.setText("");
-    txtDni.setText("");
-    jDateFecha.setDate(null);
-    cbHorasDe.setSelectedItem(null);
-    cbHorasHasta.setSelectedItem(null);
-}
-
-
+public void LimpiarCampos() {
+        txtNombre.setText("");
+        txtDni.setText("");
+        jDateFecha.setDate(null);
+        cbHorasDe.setSelectedItem(null);
+        cbHorasHasta.setSelectedItem(null);
+    }
 
 }

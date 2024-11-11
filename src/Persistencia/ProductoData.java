@@ -60,7 +60,7 @@ public class ProductoData {
             int filas = ps.executeUpdate();
 
             if (filas > 0) {
-                JOptionPane.showMessageDialog(null, "Producto actualizado correctamente");
+               // JOptionPane.showMessageDialog(null, "Producto actualizado correctamente");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al actualizar el producto");

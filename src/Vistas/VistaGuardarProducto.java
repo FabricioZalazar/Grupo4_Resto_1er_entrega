@@ -193,8 +193,6 @@ public class VistaGuardarProducto extends javax.swing.JInternalFrame {
 
     private void jButtonOKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonOKMouseClicked
        
-            
-        
     }//GEN-LAST:event_jButtonOKMouseClicked
 
 

@@ -40,7 +40,7 @@ public class PedidoData {
             ps.setDouble(4, 0);
             int rs = ps.executeUpdate();
             if (rs > 0) {
-                JOptionPane.showMessageDialog(null, "Pedido Guardado");
+               // JOptionPane.showMessageDialog(null, "Pedido Guardado");
             }
             ps.close();
         } catch (SQLException ex) {

@@ -240,7 +240,7 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
             Producto p = con.buscarProductoPorNombre(nombre);
 
             Detalle bandera = date.buscarDetallePorMesaYProducto(mesa.getNum(), p.getCodigo());
-            System.out.println(bandera);
+            
             if (bandera.getIdDetalle() == 0) {
                 //new detalle
                 Detalle detalle = new Detalle(ped.buscarPedidoPorMesa(mesa.getNum()), p, cant);
@@ -250,11 +250,11 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
                 Detalle d = date.buscarDetallePorMesaYProducto(mesa.getNum(), p.getCodigo());
 
                 if (cant > d.getCantidad()) {
-                    System.out.println("resta");
+                   
                     int diferencia = cant - d.getCantidad();
                     con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() - diferencia), p.getPrecio()));
                 } else if (cant < d.getCantidad()) {
-                    System.out.println("suma");
+                    
                     int diferencia = d.getCantidad() - cant;
                     con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() + diferencia), p.getPrecio()));
                 }

@@ -50,7 +50,7 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
         jSpinnerCapacidad = new javax.swing.JSpinner();
         jCheckBoxReserva = new javax.swing.JCheckBox();
         jCheckBoxEstado = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         txtNumeroMesa = new javax.swing.JLabel();
 
@@ -76,10 +76,10 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Actualizar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
 
@@ -102,7 +102,7 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jButton1)
+                            .addComponent(btnActualizar)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -144,7 +144,7 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
                     .addComponent(jCheckBoxEstado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnActualizar)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17))
         );
@@ -180,7 +180,7 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         int id = VistaPrincipal.getMesa().getNum();
         int cap = (int) jSpinnerCapacidad.getValue();
         boolean estado = jCheckBoxEstado.isSelected();
@@ -194,9 +194,10 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
             cone.actualizarMesa(mesa);
             vista.llenarTabla();
         }
-
+        VistaPrincipal.setMesa(null);
         repaint();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void jCheckBoxReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxReservaActionPerformed
 
@@ -251,7 +252,7 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBoxEstado;
     private javax.swing.JCheckBox jCheckBoxReserva;

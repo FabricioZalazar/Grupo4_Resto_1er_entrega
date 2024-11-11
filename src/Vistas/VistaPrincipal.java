@@ -21,16 +21,18 @@ import javax.swing.table.DefaultTableModel;
  * @author mmaci
  */
 public final class VistaPrincipal extends javax.swing.JFrame {
-    private ColorCeldas colorCeldas;
+
+    private ColorCeldas colorCeldas = new ColorCeldas();
     private MesaData con = new MesaData();
     static Mesa mesa;
     static int id;
-    
+
     DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int fila, int columna) {
             return false;
         }
+
     };
 
     public static int getId() {
@@ -57,16 +59,11 @@ public final class VistaPrincipal extends javax.swing.JFrame {
      * @param mozo
      */
     public VistaPrincipal() {
-       initComponents();
-       iniciarTabla();
-        
-        
+        initComponents();
+        iniciarTabla();
         jLabel1.setText("Bienvenido " + VistaLogin.getMozo().getNombre());
         llenarTabla();
-      
-       
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
+        Tabla.setDefaultRenderer(Object.class, colorCeldas);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent e) {
                 // Mostrar una confirmación antes de cerrar
@@ -287,21 +284,8 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     private void btnActualizarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarMesaActionPerformed
         try {
             VistaActualizarMesa a1 = null;
-
-            for (JInternalFrame frame : escritorio.getAllFrames()) {
-                if (frame instanceof VistaActualizarMesa) {
-                    a1 = (VistaActualizarMesa) frame;
-                    break;
-                }
-            }
-
-            if (a1 == null) {
-                // Si no hay una instancia abierta, crear una nueva
-                a1 = new VistaActualizarMesa(this);
-                escritorio.add(a1);
-            }
-
-// Mostrar la ventana y moverla al frente
+            a1 = new VistaActualizarMesa(this);
+            escritorio.add(a1);
             a1.setVisible(true);
             escritorio.moveToFront(a1);
             actualizarTabla();
@@ -466,11 +450,16 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }
 
     public void llenarTabla() {
-
+        String txt;
         ArrayList<Mesa> list = con.listaMesa();
         modelo.setRowCount(0);
         for (Mesa p : list) {
-            modelo.addRow(new Object[]{p.getNum(), p.getCapacidad(), p.isEstado(), p.getReserva(), "Nadie"});
+            if (p.isEstado()) {
+                txt = "Ocupado";
+            } else {
+                txt = "Libre";
+            }
+            modelo.addRow(new Object[]{p.getNum(), p.getCapacidad(), txt, p.getReserva(), "Nadie"});
         }
 
     }
