@@ -5,11 +5,15 @@
 package Vistas;
 
 import Entidades.Mesa;
+import Entidades.Pedido;
 import Entidades.Reserva;
 import Persistencia.MesaData;
+import Persistencia.PedidoData;
 import Persistencia.ReservaData;
+import static Vistas.VistaPrincipal.mesa;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -184,6 +188,11 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
         int id = VistaPrincipal.getMesa().getNum();
         int cap = (int) jSpinnerCapacidad.getValue();
         boolean estado = jCheckBoxEstado.isSelected();
+        if(estado){
+            PedidoData ped=new PedidoData();
+            Pedido pedido = new Pedido(VistaPrincipal.getMesa(), VistaLogin.getMozo(), false, 0);
+            ped.guardarPedido(pedido);
+        }
         if (jCheckBoxReserva.isSelected()) {
             Reserva r = con.buscarReservaID(VistaPrincipal.getId());
             Mesa mesa = new Mesa(id, cap, r, estado);
@@ -211,7 +220,11 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jCheckBoxReservaActionPerformed
 
     private void jCheckBoxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxEstadoActionPerformed
-        // TODO add your handling code here:
+        PedidoData pedido= new PedidoData();
+        if (pedido.buscarPedidoPorMesa(VistaPrincipal.getMesa().getNum()).getIdPedido()!=0) {
+            JOptionPane.showMessageDialog(null, "Mesa tiene pedido no se puede dejar libre");
+            jCheckBoxEstado.setSelected(true);
+        }
     }//GEN-LAST:event_jCheckBoxEstadoActionPerformed
 
     public void llenarCampos() {

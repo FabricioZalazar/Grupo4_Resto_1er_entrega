@@ -227,12 +227,7 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
-        //new pedido
-        if (ped.buscarPedidoPorMesa(mesa.getNum()).getIdPedido() == 0) {
-            Pedido pedido = new Pedido(mesa, VistaLogin.getMozo(), false, 0);
-            ped.guardarPedido(pedido);
-        }
-
+ 
         int filaSelecionada = tableProducto.getSelectedRow();
         String nombre = (String) tableProducto.getValueAt(filaSelecionada, 0);
         int cant = (int) SpinnerCant.getValue();
@@ -274,6 +269,7 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+       VistaPrincipal.setMesa(null);
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 

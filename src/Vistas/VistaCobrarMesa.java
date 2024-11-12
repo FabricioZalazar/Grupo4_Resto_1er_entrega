@@ -10,21 +10,37 @@ import Entidades.Pedido;
 import Persistencia.DetalleData;
 import Persistencia.MesaData;
 import Persistencia.PedidoData;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Fabricio Zalazar
  */
 public class VistaCobrarMesa extends javax.swing.JInternalFrame {
+
+    VistaPrincipal vistaPrincipal;
+    VistaPedidos vistaPedidos;
     MesaData mesa = new MesaData();
     DetalleData con = new DetalleData();
     PedidoData cone = new PedidoData();
+
     public VistaCobrarMesa() {
         initComponents();
         llenarCampos();
     }
 
-    
+    public VistaCobrarMesa(VistaPrincipal VistaPrincipal) {
+        initComponents();
+        llenarCampos();
+        this.vistaPrincipal = VistaPrincipal;
+    }
+
+    public VistaCobrarMesa(VistaPedidos VistaPedidos) {
+        this.vistaPedidos=VistaPedidos;
+        initComponents();
+        llenarCampos();
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -168,39 +184,54 @@ public class VistaCobrarMesa extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Mesa m = VistaPrincipal.getMesa();
         
-        for (Detalle d :con.listaDetallePorMesa(m.getNum()) ) {
-            con.borrarDetalle(d.getIdDetalle());
+        double total = Double.parseDouble(txtTotal.getText());
+        double pago = Double.parseDouble(txtPago.getText());
+        if (pago < total) {
+            JOptionPane.showMessageDialog(rootPane, "Monto Insuficiente (A lavar los platos)");
+        } else {
+            Mesa m = VistaPrincipal.getMesa();
+
+            for (Detalle d : con.listaDetallePorMesa(m.getNum())) {
+                con.borrarDetalle(d.getIdDetalle());
+
+            }
+            Pedido p = cone.buscarPedidoPorMesa(m.getNum());
+            cone.borrarPedido(p.getIdPedido());
+            mesa.actualizarMesa(new Mesa(m.getNum(), m.getCapacidad(), m.getReserva(), false));
+            try{
+                vistaPrincipal.actualizarTabla();
+                
+            }catch(NullPointerException r){
+                vistaPedidos.llenarTabla();
+            }
             
+            VistaPrincipal.setMesa(null);
+            this.dispose();
         }
-         Pedido p = cone.buscarPedidoPorMesa(m.getNum());
-        cone.borrarPedido(p.getIdPedido());
-        mesa.actualizarMesa(new Mesa(m.getNum(),m.getCapacidad(),m.getReserva(),false));
-        
-            
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        VistaPrincipal.setMesa(null);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtPagoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPagoKeyTyped
-       
+
     }//GEN-LAST:event_txtPagoKeyTyped
 
     private void txtPagoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPagoKeyReleased
-        
+
         if (!txtPago.getText().equals("")) {
-        double total = Double.parseDouble(txtTotal.getText());
-        double pago =  Double.parseDouble(txtPago.getText());
-       if (total< pago) {
-           txtCambio.setText((pago - total) +"" );
-        }else{
-             txtCambio.setText("0");
-         }
-              }
+            double total = Double.parseDouble(txtTotal.getText());
+            double pago = Double.parseDouble(txtPago.getText());
+            if (total < pago) {
+                txtCambio.setText((pago - total) + "");
+            } else {
+                txtCambio.setText("0");
+            }
+        }
     }//GEN-LAST:event_txtPagoKeyReleased
 
 
@@ -217,14 +248,13 @@ public class VistaCobrarMesa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel txtTitulo;
     private javax.swing.JLabel txtTotal;
     // End of variables declaration//GEN-END:variables
-    public void llenarCampos(){
-     Pedido p = cone.buscarPedidoPorMesa(VistaPrincipal.getMesa().getNum());
-     Pedido pe = new Pedido(p.getIdPedido(),p.getMesa(),p.getMesero(),p.isEstado(),cone.Total(p.getMesa().getNum()));
-     cone.actualizarPedido(pe);
-     txtTotal.setText(pe.getTotal()+"");
-     txtCambio.setText("0");
-     txtTitulo.setText("Mesa Nº " + p.getMesa().getNum());
-}
-
+    public void llenarCampos() {
+        Pedido p = cone.buscarPedidoPorMesa(VistaPrincipal.getMesa().getNum());
+        Pedido pe = new Pedido(p.getIdPedido(), p.getMesa(), p.getMesero(), p.isEstado(), cone.Total(p.getMesa().getNum()));
+        cone.actualizarPedido(pe);
+        txtTotal.setText(pe.getTotal() + "");
+        txtCambio.setText("0");
+        txtTitulo.setText("Mesa Nº " + p.getMesa().getNum());
+    }
 
 }

@@ -10,6 +10,7 @@ import Entidades.Mesa;
 import Entidades.Mesero;
 import Persistencia.ColorCeldas;
 import Persistencia.MesaData;
+import Persistencia.PedidoData;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -316,10 +317,16 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
     private void btnBorrarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarMesaActionPerformed
         try {
+
             int filaSelecionada = Tabla.getSelectedRow();
             int id = (int) Tabla.getValueAt(filaSelecionada, 0);
-            con.borrarMesa(id);
-            actualizarTabla();
+            int opcion = JOptionPane.showConfirmDialog(rootPane, "Seguro que desea eliminar la Mesa N°" + id, "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                con.borrarMesa(id);
+                actualizarTabla();
+            }
+
         } catch (ArrayIndexOutOfBoundsException a) {
             JOptionPane.showMessageDialog(this, "Seleccione una mesa, por favor");
         }
@@ -381,51 +388,64 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPedido3ActionPerformed
 
     private void jButtonCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCobrarActionPerformed
+        PedidoData pedido = new PedidoData();
+        try {
+            if (pedido.buscarPedidoPorMesa(mesa.getNum()).getIdPedido() != 0) {
+                VistaCobrarMesa a1 = null;
 
-        VistaCobrarMesa a1 = null;
+                for (JInternalFrame frame : escritorio.getAllFrames()) {
+                    if (frame instanceof VistaCobrarMesa) {
+                        a1 = (VistaCobrarMesa) frame;
+                        break;
+                    }
+                }
 
-        for (JInternalFrame frame : escritorio.getAllFrames()) {
-            if (frame instanceof VistaCobrarMesa) {
-                a1 = (VistaCobrarMesa) frame;
-                break;
-            }
-        }
-
-        if (a1 == null) {
-            // Si no hay una instancia abierta, crear una nueva
-            a1 = new VistaCobrarMesa();
-            escritorio.add(a1);
-        }
+                if (a1 == null) {
+                    // Si no hay una instancia abierta, crear una nueva
+                    a1 = new VistaCobrarMesa(this);
+                    escritorio.add(a1);
+                }
 
 // Mostrar la ventana y moverla al frente
-        a1.setVisible(true);
-        escritorio.moveToFront(a1);
+                a1.setVisible(true);
+                escritorio.moveToFront(a1);
+            } else {
+                JOptionPane.showMessageDialog(null, "Mesa " + mesa.getNum() + " no tiene pedido pendiente");
+            }
+        } catch (NullPointerException r) {
+            JOptionPane.showMessageDialog(null, "No hay una mesa seleccionada");
 
+        }
+        llenarTabla();
     }//GEN-LAST:event_jButtonCobrarActionPerformed
 
     private void jButtonCargarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarPedidoActionPerformed
-
+        PedidoData pedido = new PedidoData();
         try {
-            VistaCargarPedido a1 = null;
-            for (JInternalFrame frame : escritorio.getAllFrames()) {
-                if (frame instanceof VistaCargarPedido) {
-                    a1 = (VistaCargarPedido) frame;
-                    break;
+            if (pedido.buscarPedidoPorMesa(mesa.getNum()).getIdPedido() != 0) {
+                VistaCargarPedido a1 = null;
+                for (JInternalFrame frame : escritorio.getAllFrames()) {
+                    if (frame instanceof VistaCargarPedido) {
+                        a1 = (VistaCargarPedido) frame;
+                        break;
+                    }
+
                 }
+                if (a1 == null) {
 
+                    a1 = new VistaCargarPedido(mesa);
+                    escritorio.add(a1);
+
+                }
+                a1.setVisible(true);
+                escritorio.moveToFront(a1);
+            } else {
+                JOptionPane.showMessageDialog(this, "Solo las mesas ocupadas pueden tener pedidos");
             }
-            if (a1 == null) {
-
-                a1 = new VistaCargarPedido(mesa);
-                escritorio.add(a1);
-
-            }
-            a1.setVisible(true);
-            escritorio.moveToFront(a1);
-
         } catch (NullPointerException n) {
             JOptionPane.showMessageDialog(this, "Seleccione una mesa");
         }
+        llenarTabla();
     }//GEN-LAST:event_jButtonCargarPedidoActionPerformed
 
     /**

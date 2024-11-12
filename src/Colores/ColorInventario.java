@@ -33,7 +33,7 @@ public class ColorInventario extends DefaultTableCellRenderer {
        
         }else{
             setBackground(Color.GREEN.brighter().darker());
-            setForeground(Color.white);
+            
         }
             
 

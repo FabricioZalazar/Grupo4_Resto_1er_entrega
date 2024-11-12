@@ -31,7 +31,9 @@ public class PedidoData {
     }
 
     public void guardarPedido(Pedido pedido) {
-        String sql = "INSERT INTO pedido(IdMesa, IdMesero, Estado, SubTotal) VALUES (?,?,?,?)";
+        MesaData mesa=new MesaData();
+       
+            String sql = "INSERT INTO pedido(IdMesa, IdMesero, Estado, SubTotal) VALUES (?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -47,6 +49,8 @@ public class PedidoData {
         } catch (SQLException ex) {
             Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
     }
 
     public void borrarPedido(int id) {
@@ -78,7 +82,7 @@ public class PedidoData {
             ps.setInt(5, pedido.getIdPedido());
             int rs = ps.executeUpdate();
             if (rs == 1) {
-                JOptionPane.showMessageDialog(null, "Pedido actualizado");
+               // JOptionPane.showMessageDialog(null, "Pedido actualizado");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -102,7 +106,7 @@ public class PedidoData {
                 pedido.setEstado(resultado.getBoolean("Estado"));
                 pedido.setTotal(resultado.getDouble("SubTotal"));
             } else {
-                JOptionPane.showMessageDialog(null, "Pedido no encontrado");
+                //JOptionPane.showMessageDialog(null, "Pedido no encontrado");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -127,7 +131,7 @@ public class PedidoData {
                 pedido.setEstado(resultado.getBoolean("Estado"));
                 pedido.setTotal(resultado.getDouble("SubTotal"));
             } else {
-                JOptionPane.showMessageDialog(null, "Pedido no encontrado");
+                //JOptionPane.showMessageDialog(null, "Pedido no encontrado");
             }
             ps.close();
         } catch (SQLException ex) {

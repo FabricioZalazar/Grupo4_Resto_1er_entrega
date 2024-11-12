@@ -162,25 +162,29 @@ public class VistaGuardarProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
-    try{
-        if (txtNombre.getText().isEmpty()|txtPrecio.getText().isEmpty()||jSpinnerStock.getValue() == null) {
-             JOptionPane.showMessageDialog(this, "llene los campos");
-            }else{
-            String nombre = txtNombre.getText(); 
-            int stock = (int) jSpinnerStock.getValue(); 
-            double precio = Double.parseDouble(txtPrecio.getText());
-            
-            Producto proc = new Producto(nombre, stock, precio);
-            
-            con.GuardarProducto(proc);
-            vistaInventario.actualizarTabla();
-             VistaLogin.setProducto(null);
-             this.dispose();
+        try {
+            if (txtNombre.getText().isEmpty() | txtPrecio.getText().isEmpty() || jSpinnerStock.getValue() == null) {
+                JOptionPane.showMessageDialog(this, "Llene los campos");
+            } else {
+                String nombre = txtNombre.getText();
+                int stock = (int) jSpinnerStock.getValue();
+                if (stock > 0) {
+                    double precio = Double.parseDouble(txtPrecio.getText());
+
+                    Producto proc = new Producto(nombre, stock, precio);
+
+                    con.GuardarProducto(proc);
+                    vistaInventario.actualizarTabla();
+                    VistaLogin.setProducto(null);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ingrese Stock Valido");
+                }
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor ingresar un precio valido");
         }
-    }catch(NumberFormatException e){
-        JOptionPane.showMessageDialog(this, "por favor ingresar un precio valido");
-    }
-        
+
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -192,7 +196,7 @@ public class VistaGuardarProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtPrecioActionPerformed
 
     private void jButtonOKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonOKMouseClicked
-       
+
     }//GEN-LAST:event_jButtonOKMouseClicked
 
 

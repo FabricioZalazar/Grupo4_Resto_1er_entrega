@@ -11,8 +11,10 @@ import Entidades.Pedido;
 import Persistencia.DetalleData;
 import Persistencia.MesaData;
 import Persistencia.PedidoData;
+import static Vistas.VistaPrincipal.mesa;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Fabricio Zalazar
  */
 public class VistaPedidos extends javax.swing.JFrame {
+
     MesaData mesa = new MesaData();
     DetalleData cone = new DetalleData();
     PedidoData con = new PedidoData();
@@ -63,14 +66,17 @@ public class VistaPedidos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        escritorio = new javax.swing.JDesktopPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButtonTotal = new javax.swing.JButton();
+        btnTotal = new javax.swing.JButton();
         cbPedidos = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        escritorio.setBackground(new java.awt.Color(127, 122, 122));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -90,10 +96,11 @@ public class VistaPedidos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jButtonTotal.setText("Total");
-        jButtonTotal.addActionListener(new java.awt.event.ActionListener() {
+        btnTotal.setText("Total");
+        btnTotal.setEnabled(false);
+        btnTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTotalActionPerformed(evt);
+                btnTotalActionPerformed(evt);
             }
         });
 
@@ -117,39 +124,50 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
 
+        escritorio.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnTotal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(cbPedidos, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnSalir, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnTotal)
+                .addGap(53, 53, 53)
+                .addComponent(btnSalir)
+                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
+        );
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(btnTotal)
+                    .addComponent(btnSalir))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSalir)
-                            .addComponent(jButtonTotal))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(23, 23, 23))))
+            .addComponent(escritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87)
-                .addComponent(jButtonTotal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addGap(21, 21, 21))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+            .addComponent(escritorio)
         );
 
         pack();
@@ -170,31 +188,53 @@ public class VistaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void cbPedidosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbPedidosItemStateChanged
-      if (!((String) cbPedidos.getSelectedItem()).equalsIgnoreCase("Todos")) {
+        if (!((String) cbPedidos.getSelectedItem()).equalsIgnoreCase("Todos")) {
+            btnTotal.setEnabled(true);
             int id = Integer.parseInt((String) cbPedidos.getSelectedItem());
             ArrayList<Detalle> list = cone.listaDetallePorMesa(id);
             modelo.setRowCount(0);
             for (Detalle d : list) {
-                modelo.addRow(new Object[]{d.getIdDetalle(), d.getPedido().getIdPedido(), d.getProducto().getNombre(), d.getCantidad(), cone.subTotalDetalle(d.getIdDetalle())});
+                modelo.addRow(new Object[]{mesa.buscarMesaXPedido(d.getPedido().getIdPedido()).getNum(), d.getIdDetalle(), d.getPedido().getIdPedido(), d.getProducto().getNombre(), d.getCantidad(), cone.subTotalDetalle(d.getIdDetalle())});
+            }
+            if (cone.buscarDetallePorMesa(id).getIdDetalle() == 0) {
+                 btnTotal.setEnabled(false);
             }
         } else {
+            btnTotal.setEnabled(false);
             llenarTabla();
         }
 
     }//GEN-LAST:event_cbPedidosItemStateChanged
 
-    private void jButtonTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTotalActionPerformed
-         
-    }//GEN-LAST:event_jButtonTotalActionPerformed
+    private void btnTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTotalActionPerformed
+        int idMesa = Integer.parseInt((String) cbPedidos.getSelectedItem());
+        if (cbPedidos.getSelectedItem() != "Todos") {
+           
+                VistaPrincipal.setMesa(mesa.buscarMesa(idMesa));
+
+                VistaCobrarMesa a1 = null;
+
+                for (JInternalFrame frame : escritorio.getAllFrames()) {
+                    if (frame instanceof VistaCobrarMesa) {
+                        a1 = (VistaCobrarMesa) frame;
+                        break;
+                    }
+                }
+
+                if (a1 == null) {
+                    a1 = new VistaCobrarMesa(this);
+                    escritorio.add(a1);
+                }
+                a1.setVisible(true);
+                escritorio.moveToFront(a1);
+            
+        }
+    }//GEN-LAST:event_btnTotalActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-     int FilaSeleccionada =jTable1.getSelectedRow();
+        int FilaSeleccionada = jTable1.getSelectedRow();
         int id = (int) jTable1.getValueAt(FilaSeleccionada, 0);
-           VistaPrincipal.setDetalle(cone.buscarDetalleID(id));
-       
-        
-        
-        
+        VistaPrincipal.setDetalle(cone.buscarDetalleID(id));
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -203,14 +243,16 @@ public class VistaPedidos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnTotal;
     private javax.swing.JComboBox<String> cbPedidos;
-    private javax.swing.JButton jButtonTotal;
+    private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
     public void iniciarTabla() {
+        modelo.addColumn("Nro Mesa");
         modelo.addColumn("Nro Detalle");
         modelo.addColumn("Nro Pedido");
         modelo.addColumn("Producto");
@@ -224,15 +266,15 @@ public class VistaPedidos extends javax.swing.JFrame {
         ArrayList<Detalle> list = cone.listaDetalle();
         modelo.setRowCount(0);
         for (Detalle d : list) {
-            modelo.addRow(new Object[]{d.getIdDetalle(), d.getPedido().getIdPedido(), d.getProducto().getNombre(), d.getCantidad(), cone.subTotalDetalle(d.getIdDetalle())});
+            modelo.addRow(new Object[]{mesa.buscarMesaXPedido(d.getPedido().getIdPedido()).getNum(), d.getIdDetalle(), d.getPedido().getIdPedido(), d.getProducto().getNombre(), d.getCantidad(), cone.subTotalDetalle(d.getIdDetalle())});
         }
 
     }
 
     public void llenarCombo() {
-        MesaData mesaD = new MesaData();
+
         cbPedidos.addItem("Todos");
-        for (Mesa m : mesaD.listaMesa()) {
+        for (Mesa m : mesa.listaMesa()) {
 
             cbPedidos.addItem(m.getNum() + "");
 
