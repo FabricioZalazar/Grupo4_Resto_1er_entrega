@@ -83,6 +83,11 @@ public class VistaPedidos extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButtonTotal.setText("Total");
@@ -165,7 +170,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void cbPedidosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbPedidosItemStateChanged
-        if (!((String) cbPedidos.getSelectedItem()).equalsIgnoreCase("Todos")) {
+      if (!((String) cbPedidos.getSelectedItem()).equalsIgnoreCase("Todos")) {
             int id = Integer.parseInt((String) cbPedidos.getSelectedItem());
             ArrayList<Detalle> list = cone.listaDetallePorMesa(id);
             modelo.setRowCount(0);
@@ -179,8 +184,18 @@ public class VistaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_cbPedidosItemStateChanged
 
     private void jButtonTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTotalActionPerformed
-
+         
     }//GEN-LAST:event_jButtonTotalActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+     int FilaSeleccionada =jTable1.getSelectedRow();
+        if (FilaSeleccionada != -1) {
+            double total = (double) jTable1.getValueAt(FilaSeleccionada, 2);
+       
+        }
+        
+        
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

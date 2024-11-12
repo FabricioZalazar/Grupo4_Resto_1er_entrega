@@ -6,6 +6,7 @@ package Vistas;
 
 import Entidades.Mesero;
 import Entidades.Producto;
+import Persistencia.ColorInventario;
 import Persistencia.ProductoData;
 import java.util.ArrayList;
 import javax.swing.JDesktopPane;
@@ -20,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Fabricio Zalazar
  */
 public class VistaInventario extends javax.swing.JFrame {
-
+     private ColorInventario colorCeldas = new ColorInventario();
     private ProductoData con = new ProductoData();
     DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
@@ -37,7 +38,7 @@ public class VistaInventario extends javax.swing.JFrame {
         initComponents();
         iniciarTabla();
         llenarTabla();
-
+        jTable1.setDefaultRenderer(Object.class, colorCeldas);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         addWindowListener(new java.awt.event.WindowAdapter() {
