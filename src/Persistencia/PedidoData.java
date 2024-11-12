@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.management.Query;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,7 +41,7 @@ public class PedidoData {
             ps.setDouble(4, 0);
             int rs = ps.executeUpdate();
             if (rs > 0) {
-               // JOptionPane.showMessageDialog(null, "Pedido Guardado");
+                // JOptionPane.showMessageDialog(null, "Pedido Guardado");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -109,7 +110,7 @@ public class PedidoData {
         }
         return pedido;
     }
-    
+
     public Pedido buscarPedidoPorMesa(int id) {
         MesaData con = new MesaData();
         MeseroData mes = new MeseroData();
@@ -189,8 +190,8 @@ public class PedidoData {
         }
         return listaPedidos;
     }
-    
-     public ArrayList<Pedido> listaPedidosPorMesa(int mesa) {
+
+    public ArrayList<Pedido> listaPedidosPorMesa(int mesa) {
         MesaData con = new MesaData();
         MeseroData mes = new MeseroData();
         ArrayList<Pedido> listaPedidos = new ArrayList();
@@ -214,4 +215,26 @@ public class PedidoData {
         return listaPedidos;
     }
 
+    public double Total(int idMesa) {
+        double total = 0;
+        String query = "SELECT SUM(producto.Precio * detalle.Cantidad) AS Total\n"
+                + "FROM detalle JOIN pedido ON detalle.IdPedido = pedido.IdPedido\n"
+                + "JOIN mesa on pedido.IdMesa = mesa.IdMesa\n"
+                + "JOIN producto on producto.IdProducto = detalle.IdProducto\n"
+                + "WHERE mesa.IdMesa = ?";
+        try {        
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, idMesa);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                total = rs.getInt("Total");
+            }
+            ps.close();
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
+    }
 }

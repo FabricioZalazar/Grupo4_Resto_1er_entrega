@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Fabricio Zalazar
  */
 public class VistaPedidos extends javax.swing.JFrame {
-
+    MesaData mesa = new MesaData();
     DetalleData cone = new DetalleData();
     PedidoData con = new PedidoData();
     DefaultTableModel modelo = new DefaultTableModel() {
@@ -189,10 +189,10 @@ public class VistaPedidos extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
      int FilaSeleccionada =jTable1.getSelectedRow();
-        if (FilaSeleccionada != -1) {
-            double total = (double) jTable1.getValueAt(FilaSeleccionada, 2);
+        int id = (int) jTable1.getValueAt(FilaSeleccionada, 0);
+           VistaPrincipal.setDetalle(cone.buscarDetalleID(id));
        
-        }
+        
         
         
     }//GEN-LAST:event_jTable1MouseClicked

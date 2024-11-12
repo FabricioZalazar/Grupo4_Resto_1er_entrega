@@ -177,7 +177,33 @@ public class MesaData {
         return listaMesa;
     }
 
-    public void guardarMesa(MesaData m1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Mesa buscarMesaXPedido(int id) {
+        ReservaData cone = new ReservaData();
+        String query = "SELECT mesa.IdMesa, Capacidad, IdReserva, mesa.Estado FROM mesa\n" +
+                        "JOIN pedido on mesa.IdMesa = pedido.IdMesa\n" +
+                        "WHERE pedido.IdPedido = ?";
+        Mesa mesa = new Mesa();
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet resultado = ps.executeQuery();
+            if (resultado.next()) {
+                mesa.setNum(resultado.getInt("IdMesa"));
+                mesa.setCapacidad(resultado.getInt("Capacidad"));
+                if (resultado.getInt("IdReserva") > 0) {
+                    mesa.setReserva(cone.buscarReservaID(resultado.getInt("IdReserva")));
+                } else {
+                    mesa.setReserva(null);
+                }
+                mesa.setEstado(resultado.getBoolean("Estado"));
+            } else {
+                JOptionPane.showMessageDialog(null, "Mesa no encontrada");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MesaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return mesa;
     }
+   
 }

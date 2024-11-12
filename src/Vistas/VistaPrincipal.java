@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import Entidades.Detalle;
 import Entidades.Mesa;
 import Entidades.Mesero;
 import Persistencia.ColorCeldas;
@@ -26,6 +27,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     private MesaData con = new MesaData();
     static Mesa mesa;
     static int id;
+    static Detalle detalle;
 
     DefaultTableModel modelo = new DefaultTableModel() {
         @Override
@@ -34,6 +36,14 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         }
 
     };
+
+    public static Detalle getDetalle() {
+        return detalle;
+    }
+
+    public static void setDetalle(Detalle detalle) {
+        VistaPrincipal.detalle = detalle;
+    }
 
     public static int getId() {
         return id;
