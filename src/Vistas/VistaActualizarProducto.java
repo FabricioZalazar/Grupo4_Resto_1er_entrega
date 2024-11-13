@@ -6,13 +6,14 @@ package Vistas;
 
 import Entidades.Producto;
 import Persistencia.ProductoData;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Fabricio Zalazar
  */
 public class VistaActualizarProducto extends javax.swing.JInternalFrame {
-    
+
     private VistaInventario vistaInventario;
     private ProductoData con = new ProductoData();
 
@@ -159,19 +160,25 @@ public class VistaActualizarProducto extends javax.swing.JInternalFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String nombre = txtNombre.getText();
         int stock = (int) jSpinnerStock.getValue();
-        double precio = Double.parseDouble(txtPrecio.getText());
-        int id= con.buscarProductoPorNombre(nombre).getCodigo();
-        Producto proc = new Producto(id,nombre, stock, precio);
-        
-        con.ActualizarProducto(proc);
-        vistaInventario.actualizarTabla();
-        LimpiarCampos();
-        VistaLogin.setProducto(null);
-        this.dispose();
-        
+        if (stock > 0) {
+            
+            double precio = Double.parseDouble(txtPrecio.getText());
+            int id = con.buscarProductoPorNombre(nombre).getCodigo();
+            Producto proc = new Producto(id, nombre, stock, precio);
+
+            con.ActualizarProducto(proc);
+            vistaInventario.actualizarTabla();
+            LimpiarCampos();
+            VistaLogin.setProducto(null);
+            this.dispose();
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese Stock Valido");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -193,16 +200,17 @@ public class VistaActualizarProducto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 
-    public void llenarCampos(){
-        Producto proc=VistaLogin.getProducto();
+    public void llenarCampos() {
+        Producto proc = VistaLogin.getProducto();
         txtNombre.setText(proc.getNombre());
-        txtPrecio.setText(proc.getPrecio()+"");
+        txtPrecio.setText(proc.getPrecio() + "");
         jSpinnerStock.setValue(proc.getStock());
     }
-    public void LimpiarCampos(){
-    txtNombre.setText("");
-    txtPrecio.setText("");
-       jSpinnerStock.setValue(0);
+
+    public void LimpiarCampos() {
+        txtNombre.setText("");
+        txtPrecio.setText("");
+        jSpinnerStock.setValue(0);
     }
-   
+
 }

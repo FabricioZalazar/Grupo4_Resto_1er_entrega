@@ -4,6 +4,7 @@
  */
 package Vistas;
 
+import Colores.ColorListaReserva;
 import Entidades.Reserva;
 import Persistencia.MesaData;
 import Persistencia.ReservaData;
@@ -18,14 +19,11 @@ import javax.swing.table.DefaultTableModel;
  * @author zalaz
  */
 public class VistaListaReservas extends javax.swing.JFrame {
-   
-    MesaData cone=new MesaData();
+    ColorListaReserva colorListaReserva=new ColorListaReserva();
+    MesaData cone = new MesaData();
     VistaActualizarMesa vista;
     ReservaData con = new ReservaData();
 
-    
-    
-    
     DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
             return false;
@@ -36,10 +34,12 @@ public class VistaListaReservas extends javax.swing.JFrame {
      * Creates new form VistaListaReserva
      */
     public VistaListaReservas(VistaActualizarMesa vista) {
-        this.vista=vista;
+       
+        this.vista = vista;
         initComponents();
         iniciarTabla();
         llenarTabla();
+         jTable1.setDefaultRenderer(Object.class, colorListaReserva);
 
     }
 
@@ -151,7 +151,7 @@ public class VistaListaReservas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        
+
         int filaSelecionada = jTable1.getSelectedRow();
         int id = (int) jTable1.getValueAt(filaSelecionada, 0);
         VistaPrincipal.setId(id);
@@ -159,7 +159,13 @@ public class VistaListaReservas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        btnReservar.setEnabled(true);
+        int filaSelecionada = jTable1.getSelectedRow();
+        int id = (int) jTable1.getValueAt(filaSelecionada, 0);
+        if (cone.buscarMesaPorReserva(id).getNum() > 0) {
+            btnReservar.setEnabled(false);
+        } else {
+            btnReservar.setEnabled(true);
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**

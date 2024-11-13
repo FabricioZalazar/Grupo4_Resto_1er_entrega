@@ -7,6 +7,7 @@ package Vistas;
 import Entidades.Mesa;
 import Entidades.Pedido;
 import Entidades.Reserva;
+import Persistencia.DetalleData;
 import Persistencia.MesaData;
 import Persistencia.PedidoData;
 import Persistencia.ReservaData;
@@ -181,31 +182,45 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        VistaPrincipal.setMesa(null);
+      
+       vista.botonesEnebel();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        PedidoData ped = new PedidoData();
         int id = VistaPrincipal.getMesa().getNum();
         int cap = (int) jSpinnerCapacidad.getValue();
         boolean estado = jCheckBoxEstado.isSelected();
-        if(estado){
-            PedidoData ped=new PedidoData();
-            Pedido pedido = new Pedido(VistaPrincipal.getMesa(), VistaLogin.getMozo(), false, 0);
-            ped.guardarPedido(pedido);
-        }
-        if (jCheckBoxReserva.isSelected()) {
-            Reserva r = con.buscarReservaID(VistaPrincipal.getId());
-            Mesa mesa = new Mesa(id, cap, r, estado);
-            cone.actualizarMesa(mesa);
-            vista.llenarTabla();
+        if (cap > 0) {
+            if (estado) {
+                if (ped.buscarPedidoPorMesa(id).getIdPedido()==0) {
+                    Pedido pedido = new Pedido(VistaPrincipal.getMesa(), VistaLogin.getMozo(), false, 0);
+                    ped.guardarPedido(pedido);
+                }
+
+            }else{
+                if (ped.buscarPedidoPorMesa(id).getIdPedido()!=0) {
+                    ped.borrarPedido(ped.buscarPedidoPorMesa(id).getIdPedido());
+                }
+            }
+            if (jCheckBoxReserva.isSelected()) {
+                Reserva r = con.buscarReservaID(VistaPrincipal.getId());
+                Mesa mesa = new Mesa(id, cap, r, estado);
+                cone.actualizarMesa(mesa);
+                vista.llenarTabla();
+            } else {
+                Mesa mesa = new Mesa(id, cap, estado);
+                cone.actualizarMesa(mesa);
+                vista.llenarTabla();
+            }
+            VistaPrincipal.setMesa(null);
+            repaint();
+            this.dispose();
         } else {
-            Mesa mesa = new Mesa(id, cap, estado);
-            cone.actualizarMesa(mesa);
-            vista.llenarTabla();
+            JOptionPane.showMessageDialog(null, "La Capacidad debe ser mayor a 0");
         }
-        VistaPrincipal.setMesa(null);
-        repaint();
-        this.dispose();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void jCheckBoxReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxReservaActionPerformed
@@ -220,8 +235,9 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jCheckBoxReservaActionPerformed
 
     private void jCheckBoxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxEstadoActionPerformed
-        PedidoData pedido= new PedidoData();
-        if (pedido.buscarPedidoPorMesa(VistaPrincipal.getMesa().getNum()).getIdPedido()!=0) {
+
+        DetalleData detalle = new DetalleData();
+        if (detalle.buscarDetallePorMesa(VistaPrincipal.getMesa().getNum()).getIdDetalle() != 0) {
             JOptionPane.showMessageDialog(null, "Mesa tiene pedido no se puede dejar libre");
             jCheckBoxEstado.setSelected(true);
         }
@@ -229,7 +245,7 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
 
     public void llenarCampos() {
         boolean x;
-        txtNumeroMesa.setText(VistaPrincipal.getMesa().getNum()+"");
+        txtNumeroMesa.setText(VistaPrincipal.getMesa().getNum() + "");
         jSpinnerCapacidad.setValue(VistaPrincipal.getMesa().getCapacidad());
         if (VistaPrincipal.getMesa().getReserva() == null) {
             x = false;

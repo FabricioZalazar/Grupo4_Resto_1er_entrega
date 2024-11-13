@@ -4,9 +4,10 @@
  */
 package Vistas;
 
+import Colores.ColorInventario;
 import Entidades.Mesero;
 import Entidades.Producto;
-import Persistencia.ColorInventario;
+
 import Persistencia.ProductoData;
 import java.util.ArrayList;
 import javax.swing.JDesktopPane;

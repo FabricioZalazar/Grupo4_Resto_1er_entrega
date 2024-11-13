@@ -67,12 +67,12 @@
                                   <Group type="102" attributes="0">
                                       <Component id="jButtonPedido3" min="-2" pref="102" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButtonCargarPedido" max="32767" attributes="0"/>
+                                      <Component id="btnCargarPedido" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jButtonInventario" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButtonCobrar" min="-2" pref="102" max="-2" attributes="0"/>
+                                      <Component id="btnCobrar" min="-2" pref="102" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jButtonReservar" alignment="0" max="32767" attributes="0"/>
                                   <Component id="btnActualizarMesa" alignment="0" max="32767" attributes="0"/>
@@ -112,13 +112,13 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jButtonInventario" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonCobrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCobrar" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jButtonReservar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButtonCargarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCargarPedido" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonPedido3" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -188,20 +188,20 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarMesaActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonCargarPedido">
+            <Component class="javax.swing.JButton" name="btnCargarPedido">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cargar Pedido"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCargarPedidoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCargarPedidoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonCobrar">
+            <Component class="javax.swing.JButton" name="btnCobrar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cobrar Mesa"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCobrarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCobrarActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonCerrar">

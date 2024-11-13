@@ -103,6 +103,32 @@ public class MesaData {
         return mesa;
     }
 
+    public Mesa buscarMesaPorReserva(int id) {
+        ReservaData cone = new ReservaData();
+        String query = "SELECT * FROM mesa WHERE IdReserva=?";
+        Mesa mesa = new Mesa();
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet resultado = ps.executeQuery();
+            if (resultado.next()) {
+                mesa.setNum(id);
+                mesa.setCapacidad(resultado.getInt("Capacidad"));
+                if (resultado.getInt("IdReserva") > 0) {
+                    mesa.setReserva(cone.buscarReservaID(resultado.getInt("IdReserva")));
+                } else {
+                    mesa.setReserva(null);
+                }
+                mesa.setEstado(resultado.getBoolean("Estado"));
+            } else {
+                //JOptionPane.showMessageDialog(null, "Mesa no encontrada");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MesaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return mesa;
+    }
     public void borrarMesa(int id) {
 
         try {

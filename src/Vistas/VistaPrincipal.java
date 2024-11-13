@@ -5,10 +5,12 @@
  */
 package Vistas;
 
+import Colores.ColorCeldas;
 import Entidades.Detalle;
 import Entidades.Mesa;
 import Entidades.Mesero;
-import Persistencia.ColorCeldas;
+import Persistencia.DetalleData;
+
 import Persistencia.MesaData;
 import Persistencia.PedidoData;
 import java.util.ArrayList;
@@ -86,6 +88,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
                 }
             }
         });
+        botonesEnebel();
     }
 
     /**
@@ -105,8 +108,8 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         jButtonReservar = new javax.swing.JButton();
         jButtonInventario = new javax.swing.JButton();
         btnBorrarMesa = new javax.swing.JButton();
-        jButtonCargarPedido = new javax.swing.JButton();
-        jButtonCobrar = new javax.swing.JButton();
+        btnCargarPedido = new javax.swing.JButton();
+        btnCobrar = new javax.swing.JButton();
         jButtonCerrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -161,17 +164,17 @@ public final class VistaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButtonCargarPedido.setText("Cargar Pedido");
-        jButtonCargarPedido.addActionListener(new java.awt.event.ActionListener() {
+        btnCargarPedido.setText("Cargar Pedido");
+        btnCargarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCargarPedidoActionPerformed(evt);
+                btnCargarPedidoActionPerformed(evt);
             }
         });
 
-        jButtonCobrar.setText("Cobrar Mesa");
-        jButtonCobrar.addActionListener(new java.awt.event.ActionListener() {
+        btnCobrar.setText("Cobrar Mesa");
+        btnCobrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCobrarActionPerformed(evt);
+                btnCobrarActionPerformed(evt);
             }
         });
 
@@ -215,11 +218,11 @@ public final class VistaPrincipal extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonPedido3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonCargarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnCargarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jButtonReservar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnActualizarMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -249,12 +252,12 @@ public final class VistaPrincipal extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonInventario)
-                        .addComponent(jButtonCobrar))
+                        .addComponent(btnCobrar))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jButtonReservar)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonCargarPedido)
+                        .addComponent(btnCargarPedido)
                         .addComponent(jButtonPedido3))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonCerrar)
@@ -303,6 +306,8 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         } catch (NullPointerException n) {
             JOptionPane.showMessageDialog(this, "Seleccione una mesa");
         }
+
+        botonesEnebel();
     }//GEN-LAST:event_btnActualizarMesaActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
@@ -330,6 +335,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         } catch (ArrayIndexOutOfBoundsException a) {
             JOptionPane.showMessageDialog(this, "Seleccione una mesa, por favor");
         }
+        botonesEnebel();
     }//GEN-LAST:event_btnBorrarMesaActionPerformed
 
     private void jButtonInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInventarioActionPerformed
@@ -368,13 +374,14 @@ public final class VistaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "ingrese solo numeros");
         }
 
-
+        botonesEnebel();
     }//GEN-LAST:event_jButtonCrearMesaActionPerformed
 
     private void TablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMouseClicked
         int filaSelecionada = Tabla.getSelectedRow();
         int id = (int) Tabla.getValueAt(filaSelecionada, 0);
         mesa = con.buscarMesa(id);
+        botonesEnebel();
     }//GEN-LAST:event_TablaMouseClicked
 
     private void jButtonPedido3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedido3ActionPerformed
@@ -387,10 +394,11 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonPedido3ActionPerformed
 
-    private void jButtonCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCobrarActionPerformed
+    private void btnCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrarActionPerformed
         PedidoData pedido = new PedidoData();
+        DetalleData cone = new DetalleData();
         try {
-            if (pedido.buscarPedidoPorMesa(mesa.getNum()).getIdPedido() != 0) {
+            if (pedido.buscarPedidoPorMesa(mesa.getNum()).getIdPedido() != 0 && cone.buscarDetallePorMesa(mesa.getNum()).getIdDetalle() != 0) {
                 VistaCobrarMesa a1 = null;
 
                 for (JInternalFrame frame : escritorio.getAllFrames()) {
@@ -417,9 +425,10 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
         }
         llenarTabla();
-    }//GEN-LAST:event_jButtonCobrarActionPerformed
+        botonesEnebel();
+    }//GEN-LAST:event_btnCobrarActionPerformed
 
-    private void jButtonCargarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarPedidoActionPerformed
+    private void btnCargarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarPedidoActionPerformed
         PedidoData pedido = new PedidoData();
         try {
             if (pedido.buscarPedidoPorMesa(mesa.getNum()).getIdPedido() != 0) {
@@ -446,7 +455,8 @@ public final class VistaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una mesa");
         }
         llenarTabla();
-    }//GEN-LAST:event_jButtonCargarPedidoActionPerformed
+        botonesEnebel();
+    }//GEN-LAST:event_btnCargarPedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -456,10 +466,10 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable Tabla;
     private javax.swing.JButton btnActualizarMesa;
     private javax.swing.JButton btnBorrarMesa;
+    private javax.swing.JButton btnCargarPedido;
+    private javax.swing.JButton btnCobrar;
     private javax.swing.JDesktopPane escritorio;
-    private javax.swing.JButton jButtonCargarPedido;
     private javax.swing.JButton jButtonCerrar;
-    private javax.swing.JButton jButtonCobrar;
     private javax.swing.JButton jButtonCrearMesa;
     private javax.swing.JButton jButtonInventario;
     private javax.swing.JButton jButtonPedido3;
@@ -489,13 +499,26 @@ public final class VistaPrincipal extends javax.swing.JFrame {
             } else {
                 txt = "Libre";
             }
-            modelo.addRow(new Object[]{p.getNum(), p.getCapacidad(), txt, p.getReserva(), "Nadie"});
+            modelo.addRow(new Object[]{p.getNum(), p.getCapacidad(), txt, p.getReserva(), VistaLogin.getMozo().getNombre()});
         }
-
+        botonesEnebel();
     }
 
     public void actualizarTabla() {
         llenarTabla();
     }
 
+    public void botonesEnebel() {
+        if (mesa == null) {
+            btnBorrarMesa.setEnabled(false);
+            btnActualizarMesa.setEnabled(false);
+            btnCobrar.setEnabled(false);
+            btnCargarPedido.setEnabled(false);
+        } else {
+            btnBorrarMesa.setEnabled(true);
+            btnActualizarMesa.setEnabled(true);
+            btnCobrar.setEnabled(true);
+            btnCargarPedido.setEnabled(true);
+        }
+    }
 }

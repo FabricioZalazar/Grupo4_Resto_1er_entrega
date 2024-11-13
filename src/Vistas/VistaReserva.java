@@ -171,49 +171,48 @@ public class VistaReserva extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(51, 51, 51)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbHorasDe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbHorasHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(36, 36, 36))
             .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(51, 51, 51)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbHorasDe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbHorasHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel1)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -303,39 +302,39 @@ public class VistaReserva extends javax.swing.JFrame {
         try {
             String nombre = txtNombre.getText();
             int dni = Integer.parseInt(txtDni.getText());
-            if(con.buscarReservaDNI(dni).getIdReserva()==0){
-            LocalDate fecha = jDateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (con.buscarReservaDNI(dni).getIdReserva() == 0) {
+                LocalDate fecha = jDateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-            String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
-            DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
-            LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
+                String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
+                DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
+                LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
 
-            String selecetHoraHasta = (String) cbHorasHasta.getSelectedItem();
-            DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
-            LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
-            Duration duracion = Duration.between(horaDe, horaHasta);
+                String selecetHoraHasta = (String) cbHorasHasta.getSelectedItem();
+                DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
+                LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
+                Duration duracion = Duration.between(horaDe, horaHasta);
 
-            if (fecha.isBefore(LocalDate.now())) {
-                JOptionPane.showMessageDialog(this, "Fecha no valida");
-            } else {
-                if (duracion.isNegative()) {
-                    duracion = duracion.plusHours(24);
-                }
-                if (!horaDe.equals(horaHasta)) {
-                    if (duracion.toHours() <= 2) {
-
-                        Reserva reserva = new Reserva(nombre, dni, fecha, horaDe, horaHasta, true);
-                        con.guardarReserva(reserva);
-                        llenarTabla();
-                    } else {
-                        JOptionPane.showMessageDialog(this, "La reserva debe ser menor a dos horas");
+                if (fecha.isBefore(LocalDate.now())) {
+                    JOptionPane.showMessageDialog(this, "Fecha no valida");
+                } else {
+                    if (duracion.isNegative()) {
+                        duracion = duracion.plusHours(24);
                     }
-                }else{
-                     JOptionPane.showMessageDialog(this, "Hora de reserva invalida");
-                }
+                    if (!horaDe.equals(horaHasta)) {
+                        if (duracion.toHours() <= 2) {
 
-            }
-            }else{
+                            Reserva reserva = new Reserva(nombre, dni, fecha, horaDe, horaHasta, true);
+                            con.guardarReserva(reserva);
+                            llenarTabla();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "La reserva debe ser menor a dos horas");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Hora de reserva invalida");
+                    }
+
+                }
+            } else {
                 JOptionPane.showMessageDialog(this, "Este Dni ya tiene reserva");
             }
         } catch (NumberFormatException e) {
@@ -346,7 +345,7 @@ public class VistaReserva extends javax.swing.JFrame {
         } catch (HeadlessException e) {
 
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -367,26 +366,30 @@ public class VistaReserva extends javax.swing.JFrame {
             String nombre = txtNombre.getText();
             int dni = Integer.parseInt(txtDni.getText());
             LocalDate fecha = jDateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
-            DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
-            LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
-            String selecetHoraHasta = (String) cbHorasHasta.getSelectedItem();
-            DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
-            LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
-            Duration duracion = Duration.between(horaDe, horaHasta);
-            if (duracion.isNegative()) {
-                duracion = duracion.plusHours(24);
-            }
-
-            if (duracion.toHours() <= 2) {
-                int id = con.buscarReservaDNI(dni).getIdReserva();
-                Reserva reserva = new Reserva(id, nombre, dni, fecha, horaDe, horaHasta, true);
-
-                con.actualizarReserva(reserva);
-                llenarTabla();
-                LimpiarCampos();
+            if (fecha.isBefore(LocalDate.now())) {
+                JOptionPane.showMessageDialog(this, "Fecha no valida");
             } else {
-                JOptionPane.showMessageDialog(this, "la reserva debe ser menor a dos horas");
+                String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
+                DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
+                LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
+                String selecetHoraHasta = (String) cbHorasHasta.getSelectedItem();
+                DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
+                LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
+                Duration duracion = Duration.between(horaDe, horaHasta);
+                if (duracion.isNegative()) {
+                    duracion = duracion.plusHours(24);
+                }
+
+                if (duracion.toHours() <= 2) {
+                    int id = con.buscarReservaDNI(dni).getIdReserva();
+                    Reserva reserva = new Reserva(id, nombre, dni, fecha, horaDe, horaHasta, true);
+
+                    con.actualizarReserva(reserva);
+                    llenarTabla();
+                    LimpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "la reserva debe ser menor a dos horas");
+                }
             }
         } catch (NumberFormatException n) {
             JOptionPane.showMessageDialog(this, "Error, Debe seleccionar una fila");

@@ -61,7 +61,7 @@ public class PedidoData {
             ps.setInt(1, id);
             int resultado = ps.executeUpdate();
             if (resultado == 1) {
-                JOptionPane.showMessageDialog(null, "El pedido fue eliminado exitosamente");
+                //JOptionPane.showMessageDialog(null, "El pedido fue eliminado exitosamente");
             }
             ps.close();
         } catch (SQLException ex) {

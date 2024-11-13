@@ -54,7 +54,7 @@ public class VistaCobrarMesa extends javax.swing.JInternalFrame {
         txtTotal = new javax.swing.JLabel();
         jLPago = new javax.swing.JLabel();
         txtPago = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnCobrar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         txtTitulo.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
@@ -124,10 +124,11 @@ public class VistaCobrarMesa extends javax.swing.JInternalFrame {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Cobrar Mesa");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCobrar.setText("Cobrar Mesa");
+        btnCobrar.setEnabled(false);
+        btnCobrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCobrarActionPerformed(evt);
             }
         });
 
@@ -139,7 +140,7 @@ public class VistaCobrarMesa extends javax.swing.JInternalFrame {
         });
 
         jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnCobrar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
@@ -150,7 +151,7 @@ public class VistaCobrarMesa extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnCobrar)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(0, 15, Short.MAX_VALUE))
@@ -164,7 +165,7 @@ public class VistaCobrarMesa extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnCobrar)
                     .addComponent(jButton2))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
@@ -183,7 +184,7 @@ public class VistaCobrarMesa extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrarActionPerformed
         
         double total = Double.parseDouble(txtTotal.getText());
         double pago = Double.parseDouble(txtPago.getText());
@@ -210,7 +211,7 @@ public class VistaCobrarMesa extends javax.swing.JInternalFrame {
             this.dispose();
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCobrarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         VistaPrincipal.setMesa(null);
@@ -222,21 +223,32 @@ public class VistaCobrarMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtPagoKeyTyped
 
     private void txtPagoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPagoKeyReleased
-
+        try{
         if (!txtPago.getText().equals("")) {
+            
             double total = Double.parseDouble(txtTotal.getText());
             double pago = Double.parseDouble(txtPago.getText());
+            if(pago>0){
             if (total < pago) {
                 txtCambio.setText((pago - total) + "");
             } else {
                 txtCambio.setText("0");
             }
+            btnCobrar.setEnabled(true);
+            }else{
+                 btnCobrar.setEnabled(false);
+            }
+        }
+        }catch(NumberFormatException r){
+            JOptionPane.showMessageDialog(rootPane, "*ERROR solo se permiten numeros");
+            txtPago.setText("0");
+             btnCobrar.setEnabled(false);
         }
     }//GEN-LAST:event_txtPagoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnCobrar;
     private javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLCambio;
