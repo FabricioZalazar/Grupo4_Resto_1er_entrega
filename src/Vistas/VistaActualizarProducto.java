@@ -159,10 +159,12 @@ public class VistaActualizarProducto extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String nombre = txtNombre.getText();
+        try{
         int stock = (int) jSpinnerStock.getValue();
         if (stock > 0) {
             
             double precio = Double.parseDouble(txtPrecio.getText());
+            if(precio>0){
             int id = con.buscarProductoPorNombre(nombre).getCodigo();
             Producto proc = new Producto(id, nombre, stock, precio);
 
@@ -171,9 +173,14 @@ public class VistaActualizarProducto extends javax.swing.JInternalFrame {
             LimpiarCampos();
             VistaLogin.setProducto(null);
             this.dispose();
-            this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this, "Ingrese Precio Valido");
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Ingrese Stock Valido");
+        }
+        }catch(NumberFormatException r){
+            JOptionPane.showMessageDialog(this, "Ingrese solo numeros en los campos STOCK y PRECIO");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

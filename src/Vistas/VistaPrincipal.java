@@ -26,6 +26,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class VistaPrincipal extends javax.swing.JFrame {
 
+    PedidoData pedido = new PedidoData();
+    DetalleData cone = new DetalleData();
     private ColorCeldas colorCeldas = new ColorCeldas();
     private MesaData con = new MesaData();
     static Mesa mesa;
@@ -88,7 +90,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
                 }
             }
         });
-        botonesEnebel();
+
     }
 
     /**
@@ -115,6 +117,11 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         btnActualizarMesa = new javax.swing.JButton();
         jButtonPedido3 = new javax.swing.JButton();
+        rdbTodos = new javax.swing.JRadioButton();
+        rdbLibres = new javax.swing.JRadioButton();
+        rdbOcupados = new javax.swing.JRadioButton();
+        rdbReserva = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -203,22 +210,55 @@ public final class VistaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        rdbTodos.setText("Todos");
+        rdbTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbTodosActionPerformed(evt);
+            }
+        });
+
+        rdbLibres.setText("Libres");
+        rdbLibres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbLibresActionPerformed(evt);
+            }
+        });
+
+        rdbOcupados.setText("Ocupados");
+        rdbOcupados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbOcupadosActionPerformed(evt);
+            }
+        });
+
+        rdbReserva.setText("Reserva");
+        rdbReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbReservaActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Filtrar por:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+                        .addComponent(rdbTodos)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonPedido3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCargarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnCargarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -231,11 +271,23 @@ public final class VistaPrincipal extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonCrearMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(1, 1, 1)
-                                .addComponent(btnBorrarMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(btnBorrarMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap(23, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(89, 89, 89))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rdbOcupados)
+                            .addComponent(rdbLibres)
+                            .addComponent(rdbReserva))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButtonCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,6 +311,16 @@ public final class VistaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnCargarPedido)
                         .addComponent(jButtonPedido3))
+                    .addGap(31, 31, 31)
+                    .addComponent(jLabel2)
+                    .addGap(29, 29, 29)
+                    .addComponent(rdbTodos)
+                    .addGap(18, 18, 18)
+                    .addComponent(rdbLibres)
+                    .addGap(18, 18, 18)
+                    .addComponent(rdbOcupados)
+                    .addGap(18, 18, 18)
+                    .addComponent(rdbReserva)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonCerrar)
                     .addContainerGap())
@@ -272,7 +334,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 608, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,7 +369,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una mesa");
         }
 
-        botonesEnebel();
+
     }//GEN-LAST:event_btnActualizarMesaActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
@@ -335,7 +397,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
         } catch (ArrayIndexOutOfBoundsException a) {
             JOptionPane.showMessageDialog(this, "Seleccione una mesa, por favor");
         }
-        botonesEnebel();
+
     }//GEN-LAST:event_btnBorrarMesaActionPerformed
 
     private void jButtonInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInventarioActionPerformed
@@ -374,14 +436,14 @@ public final class VistaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "ingrese solo numeros");
         }
 
-        botonesEnebel();
+
     }//GEN-LAST:event_jButtonCrearMesaActionPerformed
 
     private void TablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMouseClicked
         int filaSelecionada = Tabla.getSelectedRow();
         int id = (int) Tabla.getValueAt(filaSelecionada, 0);
         mesa = con.buscarMesa(id);
-        botonesEnebel();
+
     }//GEN-LAST:event_TablaMouseClicked
 
     private void jButtonPedido3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedido3ActionPerformed
@@ -395,8 +457,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPedido3ActionPerformed
 
     private void btnCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrarActionPerformed
-        PedidoData pedido = new PedidoData();
-        DetalleData cone = new DetalleData();
+
         try {
             if (pedido.buscarPedidoPorMesa(mesa.getNum()).getIdPedido() != 0 && cone.buscarDetallePorMesa(mesa.getNum()).getIdDetalle() != 0) {
                 VistaCobrarMesa a1 = null;
@@ -425,7 +486,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
         }
         llenarTabla();
-        botonesEnebel();
+
     }//GEN-LAST:event_btnCobrarActionPerformed
 
     private void btnCargarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarPedidoActionPerformed
@@ -455,8 +516,110 @@ public final class VistaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una mesa");
         }
         llenarTabla();
-        botonesEnebel();
+
     }//GEN-LAST:event_btnCargarPedidoActionPerformed
+
+    private void rdbOcupadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbOcupadosActionPerformed
+        if (rdbOcupados.isSelected()) {
+            rdbLibres.setSelected(false);
+            rdbTodos.setSelected(false);
+            rdbReserva.setSelected(false);
+
+            String txt;
+            String txtm;
+            String txtd;
+            ArrayList<Mesa> list = con.listaMesa();
+            modelo.setRowCount(0);
+            for (Mesa p : list) {
+                if (p.isEstado()) {
+                    txt = "Ocupado";
+                    if (pedido.buscarPedidoPorMesa(p.getNum()).getMesero() != null) {
+                        txtm = pedido.buscarPedidoPorMesa(p.getNum()).getMesero().getNombre();
+                    } else {
+                        txtm = "Sin Mozo";
+                    }
+                    if (cone.buscarDetallePorMesa(mesa.getNum()).getIdDetalle() != 0) {
+                        txtd = "Con Pedido";
+                    } else {
+                        txtd = "Sin Pedido";
+                    }
+                    modelo.addRow(new Object[]{p.getNum(), p.getCapacidad(), txt, txtd, p.getReserva(), txtm});
+
+                }
+            }
+        }
+    }//GEN-LAST:event_rdbOcupadosActionPerformed
+
+    private void rdbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbTodosActionPerformed
+        if (rdbTodos.isSelected()) {
+            rdbLibres.setSelected(false);
+            rdbOcupados.setSelected(false);
+            rdbReserva.setSelected(false);
+            llenarTabla();
+        }
+    }//GEN-LAST:event_rdbTodosActionPerformed
+
+    private void rdbLibresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbLibresActionPerformed
+        if (rdbLibres.isSelected()) {
+            rdbOcupados.setSelected(false);
+            rdbTodos.setSelected(false);
+            rdbReserva.setSelected(false);
+            String txtd;
+            String txt;
+            String txtm;
+            ArrayList<Mesa> list = con.listaMesa();
+            modelo.setRowCount(0);
+            for (Mesa p : list) {
+                if (!p.isEstado()) {
+                    txt = "Libre";
+                    if (pedido.buscarPedidoPorMesa(p.getNum()).getMesero() != null) {
+                        txtm = pedido.buscarPedidoPorMesa(p.getNum()).getMesero().getNombre();
+                    } else {
+                        txtm = "Sin Mozo";
+                    }
+                    if (cone.buscarDetallePorMesa(mesa.getNum()).getIdDetalle() != 0) {
+                        txtd = "Con Pedido";
+                    } else {
+                        txtd = "Sin Pedido";
+                    }
+                    modelo.addRow(new Object[]{p.getNum(), p.getCapacidad(), txt, txtd, p.getReserva(), txtm});
+
+                }
+            }
+        }
+    }//GEN-LAST:event_rdbLibresActionPerformed
+
+    private void rdbReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbReservaActionPerformed
+        if (rdbReserva.isSelected()) {
+            rdbOcupados.setSelected(false);
+            rdbTodos.setSelected(false);
+            rdbLibres.setSelected(false);
+            String txtd;
+            String txt;
+            String txtm;
+            ArrayList<Mesa> list = con.listaMesaDeReservas();
+            modelo.setRowCount(0);
+            for (Mesa p : list) {
+                if (p.isEstado()) {
+                    txt = "Ocupado";
+                } else {
+                    txt = "Libre";
+                }
+                if (pedido.buscarPedidoPorMesa(p.getNum()).getMesero() != null) {
+                    txtm = pedido.buscarPedidoPorMesa(p.getNum()).getMesero().getNombre();
+                } else {
+                    txtm = "Sin Mozo";
+                }
+                if (cone.buscarDetallePorMesa(mesa.getNum()).getIdDetalle() != 0) {
+                    txtd = "Con Pedido";
+                } else {
+                    txtd = "Sin Pedido";
+                }
+                modelo.addRow(new Object[]{p.getNum(), p.getCapacidad(), txt, txtd, p.getReserva(), txtm});
+
+            }
+        }
+    }//GEN-LAST:event_rdbReservaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -475,22 +638,30 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonPedido3;
     private javax.swing.JButton jButtonReservar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JRadioButton rdbLibres;
+    private javax.swing.JRadioButton rdbOcupados;
+    private javax.swing.JRadioButton rdbReserva;
+    private javax.swing.JRadioButton rdbTodos;
     // End of variables declaration//GEN-END:variables
  public void iniciarTabla() {
 
-        modelo.addColumn("ID");
+        modelo.addColumn("Nº");
         modelo.addColumn("Capacidad");
         modelo.addColumn("Activa");
         modelo.addColumn("Reserva");
+        modelo.addColumn("Pedido");
         modelo.addColumn("Mozo");
         Tabla.setModel(modelo);
     }
 
     public void llenarTabla() {
         String txt;
+        String txtm;
+        String txtd;
         ArrayList<Mesa> list = con.listaMesa();
         modelo.setRowCount(0);
         for (Mesa p : list) {
@@ -499,26 +670,25 @@ public final class VistaPrincipal extends javax.swing.JFrame {
             } else {
                 txt = "Libre";
             }
-            modelo.addRow(new Object[]{p.getNum(), p.getCapacidad(), txt, p.getReserva(), VistaLogin.getMozo().getNombre()});
+            if (pedido.buscarPedidoPorMesa(p.getNum()).getMesero() != null) {
+                txtm = pedido.buscarPedidoPorMesa(p.getNum()).getMesero().getNombre();
+            } else {
+                txtm = "Sin Mozo";
+            }
+            System.out.println(cone.buscarDetallePorMesa(p.getNum()));
+            if (cone.buscarDetallePorMesa(p.getNum()).getIdDetalle()!=0) {
+                txtd = "Con Pedido";
+            } else {
+                txtd = "Sin Pedido";
+            }
+            modelo.addRow(new Object[]{p.getNum(), p.getCapacidad(), txt, p.getReserva(),txtd, txtm});
+
         }
-        botonesEnebel();
+
     }
 
     public void actualizarTabla() {
         llenarTabla();
     }
 
-    public void botonesEnebel() {
-        if (mesa == null) {
-            btnBorrarMesa.setEnabled(false);
-            btnActualizarMesa.setEnabled(false);
-            btnCobrar.setEnabled(false);
-            btnCargarPedido.setEnabled(false);
-        } else {
-            btnBorrarMesa.setEnabled(true);
-            btnActualizarMesa.setEnabled(true);
-            btnCobrar.setEnabled(true);
-            btnCargarPedido.setEnabled(true);
-        }
-    }
 }

@@ -231,5 +231,30 @@ public class MesaData {
         }
         return mesa;
     }
+    
+     public ArrayList <Mesa> listaMesaDeReservas () {
+        ReservaData cone = new ReservaData();
+        ArrayList<Mesa> listaMesa = new ArrayList();
+        try {
+            String query = "SELECT * FROM mesa WHERE IdReserva IS NOT NULL";
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet resultado = ps.executeQuery();
+            while (resultado.next()) {
+                Mesa mesa = new Mesa();
+                mesa.setNum(resultado.getInt("IdMesa"));
+                mesa.setCapacidad(resultado.getInt("Capacidad"));
+                if(cone.buscarReservaID(resultado.getInt("IdReserva")).getNombre()!=null){
+                   mesa.setReserva(cone.buscarReservaID(resultado.getInt("IdReserva")));     
+                }else{
+                    mesa.setReserva(null);
+                }
+                mesa.setEstado(resultado.getBoolean("Estado"));
+                listaMesa.add(mesa);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al devolver la lista de mesas" + ex);
+        }
+        return listaMesa;
+    }
    
 }

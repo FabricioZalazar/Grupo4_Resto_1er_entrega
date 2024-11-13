@@ -19,11 +19,12 @@ import javax.swing.table.DefaultTableModel;
  * @author zalaz
  */
 public class VistaListaReservas extends javax.swing.JFrame {
-    ColorListaReserva colorListaReserva=new ColorListaReserva();
+
+    ColorListaReserva colorListaReserva = new ColorListaReserva();
     MesaData cone = new MesaData();
     VistaActualizarMesa vista;
     ReservaData con = new ReservaData();
-
+    
     DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
             return false;
@@ -34,13 +35,13 @@ public class VistaListaReservas extends javax.swing.JFrame {
      * Creates new form VistaListaReserva
      */
     public VistaListaReservas(VistaActualizarMesa vista) {
-       
+        
         this.vista = vista;
         initComponents();
         iniciarTabla();
         llenarTabla();
-         jTable1.setDefaultRenderer(Object.class, colorListaReserva);
-
+        jTable1.setDefaultRenderer(Object.class, colorListaReserva);
+        
     }
 
     /**
@@ -98,13 +99,13 @@ public class VistaListaReservas extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(btnReservar)
+                .addGap(17, 17, 17)
+                .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(30, 30, 30))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,9 +113,9 @@ public class VistaListaReservas extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(btnReservar))
-                .addGap(0, 14, Short.MAX_VALUE))
+                    .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 15, Short.MAX_VALUE))
         );
 
         jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -145,13 +146,13 @@ public class VistaListaReservas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        
         vista.desCheck();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-
+        
         int filaSelecionada = jTable1.getSelectedRow();
         int id = (int) jTable1.getValueAt(filaSelecionada, 0);
         VistaPrincipal.setId(id);
@@ -165,7 +166,13 @@ public class VistaListaReservas extends javax.swing.JFrame {
             btnReservar.setEnabled(false);
         } else {
             btnReservar.setEnabled(true);
+            if (con.buscarReservaID(id).isEstado()) {
+                btnReservar.setEnabled(true);
+            } else {
+                btnReservar.setEnabled(false);
+            }
         }
+        
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -182,7 +189,7 @@ public class VistaListaReservas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void iniciarTabla() {
-
+        
         modelo.addColumn("ID");
         modelo.addColumn("Nombre");
         modelo.addColumn("DNI");
@@ -192,19 +199,19 @@ public class VistaListaReservas extends javax.swing.JFrame {
         modelo.addColumn("Estado");
         jTable1.setModel(modelo);
     }
-
+    
     public void llenarTabla() {
         String estado;
         ArrayList<Reserva> list = con.listaReserva();
         modelo.setRowCount(0);
         for (Reserva r : list) {
             if (r.isEstado()) {
-                estado = "Reservado";
+                estado = "Habilitada";
             } else {
-                estado = "Sin Reserva";
+                estado = "Deshabilitada";
             }
             modelo.addRow(new Object[]{r.getIdReserva(), r.getNombre(), r.getDni(), r.getFecha(), r.getHoraDe(), r.getHoraHasta(), estado});
         }
-
+        
     }
 }

@@ -5,10 +5,12 @@
 package Vistas;
 
 import Entidades.Mesa;
+import Entidades.Mesero;
 import Entidades.Pedido;
 import Entidades.Reserva;
 import Persistencia.DetalleData;
 import Persistencia.MesaData;
+import Persistencia.MeseroData;
 import Persistencia.PedidoData;
 import Persistencia.ReservaData;
 import static Vistas.VistaPrincipal.mesa;
@@ -22,6 +24,7 @@ import javax.swing.JOptionPane;
  */
 public class VistaActualizarMesa extends javax.swing.JInternalFrame {
 
+    PedidoData ped = new PedidoData();
     VistaPrincipal vista;
     ReservaData con = new ReservaData();
     private MesaData cone = new MesaData();
@@ -29,9 +32,11 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
     public VistaActualizarMesa(VistaPrincipal vista) {
         this.vista = vista;
         initComponents();
-        llenarCampos();
-        repaint();
 
+        llenarCombo();
+
+        repaint();
+        llenarCampos();
         if (VistaPrincipal.getMesa().getReserva() != null) {
             VistaPrincipal.setId(VistaPrincipal.getMesa().getReserva().getIdReserva());
         }
@@ -58,6 +63,8 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
         btnActualizar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         txtNumeroMesa = new javax.swing.JLabel();
+        cbMesero = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
 
         jLabel1.setText("Capacidad:");
 
@@ -75,6 +82,11 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
         });
 
         jCheckBoxEstado.setText("(Ocupado)");
+        jCheckBoxEstado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxEstadoItemStateChanged(evt);
+            }
+        });
         jCheckBoxEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxEstadoActionPerformed(evt);
@@ -96,7 +108,10 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
             }
         });
 
+        txtNumeroMesa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtNumeroMesa.setText("0");
+
+        jLabel5.setText("Elija al Mesero");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -104,29 +119,33 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnActualizar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4))
-                            .addGap(70, 70, 70)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jCheckBoxReserva)
-                                .addComponent(jCheckBoxEstado))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(49, 49, 49)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNumeroMesa)
-                            .addComponent(jSpinnerCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(btnActualizar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel1)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtNumeroMesa)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCheckBoxReserva)
+                                    .addComponent(jCheckBoxEstado)
+                                    .addComponent(cbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSpinnerCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)))
+                        .addGap(14, 14, 14))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,9 +164,13 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
                     .addComponent(jCheckBoxReserva))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jCheckBoxEstado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                    .addComponent(jCheckBoxEstado)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnActualizar)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -183,25 +206,27 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         VistaPrincipal.setMesa(null);
-      
-       vista.botonesEnebel();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        PedidoData ped = new PedidoData();
+        MeseroData meseroData=new MeseroData();
         int id = VistaPrincipal.getMesa().getNum();
         int cap = (int) jSpinnerCapacidad.getValue();
         boolean estado = jCheckBoxEstado.isSelected();
+        Mesero mesero = meseroData.buscarMozoPorNombre((String) cbMesero.getSelectedItem());
         if (cap > 0) {
             if (estado) {
-                if (ped.buscarPedidoPorMesa(id).getIdPedido()==0) {
-                    Pedido pedido = new Pedido(VistaPrincipal.getMesa(), VistaLogin.getMozo(), false, 0);
+                if (ped.buscarPedidoPorMesa(id).getIdPedido() == 0) {
+                    Pedido pedido = new Pedido(VistaPrincipal.getMesa(), mesero, false, 0);
                     ped.guardarPedido(pedido);
+                } else {
+                    Pedido pedidoActual = ped.buscarPedidoPorMesa(id);
+                    ped.actualizarPedido(new Pedido(pedidoActual.getIdPedido(), VistaPrincipal.getMesa(), mesero, true, pedidoActual.getTotal()));
                 }
 
-            }else{
-                if (ped.buscarPedidoPorMesa(id).getIdPedido()!=0) {
+            } else {
+                if (ped.buscarPedidoPorMesa(id).getIdPedido() != 0) {
                     ped.borrarPedido(ped.buscarPedidoPorMesa(id).getIdPedido());
                 }
             }
@@ -243,6 +268,16 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCheckBoxEstadoActionPerformed
 
+    private void jCheckBoxEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxEstadoItemStateChanged
+        if (jCheckBoxEstado.isSelected()) {
+            jCheckBoxEstado.setText("Ocupado");
+            cbMesero.setEnabled(true);
+        } else {
+            jCheckBoxEstado.setText("Libre");
+            cbMesero.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBoxEstadoItemStateChanged
+
     public void llenarCampos() {
         boolean x;
         txtNumeroMesa.setText(VistaPrincipal.getMesa().getNum() + "");
@@ -254,6 +289,11 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
         }
         jCheckBoxReserva.setSelected(x);
         jCheckBoxEstado.setSelected(VistaPrincipal.getMesa().isEstado());
+        Pedido pA = ped.buscarPedidoPorMesa(VistaPrincipal.getMesa().getNum());
+        if (pA.getIdPedido() != 0) {
+            cbMesero.setSelectedItem(pA.getMesero().toString());
+
+        }
     }
 
     public void desCheck() {
@@ -275,13 +315,31 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
             } else {
                 jCheckBoxEstado.setText("Libre");
             }
+
+            if (jCheckBoxEstado.isSelected()) {
+                jCheckBoxEstado.setText("Ocupado");
+                cbMesero.setEnabled(true);
+            } else {
+                jCheckBoxEstado.setText("Libre");
+                cbMesero.setEnabled(false);
+            }
+
         } catch (NullPointerException r) {
 
         }
 
     }
+
+    public void llenarCombo() {
+        MeseroData mes = new MeseroData();
+        for (Mesero m : mes.listaMeseros()) {
+            cbMesero.addItem(m.toString());
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JComboBox<String> cbMesero;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBoxEstado;
     private javax.swing.JCheckBox jCheckBoxReserva;
@@ -290,6 +348,7 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jSpinnerCapacidad;
     private javax.swing.JLabel txtNumeroMesa;
