@@ -182,10 +182,12 @@ public class VistaActualizarProducto extends javax.swing.JInternalFrame {
         }catch(NumberFormatException r){
             JOptionPane.showMessageDialog(this, "Ingrese solo numeros en los campos STOCK y PRECIO");
         }
+      
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+       VistaLogin.setProducto(null);
+        vistaInventario.actualizarTabla();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

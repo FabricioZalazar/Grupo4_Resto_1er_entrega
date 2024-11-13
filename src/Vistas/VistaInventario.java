@@ -7,6 +7,7 @@ package Vistas;
 import Colores.ColorInventario;
 import Entidades.Mesero;
 import Entidades.Producto;
+import Persistencia.DetalleData;
 
 import Persistencia.ProductoData;
 import java.util.ArrayList;
@@ -22,7 +23,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Fabricio Zalazar
  */
 public class VistaInventario extends javax.swing.JFrame {
-     private ColorInventario colorCeldas = new ColorInventario();
+
+    private ColorInventario colorCeldas = new ColorInventario();
     private ProductoData con = new ProductoData();
     DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
@@ -54,8 +56,6 @@ public class VistaInventario extends javax.swing.JFrame {
             }
         });
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -187,15 +187,28 @@ public class VistaInventario extends javax.swing.JFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
 
         VistaGuardarProducto a1 = null;
-        a1 = new VistaGuardarProducto(this);
-        escritorio.add(a1);
+
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VistaGuardarProducto) {
+                a1 = (VistaGuardarProducto) frame;
+                break;
+            }
+        }
+
+        if (a1 == null) {
+
+            a1 = new VistaGuardarProducto(this);
+            escritorio.add(a1);
+        }
         a1.setVisible(true);
         escritorio.moveToFront(a1);
+
         actualizarTabla();
 
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+
         VistaPrincipal ventana2 = new VistaPrincipal();
         ventana2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         ventana2.setLocationRelativeTo(null);
@@ -209,11 +222,21 @@ public class VistaInventario extends javax.swing.JFrame {
 
         try {
             VistaActualizarProducto a1 = null;
-            a1 = new VistaActualizarProducto(this);
-            escritorio.add(a1);
+            for (JInternalFrame frame : escritorio.getAllFrames()) {
+                if (frame instanceof VistaActualizarProducto) {
+                    a1 = (VistaActualizarProducto) frame;
+                    break;
+                }
+            }
+
+            if (a1 == null) {
+
+                a1 = new VistaActualizarProducto(this);
+                escritorio.add(a1);
+            }
             a1.setVisible(true);
             escritorio.moveToFront(a1);
-            
+
         } catch (NullPointerException n) {
             JOptionPane.showMessageDialog(this, "Error , por favor seleccione una celda");
         }
@@ -230,7 +253,13 @@ public class VistaInventario extends javax.swing.JFrame {
 
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
         try {
-            con.borrarProducto(VistaLogin.getProducto().getCodigo());
+            DetalleData data = new DetalleData();
+
+            if (data.buscarDetallePorProducto(VistaLogin.getProducto().getCodigo()).getIdDetalle() == 0) {
+                con.borrarProducto(VistaLogin.getProducto().getCodigo());
+            } else {
+                JOptionPane.showMessageDialog(this, "Error** El producto no se puede eliminar");
+            }
             VistaLogin.setProducto(null);
             actualizarTabla();
         } catch (NullPointerException n) {

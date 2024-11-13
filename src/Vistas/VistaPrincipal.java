@@ -392,8 +392,19 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     private void btnActualizarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarMesaActionPerformed
         try {
             VistaActualizarMesa a1 = null;
-            a1 = new VistaActualizarMesa(this);
-            escritorio.add(a1);
+
+            for (JInternalFrame frame : escritorio.getAllFrames()) {
+                if (frame instanceof VistaActualizarMesa) {
+                    a1 = (VistaActualizarMesa) frame;
+                    break;
+                }
+            }
+
+            if (a1 == null) {
+
+                a1 = new VistaActualizarMesa(this);
+                escritorio.add(a1);
+            }
             a1.setVisible(true);
             escritorio.moveToFront(a1);
             actualizarTabla();
@@ -586,7 +597,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_rdbOcupadosActionPerformed
 
     private void rdbLibresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbLibresActionPerformed
-          if (rdbLibres.isSelected()) {
+        if (rdbLibres.isSelected()) {
             rdbOcupados.setSelected(false);
             rdbSinPedido.setSelected(false);
             rdbReserva.setSelected(false);
@@ -620,7 +631,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_rdbLibresActionPerformed
 
     private void rdbReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbReservaActionPerformed
-            if (rdbReserva.isSelected()) {
+        if (rdbReserva.isSelected()) {
             rdbOcupados.setSelected(false);
             rdbSinPedido.setSelected(false);
             rdbLibres.setSelected(false);
@@ -737,9 +748,9 @@ public final class VistaPrincipal extends javax.swing.JFrame {
             ArrayList<Mesa> list = con.listaMesa();
             modelo.setRowCount(0);
             for (Mesa p : list) {
-            
+
                 if (p.getReserva() == null) {
-                  
+
                     if (p.isEstado()) {
                         txt = "Ocupado";
                     } else {
