@@ -190,7 +190,7 @@ public class VistaListaReservas extends javax.swing.JFrame {
 
     public void iniciarTabla() {
         
-        modelo.addColumn("ID");
+        modelo.addColumn("N°");
         modelo.addColumn("Nombre");
         modelo.addColumn("DNI");
         modelo.addColumn("Fecha");

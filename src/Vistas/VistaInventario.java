@@ -252,7 +252,7 @@ public class VistaInventario extends javax.swing.JFrame {
 
     public void iniciarTabla() {
 
-        modelo.addColumn("ID");
+        modelo.addColumn("Codigo");
         modelo.addColumn("Nombre");
         modelo.addColumn("Stock");
         modelo.addColumn("Precio");

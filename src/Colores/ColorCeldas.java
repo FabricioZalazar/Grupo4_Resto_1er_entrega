@@ -9,6 +9,7 @@ import Entidades.Reserva;
 import Vistas.VistaActualizarMesa;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.List;
 import java.util.ArrayList;
 import javax.swing.JInternalFrame;
@@ -26,10 +27,12 @@ public class ColorCeldas extends DefaultTableCellRenderer {
 
         Object valorColumna2 = table.getValueAt(row, 2);
         Object valorColumna3 = table.getValueAt(row, 3);
+        Object valorColumna4 = table.getValueAt(row, 4);
 
         // Verifica si el valor de la columna 2 es booleano y aplica el color correspondiente a toda la fila
         String estado = (String) valorColumna2;
         Reserva res = (Reserva) valorColumna3;
+        String pedido = (String) valorColumna4;
         if (estado.equalsIgnoreCase("Ocupado")) {
             setBackground(Color.RED.brighter());
             setForeground(Color.BLACK);
@@ -40,14 +43,10 @@ public class ColorCeldas extends DefaultTableCellRenderer {
             setBackground(Color.GREEN.brighter());
             setForeground(Color.BLACK);
         }
+        
 
         return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
-    /* private VistaActualizarMesa actualizarMesa;
-
-    public ColorCeldas(VistaActualizarMesa actualizarMesa) {
-        this.actualizarMesa = actualizarMesa;
-    }
-     */
+  
 
 }

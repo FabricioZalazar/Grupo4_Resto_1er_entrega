@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Fabricio Zalazar
  */
 public class VistaCargarPedido extends javax.swing.JInternalFrame {
-
+VistaPrincipal vista;
     private PedidoData ped = new PedidoData();
     private ProductoData con = new ProductoData();
     private DetalleData date = new DetalleData();
@@ -36,8 +36,9 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
         }
     };
 
-    public VistaCargarPedido(Mesa mesa) {
+    public VistaCargarPedido(Mesa mesa ,VistaPrincipal vista) {
         this.mesa = mesa;
+        this.vista=vista;
         initComponents();
         iniciarTablaProducto();
         llenarTablaProducto();
@@ -256,12 +257,12 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
 
                 Detalle detalle = new Detalle(d.getIdDetalle(), d.getPedido(), p, cant);
                 date.actualizarDetalle(detalle);
-
+                
             }
         }else{
             JOptionPane.showMessageDialog(this, "Ingrese un numero valido");
         }
-
+        vista.actualizarTabla();
         llenarTablaDetalle();
         llenarTablaProducto();
         btnCargar.setEnabled(false);
@@ -281,7 +282,7 @@ public class VistaCargarPedido extends javax.swing.JInternalFrame {
 
         con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() + d.getCantidad()), p.getPrecio()));
         date.borrarDetalle(d.getIdDetalle());
-
+         vista.actualizarTabla();
         llenarTablaDetalle();
         llenarTablaProducto();
         btnCargar.setEnabled(false);
