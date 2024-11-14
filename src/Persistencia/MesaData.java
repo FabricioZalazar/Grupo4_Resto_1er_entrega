@@ -140,6 +140,8 @@ public class MesaData {
                 JOptionPane.showMessageDialog(null, "La mesa fue eliminada exitosamente");
             }
             ps.close();
+        } catch (java.sql.SQLIntegrityConstraintViolationException e) {
+            JOptionPane.showMessageDialog(null, "No se puede eliminar  la mesa porque tiene un pedido.");
         } catch (SQLException ex) {
             Logger.getLogger(MesaData.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -10,14 +10,13 @@ import Entidades.Detalle;
 import Entidades.Mesa;
 import Entidades.Mesero;
 import Persistencia.DetalleData;
-
 import Persistencia.MesaData;
 import Persistencia.PedidoData;
+import java.awt.HeadlessException;
+
 import java.util.ArrayList;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -427,7 +426,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
     private void btnBorrarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarMesaActionPerformed
         try {
-
+            
             int filaSelecionada = Tabla.getSelectedRow();
             int id = (int) Tabla.getValueAt(filaSelecionada, 0);
             int opcion = JOptionPane.showConfirmDialog(rootPane, "Seguro que desea eliminar la Mesa N°" + id, "Confirmacion", JOptionPane.YES_NO_OPTION);
@@ -439,6 +438,7 @@ public final class VistaPrincipal extends javax.swing.JFrame {
 
         } catch (ArrayIndexOutOfBoundsException a) {
             JOptionPane.showMessageDialog(this, "Seleccione una mesa, por favor");
+        
         }
 
     }//GEN-LAST:event_btnBorrarMesaActionPerformed
