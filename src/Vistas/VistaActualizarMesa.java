@@ -66,6 +66,10 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
         cbMesero = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(206, 202, 195));
+
+        jPanel1.setBackground(new java.awt.Color(206, 202, 195));
+
         jLabel1.setText("Capacidad:");
 
         jLabel2.setText("Numero:");
@@ -100,6 +104,7 @@ public class VistaActualizarMesa extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(226, 70, 70));
         jButton2.setText("Cancelar");
         jButton2.setPreferredSize(new java.awt.Dimension(86, 27));
         jButton2.addActionListener(new java.awt.event.ActionListener() {

@@ -46,6 +46,8 @@ public class VistaActualizarProducto extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
+        jPanel1.setBackground(new java.awt.Color(206, 202, 195));
+
         jLabel1.setText("Nombre");
 
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -64,6 +66,7 @@ public class VistaActualizarProducto extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Precio");
 
+        jButton1.setBackground(new java.awt.Color(226, 70, 70));
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

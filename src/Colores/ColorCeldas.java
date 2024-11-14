@@ -33,6 +33,8 @@ public class ColorCeldas extends DefaultTableCellRenderer {
         String estado = (String) valorColumna2;
         Reserva res = (Reserva) valorColumna3;
         String pedido = (String) valorColumna4;
+        
+        
         if (estado.equalsIgnoreCase("Ocupado")) {
             setBackground(Color.RED.brighter());
             setForeground(Color.BLACK);

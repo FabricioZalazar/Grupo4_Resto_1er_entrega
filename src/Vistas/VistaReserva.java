@@ -93,6 +93,10 @@ public class VistaReserva extends javax.swing.JFrame {
         jDateFecha = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Gestion de Reservas");
+        setResizable(false);
+
+        jPanel1.setBackground(new java.awt.Color(206, 202, 195));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic Light", 1, 24)); // NOI18N
         jLabel1.setText("Reservar");
@@ -112,6 +116,7 @@ public class VistaReserva extends javax.swing.JFrame {
             }
         });
 
+        btnSalir.setBackground(new java.awt.Color(226, 70, 70));
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,7 +217,7 @@ public class VistaReserva extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jDateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(52, 52, 52))
         );
         jPanel1Layout.setVerticalGroup(

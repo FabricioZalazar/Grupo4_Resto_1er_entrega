@@ -80,8 +80,10 @@ public class VistaLogin extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Estacion X");
+        setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(206, 202, 195));
         jPanel1.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jPanel1.setForeground(new java.awt.Color(51, 51, 51));
 
@@ -98,7 +100,7 @@ public class VistaLogin extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 50, 50));
+        jButton1.setBackground(new java.awt.Color(226, 70, 70));
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

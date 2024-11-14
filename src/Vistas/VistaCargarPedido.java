@@ -70,6 +70,8 @@ VistaPrincipal vista;
         btnBorrar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
+        jPanel1.setBackground(new java.awt.Color(206, 202, 195));
+
         jLabel1.setFont(new java.awt.Font("SimSun-ExtB", 0, 18)); // NOI18N
         jLabel1.setText("Productos");
 
@@ -123,7 +125,7 @@ VistaPrincipal vista;
 
         jLabel3.setText("Cant :");
 
-        btnBorrar.setBackground(new java.awt.Color(226, 70, 70));
+        btnBorrar.setBackground(new java.awt.Color(204, 0, 0));
         btnBorrar.setText("Borrar");
         btnBorrar.setEnabled(false);
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +134,7 @@ VistaPrincipal vista;
             }
         });
 
+        btnSalir.setBackground(new java.awt.Color(226, 70, 70));
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,24 +159,24 @@ VistaPrincipal vista;
                                 .addGap(6, 6, 6)
                                 .addComponent(btnCargar))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
+                                .addGap(42, 42, 42)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(SpinnerCant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
+                                .addComponent(SpinnerCant, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(206, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(55, 55, 55))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnBorrar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(55, 55, 55))))))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,8 +194,8 @@ VistaPrincipal vista;
                             .addComponent(btnBorrar))
                         .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(SpinnerCant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(SpinnerCant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                         .addComponent(btnSalir)
                         .addContainerGap())
@@ -233,12 +236,13 @@ VistaPrincipal vista;
         String nombre = (String) tableProducto.getValueAt(filaSelecionada, 0);
         int cant = (int) SpinnerCant.getValue();
         if (cant > 0) {
-            Producto p = con.buscarProductoPorNombre(nombre);
+             Producto p = con.buscarProductoPorNombre(nombre);
+            if(cant<= p.getStock()){
+           
 
             Detalle bandera = date.buscarDetallePorMesaYProducto(mesa.getNum(), p.getCodigo());
             
             if (bandera.getIdDetalle() == 0) {
-                //new detalle
                 Detalle detalle = new Detalle(ped.buscarPedidoPorMesa(mesa.getNum()), p, cant);
                 date.guardarDetalle(detalle);
                 con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() - cant), p.getPrecio()));
@@ -258,6 +262,9 @@ VistaPrincipal vista;
                 Detalle detalle = new Detalle(d.getIdDetalle(), d.getPedido(), p, cant);
                 date.actualizarDetalle(detalle);
                 
+            }
+            }else{
+                 JOptionPane.showMessageDialog(this, "Cantidad mayor al stock");
             }
         }else{
             JOptionPane.showMessageDialog(this, "Ingrese un numero valido");
@@ -282,7 +289,7 @@ VistaPrincipal vista;
 
         con.ActualizarProducto(new Producto(p.getCodigo(), p.getNombre(), (p.getStock() + d.getCantidad()), p.getPrecio()));
         date.borrarDetalle(d.getIdDetalle());
-         vista.actualizarTabla();
+        vista.actualizarTabla();
         llenarTablaDetalle();
         llenarTablaProducto();
         btnCargar.setEnabled(false);

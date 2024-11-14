@@ -35,9 +35,9 @@ public class MesaData {
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, mesa.getCapacidad());
-            if(mesa.getReserva() != null){
-              ps.setInt(2, mesa.getReserva().getIdReserva());  
-            }else{
+            if (mesa.getReserva() != null) {
+                ps.setInt(2, mesa.getReserva().getIdReserva());
+            } else {
                 ps.setObject(2, null);
             }
             ps.setBoolean(3, mesa.isEstado());
@@ -129,6 +129,7 @@ public class MesaData {
         }
         return mesa;
     }
+
     public void borrarMesa(int id) {
 
         try {
@@ -140,8 +141,7 @@ public class MesaData {
                 JOptionPane.showMessageDialog(null, "La mesa fue eliminada exitosamente");
             }
             ps.close();
-        } catch (java.sql.SQLIntegrityConstraintViolationException e) {
-            JOptionPane.showMessageDialog(null, "No se puede eliminar  la mesa porque tiene un pedido.");
+
         } catch (SQLException ex) {
             Logger.getLogger(MesaData.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -179,8 +179,8 @@ public class MesaData {
         }
 
     }
-    
-     public ArrayList <Mesa> listaMesa () {
+
+    public ArrayList<Mesa> listaMesa() {
         ReservaData cone = new ReservaData();
         ArrayList<Mesa> listaMesa = new ArrayList();
         try {
@@ -191,9 +191,9 @@ public class MesaData {
                 Mesa mesa = new Mesa();
                 mesa.setNum(resultado.getInt("IdMesa"));
                 mesa.setCapacidad(resultado.getInt("Capacidad"));
-                if(cone.buscarReservaID(resultado.getInt("IdReserva")).getNombre()!=null){
-                   mesa.setReserva(cone.buscarReservaID(resultado.getInt("IdReserva")));     
-                }else{
+                if (cone.buscarReservaID(resultado.getInt("IdReserva")).getNombre() != null) {
+                    mesa.setReserva(cone.buscarReservaID(resultado.getInt("IdReserva")));
+                } else {
                     mesa.setReserva(null);
                 }
                 mesa.setEstado(resultado.getBoolean("Estado"));
@@ -207,9 +207,9 @@ public class MesaData {
 
     public Mesa buscarMesaXPedido(int id) {
         ReservaData cone = new ReservaData();
-        String query = "SELECT mesa.IdMesa, Capacidad, IdReserva, mesa.Estado FROM mesa\n" +
-                        "JOIN pedido on mesa.IdMesa = pedido.IdMesa\n" +
-                        "WHERE pedido.IdPedido = ?";
+        String query = "SELECT mesa.IdMesa, Capacidad, IdReserva, mesa.Estado FROM mesa\n"
+                + "JOIN pedido on mesa.IdMesa = pedido.IdMesa\n"
+                + "WHERE pedido.IdPedido = ?";
         Mesa mesa = new Mesa();
         try {
             PreparedStatement ps = con.prepareStatement(query);
@@ -233,8 +233,8 @@ public class MesaData {
         }
         return mesa;
     }
-    
-     public ArrayList <Mesa> listaMesaDeReservas () {
+
+    public ArrayList<Mesa> listaMesaDeReservas() {
         ReservaData cone = new ReservaData();
         ArrayList<Mesa> listaMesa = new ArrayList();
         try {
@@ -245,9 +245,9 @@ public class MesaData {
                 Mesa mesa = new Mesa();
                 mesa.setNum(resultado.getInt("IdMesa"));
                 mesa.setCapacidad(resultado.getInt("Capacidad"));
-                if(cone.buscarReservaID(resultado.getInt("IdReserva")).getNombre()!=null){
-                   mesa.setReserva(cone.buscarReservaID(resultado.getInt("IdReserva")));     
-                }else{
+                if (cone.buscarReservaID(resultado.getInt("IdReserva")).getNombre() != null) {
+                    mesa.setReserva(cone.buscarReservaID(resultado.getInt("IdReserva")));
+                } else {
                     mesa.setReserva(null);
                 }
                 mesa.setEstado(resultado.getBoolean("Estado"));
@@ -258,5 +258,5 @@ public class MesaData {
         }
         return listaMesa;
     }
-   
+
 }
