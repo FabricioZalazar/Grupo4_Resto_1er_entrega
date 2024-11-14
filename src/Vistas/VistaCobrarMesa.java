@@ -179,7 +179,7 @@ public class VistaCobrarMesa extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrarActionPerformed
-        
+        try{
         double total = Double.parseDouble(txtTotal.getText());
         double pago = Double.parseDouble(txtPago.getText());
         if (pago < total) {
@@ -204,7 +204,10 @@ public class VistaCobrarMesa extends javax.swing.JInternalFrame {
             VistaPrincipal.setMesa(null);
             this.dispose();
         }
-
+        }catch(NumberFormatException r){
+             JOptionPane.showMessageDialog(rootPane, "Complete el campo de pago");
+            
+        }
     }//GEN-LAST:event_btnCobrarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

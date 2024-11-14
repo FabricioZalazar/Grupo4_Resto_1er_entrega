@@ -292,7 +292,7 @@ public class VistaLogin extends javax.swing.JFrame {
                 bandera = true;
             }
         }
-        if (txtNombreMesero.getText().equalsIgnoreCase("")) {
+        if (!txtNombreMesero.getText().matches(".*[a-zA-Z].*")) {
             JOptionPane.showMessageDialog(this, "Ingrese un Nombre");
         } else if (bandera == false) {
             Mesero mozo = new Mesero(txtNombreMesero.getText());

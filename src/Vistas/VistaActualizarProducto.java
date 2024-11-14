@@ -161,35 +161,40 @@ public class VistaActualizarProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String nombre = txtNombre.getText();
-        try{
-        int stock = (int) jSpinnerStock.getValue();
-        if (stock > 0) {
-            
-            double precio = Double.parseDouble(txtPrecio.getText());
-            if(precio>0){
-            int id = con.buscarProductoPorNombre(nombre).getCodigo();
-            Producto proc = new Producto(id, nombre, stock, precio);
 
-            con.ActualizarProducto(proc);
-            vistaInventario.actualizarTabla();
-            LimpiarCampos();
-            VistaLogin.setProducto(null);
-            this.dispose();
+        try {
+            String nombre = txtNombre.getText();
+            if (nombre.matches(".*[a-zA-Z].*")) {
+                int stock = (int) jSpinnerStock.getValue();
+                if (stock > 0) {
+
+                    double precio = Double.parseDouble(txtPrecio.getText());
+                    if (precio > 0) {
+                        int id = VistaLogin.getProducto().getCodigo();
+                        Producto proc = new Producto(id, nombre, stock, precio);
+
+                        con.ActualizarProducto(proc);
+                        vistaInventario.actualizarTabla();
+                        LimpiarCampos();
+                        VistaLogin.setProducto(null);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Ingrese Precio Valido");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ingrese Stock Valido");
+                }
             }else{
-                JOptionPane.showMessageDialog(this, "Ingrese Precio Valido");
+                  JOptionPane.showMessageDialog(this, "Ingrese un Nombre");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Ingrese Stock Valido");
-        }
-        }catch(NumberFormatException r){
+        } catch (NumberFormatException r) {
             JOptionPane.showMessageDialog(this, "Ingrese solo numeros en los campos STOCK y PRECIO");
         }
-      
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       VistaLogin.setProducto(null);
+        VistaLogin.setProducto(null);
         vistaInventario.actualizarTabla();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

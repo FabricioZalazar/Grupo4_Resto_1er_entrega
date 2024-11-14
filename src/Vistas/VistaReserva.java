@@ -311,42 +311,47 @@ public class VistaReserva extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
+
             String nombre = txtNombre.getText();
-            int dni = Integer.parseInt(txtDni.getText());
-            if (con.buscarReservaDNI(dni).getIdReserva() == 0) {
-                LocalDate fecha = jDateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (nombre.matches(".*[a-zA-Z].*")) {
+                int dni = Integer.parseInt(txtDni.getText());
+                if (con.buscarReservaDNI(dni).getIdReserva() == 0) {
+                    LocalDate fecha = jDateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-                String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
-                DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
-                LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
+                    String selecetHoraDe = (String) cbHorasDe.getSelectedItem();
+                    DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("HH:mm");
+                    LocalTime horaDe = LocalTime.parse(selecetHoraDe, formato1);
 
-                String selecetHoraHasta = (String) cbHorasHasta.getSelectedItem();
-                DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
-                LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
-                Duration duracion = Duration.between(horaDe, horaHasta);
+                    String selecetHoraHasta = (String) cbHorasHasta.getSelectedItem();
+                    DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("HH:mm");
+                    LocalTime horaHasta = LocalTime.parse(selecetHoraHasta, formato2);
+                    Duration duracion = Duration.between(horaDe, horaHasta);
 
-                if (fecha.isBefore(LocalDate.now())) {
-                    JOptionPane.showMessageDialog(this, "Fecha no valida");
-                } else {
-                    if (duracion.isNegative()) {
-                        duracion = duracion.plusHours(24);
-                    }
-                    if (!horaDe.equals(horaHasta)) {
-                        if (duracion.toHours() <= 2) {
-
-                            Reserva reserva = new Reserva(nombre, dni, fecha, horaDe, horaHasta, true);
-                            con.guardarReserva(reserva);
-                            llenarTabla();
-                        } else {
-                            JOptionPane.showMessageDialog(this, "La reserva debe ser menor a dos horas");
-                        }
+                    if (fecha.isBefore(LocalDate.now())) {
+                        JOptionPane.showMessageDialog(this, "Fecha no valida");
                     } else {
-                        JOptionPane.showMessageDialog(this, "Hora de reserva invalida");
-                    }
+                        if (duracion.isNegative()) {
+                            duracion = duracion.plusHours(24);
+                        }
+                        if (!horaDe.equals(horaHasta)) {
+                            if (duracion.toHours() <= 2) {
 
+                                Reserva reserva = new Reserva(nombre, dni, fecha, horaDe, horaHasta, true);
+                                con.guardarReserva(reserva);
+                                llenarTabla();
+                            } else {
+                                JOptionPane.showMessageDialog(this, "La reserva debe ser menor a dos horas");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Hora de reserva invalida");
+                        }
+
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Este Dni ya tiene reserva");
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Este Dni ya tiene reserva");
+            }else{
+                 JOptionPane.showMessageDialog(this, "Ingrese alguna letra en nombre");
             }
         } catch (NumberFormatException e) {
             {
@@ -355,6 +360,8 @@ public class VistaReserva extends javax.swing.JFrame {
 
         } catch (HeadlessException e) {
 
+        } catch (NullPointerException r) {
+            JOptionPane.showMessageDialog(this, "Complete los campos");
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -460,14 +467,14 @@ public class VistaReserva extends javax.swing.JFrame {
         ArrayList<Reserva> list = con.listaReserva();
         modelo.setRowCount(0);
         for (Reserva r : list) {
-             if (r.isEstado()) {
+            if (r.isEstado()) {
                 estado = "Habilitada";
             } else {
                 estado = "Deshabilitada";
             }
             modelo.addRow(new Object[]{r.getIdReserva(), r.getNombre(), r.getDni(), r.getFecha(), r.getHoraDe(), r.getHoraHasta(), estado});
         }
-        
+
     }
 
     public void llenarCombo() {

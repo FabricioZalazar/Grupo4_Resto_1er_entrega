@@ -170,22 +170,26 @@ public class VistaGuardarProducto extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Llene los campos");
             } else {
                 String nombre = txtNombre.getText();
-                int stock = (int) jSpinnerStock.getValue();
-                if (stock > 0) {
-                    double precio = Double.parseDouble(txtPrecio.getText());
-                    if (precio > 0) {
+                if (nombre.matches(".*[a-zA-Z].*")) {
+                    int stock = (int) jSpinnerStock.getValue();
+                    if (stock > 0) {
+                        double precio = Double.parseDouble(txtPrecio.getText());
+                        if (precio > 0) {
 
-                        Producto proc = new Producto(nombre, stock, precio);
+                            Producto proc = new Producto(nombre, stock, precio);
 
-                        con.GuardarProducto(proc);
-                        vistaInventario.actualizarTabla();
-                        VistaLogin.setProducto(null);
-                        this.dispose();
+                            con.GuardarProducto(proc);
+                            vistaInventario.actualizarTabla();
+                            VistaLogin.setProducto(null);
+                            this.dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Ingrese Precio Valido");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(this, "Ingrese Precio Valido");
+                        JOptionPane.showMessageDialog(this, "Ingrese Stock Valido");
                     }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Ingrese Stock Valido");
+                }else{
+                     JOptionPane.showMessageDialog(this, "Ingrese un Nombre");
                 }
             }
         } catch (NumberFormatException e) {
